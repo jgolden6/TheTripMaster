@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace TheTripMasterWeb.Models
 {
     using System;
@@ -24,7 +26,13 @@ namespace TheTripMasterWeb.Models
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
+
+        [Required(ErrorMessage = "Please enter a username.")]
+        [StringLength(255)]
         public string username { get; set; }
+
+        [Required(ErrorMessage = "Please enter a password.")]
+        [StringLength(255)]
         public string password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
