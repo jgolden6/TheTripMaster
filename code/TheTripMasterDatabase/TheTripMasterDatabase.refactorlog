@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="135a1fa6-de17-47b9-8c0b-ae44a797853b" ChangeDateTime="02/10/2022 19:09:24">
+    <Property Name="ElementName" Value="[dbo].[User].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[User]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="userId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bf3ffcdc-fc37-4bd0-9582-37e3f4f61c8e" ChangeDateTime="02/10/2022 19:12:40">
+    <Property Name="ElementName" Value="[dbo].[Trip].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Trip]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="tripId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="af40fb0f-064e-4a40-b238-7cf50a2bd9cd" ChangeDateTime="02/10/2022 19:13:52">
+    <Property Name="ElementName" Value="[dbo].[TripAttendee].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TripAttendee]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="attendeeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9899f733-8238-4b04-b073-2feac18ddbff" ChangeDateTime="02/10/2022 19:19:00">
+    <Property Name="ElementName" Value="[dbo].[TripAttendee].[attendeeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TripAttendee]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="tripId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3b717e61-7dc6-49e9-a82e-30868ba12919" ChangeDateTime="02/10/2022 19:24:34">
+    <Property Name="ElementName" Value="[dbo].[TripAttendee].[attendeeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TripAttendee]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="userId" />
+  </Operation>
+</Operations>
