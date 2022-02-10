@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TheTripMasterDatabase", "TheTripMasterDatabase\TheTripMasterDatabase.sqlproj", "{15221F6B-C647-4167-ADAE-8286F422B3B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15221F6B-C647-4167-ADAE-8286F422B3B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15221F6B-C647-4167-ADAE-8286F422B3B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15221F6B-C647-4167-ADAE-8286F422B3B9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{15221F6B-C647-4167-ADAE-8286F422B3B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15221F6B-C647-4167-ADAE-8286F422B3B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15221F6B-C647-4167-ADAE-8286F422B3B9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E11ADC7-2B9F-4C51-9CDD-294EFAE4CA2E}
+	EndGlobalSection
+EndGlobal
