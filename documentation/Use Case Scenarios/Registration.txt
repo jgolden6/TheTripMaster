@@ -1,0 +1,8 @@
+Registration:
+
+1. User clicks the "Register" link on the Login page and are redirected to the Registration page.
+2. User inputs their first name, last name, email, username, and password and presses Register.
+3. The new account is created and the user is returned to the Login page.
+
+3a. Invalid info (Unavailable username, invalid email/password)
+	-User remains on the registration page and an error message appears.

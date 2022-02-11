@@ -1,0 +1,9 @@
+Creating Trips:
+
+1. User selects the Add Trip button from the home page, redirecting them to the Create Trip page.
+2. User inputs the trip name, start date and time, end date and time.
+3. User selects confirm.
+4. The trip is created and the user is redirected to the Home page where their trip is now displayed.
+
+4a. Invalid info (Duplicate trip name, overlapping times, end date before start date)
+	- User remains on the Create Trip page and an error message appears.
