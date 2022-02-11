@@ -1,0 +1,4 @@
+View Trip Details:
+
+1. From the Home page, the user selects a trip from the list of trips.
+2. The user is redirected to the Trip Details page, populated with the selected trip's information.

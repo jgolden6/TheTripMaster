@@ -1,0 +1,7 @@
+Login:
+
+1. User inputs their username and password from the Login page.
+2. The user is logged in and redirected to the Home page, where trips and navigation are displayed.
+	
+2a. Invalid Credentials
+	-User remains on the login page and an error message appears.
