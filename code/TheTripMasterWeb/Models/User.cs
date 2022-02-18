@@ -7,25 +7,14 @@ namespace TheTripMasterWeb.Models
 {
     public class User
     {
-        protected string username;
+        public string FirstName { get; set; }
 
-        protected string password;
+        public string LastName { get; set; }
 
-        protected string firstName;
+        public string Email { get; set; }
 
-        public string GetUsername()
-        {
-            return this.username;
-        }
+        public string Username { get; set; }
 
-        public string GetPassword()
-        {
-            return this.password;
-        }
-
-        public string GetFirstname()
-        {
-            return this.firstName;
-        }
+        public string Password { get; set; }
     }
 }

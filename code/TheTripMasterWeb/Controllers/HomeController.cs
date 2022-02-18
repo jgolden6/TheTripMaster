@@ -35,7 +35,7 @@ namespace TheTripMasterWeb.Controllers
             username ??= "";
             password ??= "";
 
-            User authenticatedUser = Authentication.Authenticate(username, password);
+            User authenticatedUser = UserDataLayer.Authenticate(username, password);
 
             if (authenticatedUser == null)
             {
@@ -54,7 +54,51 @@ namespace TheTripMasterWeb.Controllers
         [HttpPost]
         public IActionResult Register(string firstName, string lastName, string email, string username, string password, string passwordCheck)
         {
-            return null;
+            bool isFirstNameValid = UserValidation.ValidateName(firstName);
+            bool isLastNameValid = UserValidation.ValidateName(lastName);
+            bool isEmailValid = UserValidation.ValidateEmail(email);
+            bool isUsernameValid = UserValidation.ValidateUsername(username);
+            bool isPasswordValid = UserValidation.ValidatePassword(password);
+
+            if (isFirstNameValid && isLastNameValid && isEmailValid && isUsernameValid && isPasswordValid)
+            {
+                if (!password.Equals(passwordCheck))
+                {
+                    ModelState.AddModelError("", "Passwords do not match.");
+                }
+                else
+                {
+                    UserDataLayer.AddUser(new User { FirstName = firstName, LastName = lastName, Email = email, Username = username, Password = password});
+                    return View("Index");
+                }
+            }
+
+            if (!isFirstNameValid) 
+            {
+                ModelState.AddModelError("", "Invalid first name.");
+            }
+
+            if (!isLastNameValid)
+            {
+                ModelState.AddModelError("", "Invalid last name.");
+            }
+
+            if (!isEmailValid)
+            {
+                ModelState.AddModelError("", "Invalid email.");
+            }
+
+            if (!isUsernameValid)
+            {
+                ModelState.AddModelError("", "Invalid username.");
+            }
+
+            if (!isPasswordValid)
+            {
+                ModelState.AddModelError("", "Invalid password.");
+            }
+
+            return View();
         }
     }
 }
