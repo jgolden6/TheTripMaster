@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using TheTripMasterWeb.Models;
@@ -24,6 +26,62 @@ namespace TheTripMasterWeb.DataLayer
                 cmd.Parameters.AddWithValue("@tripName", trip.Name);
                 cmd.Parameters.AddWithValue("@startDate", trip.StartDate);
                 cmd.Parameters.AddWithValue("@endDate", trip.EndDate);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+        public static List<Trip> GetAllTripsOfUser(int userId)
+        {
+            string queryString =
+                "SELECT * FROM TheTripMasterDatabase.dbo.[Trip] WHERE userId = @userId";
+
+
+            List<Trip> trips = new List<Trip>();
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = new SqlCommand(queryString, conn);
+
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                try
+                {
+                    while (reader.Read())
+                    {
+                        Trip trip = new Trip{ Name = reader["tripName"].ToString(), 
+                                              StartDate = (DateTime)reader["startDate"],
+                                              EndDate = (DateTime)reader["endDate"]
+                        };
+                        trips.Add(trip);
+                    }
+                }
+                finally
+                {
+                    reader.Close();
+                }
+            }
+            return trips;
+        }
+
+        internal static void UpdateTrip(string name, DateTime startDateTime, DateTime endDateTime)
+        {
+            int userId = UserDataLayer.GetUserId(ActiveUser.User);
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE TheTripMasterDatabase.dbo.[Trip] SET startDate = @startDate, endDate = @endDate WHERE tripName = @tripName AND userId = @userId";
+
+
+                cmd.Parameters.AddWithValue("@startDate", startDateTime);
+                cmd.Parameters.AddWithValue("@endDate", endDateTime);
+                cmd.Parameters.AddWithValue("@tripName", name);
+                cmd.Parameters.AddWithValue("@userId", userId);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();

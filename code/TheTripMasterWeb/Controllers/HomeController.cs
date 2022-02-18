@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Routing;
 using TheTripMasterWeb.DataLayer;
 using TheTripMasterWeb.Models;
 
@@ -45,7 +46,7 @@ namespace TheTripMasterWeb.Controllers
             }
 
             ActiveUser.User = authenticatedUser;
-            return View("Homepage");
+            return RedirectToAction("Homepage");
         }
 
         public IActionResult Register()
@@ -105,7 +106,10 @@ namespace TheTripMasterWeb.Controllers
 
         public IActionResult Homepage()
         {
-            return View();
+            int userId = UserDataLayer.GetUserId(ActiveUser.User);
+            List<Trip> usersTrips = TripDataLayer.GetAllTripsOfUser(userId);
+            Debug.Print(usersTrips.Count.ToString());
+            return View(model:usersTrips);
         }
 
         public IActionResult AddTrip()
@@ -122,7 +126,7 @@ namespace TheTripMasterWeb.Controllers
             if (isNameValid && areDateTimesValid)
             {
                 TripDataLayer.AddTrip(new Trip {Name = name, StartDate = startDateTime, EndDate = endDateTime});
-                return View("Homepage");
+                return RedirectToAction("Homepage");
             }
 
             if (!isNameValid)
@@ -136,6 +140,34 @@ namespace TheTripMasterWeb.Controllers
             }
 
             return View();
+        }
+
+        public IActionResult TripDetails(string name, string start, string end)
+        {
+            ViewData["name"] = name;
+            ViewData["start"] = start;
+            ViewData["end"] = end;
+            Debug.Print(name);
+            Debug.Print(start);
+            Debug.Print(end);
+
+            Trip trip = new Trip {Name = name, StartDate = Convert.ToDateTime(start), EndDate = Convert.ToDateTime(end) };
+            return View(model:trip);
+        }
+
+        [HttpPost]
+        public IActionResult TripDetails(string name, DateTime startDateTime, DateTime endDateTime)
+        {
+            bool areDateTimesValid = TripValidation.ValidateDateTimes(startDateTime, endDateTime);
+
+            if (!areDateTimesValid)
+            {
+                ModelState.AddModelError("", "Invalid time frame.");
+                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime });
+            }
+
+            TripDataLayer.UpdateTrip(name, startDateTime, endDateTime);
+            return RedirectToAction("Homepage");
         }
     }
 }

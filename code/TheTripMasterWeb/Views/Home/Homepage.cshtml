@@ -1,3 +1,29 @@
-﻿@{
+﻿@model IEnumerable<Trip>
+
+@{
     ViewData["Title"] = "Home";
 }
+
+<div style="padding:20px;">
+    <table class="table table-bordered table-striped table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Trip trip in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="TripDetails" asp-controller="Home" asp-route-name="@trip.Name" asp-route-start="@trip.StartDate" asp-route-end="@trip.EndDate" id=@trip.Name>@trip.Name</a>
+                </td>
+                <td>@trip.StartDate</td>
+                <td>@trip.EndDate</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
