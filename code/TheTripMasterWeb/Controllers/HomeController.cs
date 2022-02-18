@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using TheTripMasterWeb.DataLayer;
 using TheTripMasterWeb.Models;
 
 namespace TheTripMasterWeb.Controllers
@@ -43,7 +44,8 @@ namespace TheTripMasterWeb.Controllers
                 return View("Index");
             }
 
-            return View("Privacy");
+            ActiveUser.User = authenticatedUser;
+            return View("Homepage");
         }
 
         public IActionResult Register()
@@ -96,6 +98,41 @@ namespace TheTripMasterWeb.Controllers
             if (!isPasswordValid)
             {
                 ModelState.AddModelError("", "Invalid password.");
+            }
+
+            return View();
+        }
+
+        public IActionResult Homepage()
+        {
+            return View();
+        }
+
+        public IActionResult AddTrip()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddTrip(string name, DateTime startDateTime, DateTime endDateTime)
+        {
+            bool isNameValid = TripValidation.ValidateName(name);
+            bool areDateTimesValid = TripValidation.ValidateDateTimes(startDateTime, endDateTime);
+
+            if (isNameValid && areDateTimesValid)
+            {
+                TripDataLayer.AddTrip(new Trip {Name = name, StartDate = startDateTime, EndDate = endDateTime});
+                return View("Homepage");
+            }
+
+            if (!isNameValid)
+            {
+                ModelState.AddModelError("", "Invalid trip name.");
+            }
+
+            if (!areDateTimesValid)
+            {
+                ModelState.AddModelError("", "Invalid time frame.");
             }
 
             return View();

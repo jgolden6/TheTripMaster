@@ -13,11 +13,14 @@ namespace TheTripMasterWeb.Models
 
         class DbUser : User
         {
-            public DbUser(string username, string password, string firstName)
+            
+            public DbUser(string username, string password, string firstName, string lastName, string email)
             {
                 this.Username = username;
                 this.Password = password;
                 this.FirstName = firstName;
+                this.LastName = lastName;
+                this.Email = email;
             }
         }
 
@@ -26,7 +29,7 @@ namespace TheTripMasterWeb.Models
             User authenticatedUser = null;
 
             string queryString =
-                "SELECT firstName FROM TheTripMasterDatabase.dbo.[User] WHERE username = @username AND password = @password";
+                "SELECT * FROM TheTripMasterDatabase.dbo.[User] WHERE username = @username AND password = @password";
 
 
             using (SqlConnection conn = new SqlConnection(ConnString))
@@ -44,7 +47,7 @@ namespace TheTripMasterWeb.Models
                 {
                     while (reader.Read())
                     {
-                        authenticatedUser = new DbUser(username, password, reader["firstName"].ToString());
+                        authenticatedUser = new DbUser(username, password, reader["firstName"].ToString(), reader["lastName"].ToString(), reader["email"].ToString());
                     }
                 }
                 finally
@@ -54,6 +57,40 @@ namespace TheTripMasterWeb.Models
             }
 
             return authenticatedUser;
+        }
+
+        public static int GetUserId(User user)
+        {
+            int userId = 0;
+            string queryString =
+                "SELECT userId FROM TheTripMasterDatabase.dbo.[User] WHERE username = @username AND password = @password";
+
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = new SqlCommand(queryString, conn);
+
+                cmd.Parameters.AddWithValue("@username", user.Username);
+                cmd.Parameters.AddWithValue("@password", user.Password);
+
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                try
+                {
+                    while (reader.Read())
+                    {
+                        userId = reader.GetInt32(0);
+                    }
+                }
+                finally
+                {
+                    reader.Close();
+
+                }
+            }
+
+            return userId;
         }
 
         public static void AddUser(User user)
