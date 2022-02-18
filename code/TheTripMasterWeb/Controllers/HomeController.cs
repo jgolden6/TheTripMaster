@@ -170,6 +170,17 @@ namespace TheTripMasterWeb.Controllers
             return RedirectToAction("Homepage");
         }
 
+        public IActionResult AddWaypoint()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddWaypoint(string name, DateTime startDateTime, DateTime endDateTime)
+        {
+            return View();
+        }
+
         public IActionResult Logout()
         {
             ActiveUser.User = null;
