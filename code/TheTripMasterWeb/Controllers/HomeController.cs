@@ -169,5 +169,11 @@ namespace TheTripMasterWeb.Controllers
             TripDataLayer.UpdateTrip(name, startDateTime, endDateTime);
             return RedirectToAction("Homepage");
         }
+
+        public IActionResult Logout()
+        {
+            ActiveUser.User = null;
+            return View("Index");
+        }
     }
 }
