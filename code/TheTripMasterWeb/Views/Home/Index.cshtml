@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div>
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        <p>USERNAME</p>
+        <input id="username" type="text" name="username" /><br /><br />
+        <p>PASSWORD</p>
+        <input id="password" type="text" name="password" /><br /><br />
+        <input id="login" type="submit" value="Login" />
+        <a asp-action="Register" asp-controller="Home">Register</a>
+    }
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</div>

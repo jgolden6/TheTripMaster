@@ -1,6 +1,8 @@
 ﻿CREATE TABLE [dbo].[Trip]
 (
 	[tripId] INT NOT NULL PRIMARY KEY, 
-    [startDate] DATETIME NOT NULL, 
-    [endDate] DATETIME NOT NULL
+    [userId] INT NULL, 
+    [tripName] CHAR(128) NULL, 
+    [startDate] DATETIME NULL, 
+    [endDate] DATETIME NULL 
 )

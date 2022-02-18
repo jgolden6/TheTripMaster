@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TheTripMasterDatabase", "TheTripMasterDatabase\TheTripMasterDatabase.sqlproj", "{15221F6B-C647-4167-ADAE-8286F422B3B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheTripMasterWeb", "TheTripMasterWeb\TheTripMasterWeb.csproj", "{72BF6BA9-45A7-4C07-B5E0-4CCA548D3CD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheTripMasterWeb", "TheTripMasterWeb\TheTripMasterWeb.csproj", "{FECF09ED-BE0D-4957-809E-B44869AC1FAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,10 @@ Global
 		{15221F6B-C647-4167-ADAE-8286F422B3B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15221F6B-C647-4167-ADAE-8286F422B3B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15221F6B-C647-4167-ADAE-8286F422B3B9}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{72BF6BA9-45A7-4C07-B5E0-4CCA548D3CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72BF6BA9-45A7-4C07-B5E0-4CCA548D3CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72BF6BA9-45A7-4C07-B5E0-4CCA548D3CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72BF6BA9-45A7-4C07-B5E0-4CCA548D3CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FECF09ED-BE0D-4957-809E-B44869AC1FAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FECF09ED-BE0D-4957-809E-B44869AC1FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FECF09ED-BE0D-4957-809E-B44869AC1FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FECF09ED-BE0D-4957-809E-B44869AC1FAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
