@@ -1,0 +1,41 @@
+﻿@model Waypoint
+@{
+    ViewData["Title"] = "Add Waypoint";
+}
+
+<h2>Add Waypoint</h2>
+
+<div class="form-group row">
+    <div class="col-2"><label>Trip Name:</label></div>
+    <div class="col-2"><input readonly="" id="TripName" type="text" name="TripName" asp-for="TripName" /></div>
+</div>
+
+<div>
+    @using (Html.BeginForm("AddWaypoint", "Trip", FormMethod.Post))
+    {
+        <div class="form-group row">
+            <div class="col-2"><label>Waypoint Name:</label></div>
+            <div class="col-2"><input value="" id="WaypointName" type="text" name="WaypointName" asp-for="WaypointName" /></div>
+        </div>
+
+        <br />
+
+        <div class="form-group row">
+            <div class="col-2">
+                @Html.Label("Start Date:")
+            </div>
+            <div class="col-2"><input id="startDate" name="startDate" type="datetime-local" asp-for="StartDate" /></div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                @Html.Label("End Date:")
+            </div>
+            <div class="col-2"><input id="endDate" name="endDate" type="datetime-local" asp-for="EndDate" /></div>
+        </div>
+
+        <input id="addWaypoint" asp-route-name="@Model.TripName" type="submit" value="Add" />
+        <a asp-action="Homepage" asp-controller="Home">Cancel</a>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    }
+</div>
