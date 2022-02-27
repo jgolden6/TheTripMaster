@@ -1,0 +1,10 @@
+Add Transportation:
+
+1. From the Trip Details page or the Waypoint Details page, the user selects the Add Transportation button.
+2. The Add Transportation page is opened, displaying fields for transportation type, start date and time, and end date and time.
+3.The user selects confirm to add the transportation.
+4. The transportation is created. The user is returned to the Trip Details or Waypoint Details page,
+	where the pages now display a box with the transportation information.
+
+4a. Invalid info (Overlapping times, end date before start date)
+	- The transportation is not created and an error message appears.
