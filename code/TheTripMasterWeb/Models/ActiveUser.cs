@@ -9,6 +9,8 @@ namespace TheTripMasterWeb.Models
     {
         public static User User { get; set; }
 
+        public static string TripName { get; set; }
+
         public static bool HasActiveUser() => (ActiveUser.User != null);
     }
 }

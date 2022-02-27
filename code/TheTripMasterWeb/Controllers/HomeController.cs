@@ -108,77 +108,7 @@ namespace TheTripMasterWeb.Controllers
         {
             int userId = UserDataLayer.GetUserId(ActiveUser.User);
             List<Trip> usersTrips = TripDataLayer.GetAllTripsOfUser(userId);
-            Debug.Print(usersTrips.Count.ToString());
             return View(model:usersTrips);
-        }
-
-        public IActionResult AddTrip()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult AddTrip(string name, DateTime startDateTime, DateTime endDateTime)
-        {
-            bool isNameValid = TripValidation.ValidateName(name);
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(startDateTime, endDateTime);
-
-            if (isNameValid && areDateTimesValid)
-            {
-                TripDataLayer.AddTrip(new Trip {Name = name, StartDate = startDateTime, EndDate = endDateTime});
-                return RedirectToAction("Homepage");
-            }
-
-            if (!isNameValid)
-            {
-                ModelState.AddModelError("", "Invalid trip name.");
-            }
-
-            if (!areDateTimesValid)
-            {
-                ModelState.AddModelError("", "Invalid time frame.");
-            }
-
-            return View();
-        }
-
-        public IActionResult TripDetails(string name, string start, string end)
-        {
-            ViewData["name"] = name;
-            ViewData["start"] = start;
-            ViewData["end"] = end;
-            Debug.Print(name);
-            Debug.Print(start);
-            Debug.Print(end);
-
-            Trip trip = new Trip {Name = name, StartDate = Convert.ToDateTime(start), EndDate = Convert.ToDateTime(end) };
-            return View(model:trip);
-        }
-
-        [HttpPost]
-        public IActionResult TripDetails(string name, DateTime startDateTime, DateTime endDateTime)
-        {
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(startDateTime, endDateTime);
-
-            if (!areDateTimesValid)
-            {
-                ModelState.AddModelError("", "Invalid time frame.");
-                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime });
-            }
-
-            TripDataLayer.UpdateTrip(name, startDateTime, endDateTime);
-            return RedirectToAction("Homepage");
-        }
-
-        public IActionResult AddWaypoint()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult AddWaypoint(string name, DateTime startDateTime, DateTime endDateTime)
-        {
-            return View();
         }
 
         public IActionResult Logout()
