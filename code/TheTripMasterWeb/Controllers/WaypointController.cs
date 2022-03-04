@@ -102,6 +102,25 @@ namespace TheTripMasterWeb.Controllers
             return waypoint;
         }
 
+        [HttpGet]
+        public IActionResult WaypointDetails(int waypointId, string name, DateTime start, DateTime end)
+        {
+            Debug.WriteLine(waypointId);
+            Waypoint waypoint = new Waypoint { WaypointId = waypointId, 
+                                               TripId = SelectedTrip.Trip.TripId, 
+                                               TripName = SelectedTrip.Trip.Name, 
+                                               WaypointName = name, 
+                                               StartDate = start, 
+                                               EndDate = end };
+            return View(model: waypoint);
+        }
+
+        [HttpPost]
+        public IActionResult WaypointDetails(int waypointId)
+        {
+            return RedirectToAction("RemoveWaypoint", new {waypointId = waypointId});
+        }
+
         private bool IsTimeframeAvailable(int tripId, DateTime startDateTime, DateTime endDateTime)
         {
             IEnumerable<Waypoint> waypoints = WaypointDataLayer.GetTripWaypoints(tripId);
@@ -115,6 +134,29 @@ namespace TheTripMasterWeb.Controllers
             }
 
             return true;
+        }
+
+        [HttpGet]
+        public IActionResult RemoveWaypoint(int waypointId)
+        {
+            Debug.WriteLine(waypointId);
+            Waypoint waypoint = WaypointDataLayer.GetWaypoint(waypointId);
+            return View(waypoint);
+        }
+
+        [HttpPost]
+        public IActionResult RemoveWaypoint(Waypoint waypoint)
+        {
+            WaypointDataLayer.DeleteWaypoint(waypoint.WaypointId);
+
+            var routeData = new
+            {
+                TripId = SelectedTrip.Trip.TripId,
+                name = SelectedTrip.Trip.Name,
+                start = SelectedTrip.Trip.StartDate,
+                end = SelectedTrip.Trip.EndDate
+            };
+            return RedirectToAction("TripDetails", "Trip", routeData);
         }
     }
 }

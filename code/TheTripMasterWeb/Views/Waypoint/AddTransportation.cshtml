@@ -10,12 +10,12 @@
     {
         <div style="padding-bottom: 40px" class="form-group row">
             <div class="col-2"><label>Trip Name:</label></div>
-            <div class="col-4"><input class="form-control" readonly="" id="tripName" type="text" name="tripName" asp-for="TripName" /></div>
+            <div class="col-4"><input class="form-control" readonly="readonly" id="tripName" type="text" name="tripName" asp-for="TripName" /></div>
         </div>
 
         <div style="padding-bottom: 20px" class="form-group row">
             <div class="col-2"><label>Transport Type:</label></div>
-            <select class="col-4" id="waypointName" type="text" name="waypointName" title="Type" asp-for="WaypointName" asp-items="new SelectList(Enum.GetNames(typeof(TransportationType)))">Select a travel method</select>
+            <select class="col-4" readonly="readonly" id="waypointName" type="text" name="waypointName" title="Type" asp-for="WaypointName" asp-items="new SelectList(Enum.GetNames(typeof(TransportationType)))">Select a travel method</select>
         </div>
         
 
@@ -23,18 +23,18 @@
             <div class="col-2">
                 @Html.Label("Start Date:")
             </div>
-            <div class="col-4"><input id="startDate" name="startDate" type="datetime-local" asp-for="StartDate" /></div>
+            <div class="col-4"><input id="startDate" readonly="readonly" name="startDate" type="datetime-local" asp-for="StartDate" /></div>
         </div>
 
         <div style="padding-bottom: 20px" class="form-group row">
             <div class="col-2">
                 @Html.Label("End Date:")
             </div>
-            <div class="col-4"><input id="endDate" name="endDate" type="datetime-local" asp-for="EndDate" /></div>
+            <div class="col-4"><input id="endDate" readonly="readonly" name="endDate" type="datetime-local" asp-for="EndDate" /></div>
         </div>
         
         <input id="addWaypoint" asp-action="AddTransportation" asp-route-name="@Model.TripName" type="submit" value="Add" />
-        <a class="btn-group" asp-action="Homepage" asp-controller="Home">Cancel</a>
+        <a class="btn-group" asp-action="SelectedTripDetails" asp-controller="Trip">Cancel</a>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     }
 </div>
