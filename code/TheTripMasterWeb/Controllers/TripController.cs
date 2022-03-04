@@ -6,8 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
-using TheTripMasterWeb.DataLayer;
-using TheTripMasterWeb.Models;
+using TheTripMasterLibrary.DataLayer;
+using TheTripMasterLibrary.Model;
 
 namespace TheTripMasterWeb.Controllers
 {
@@ -56,13 +56,11 @@ namespace TheTripMasterWeb.Controllers
             return View();
         }
 
-        public IActionResult TripDetails(int tripId)
+        public IActionResult TripDetails(int tripId, string name, DateTime start, DateTime end)
         {
-            /*ViewData["name"] = name;
-            ViewData["start"] = start;
-            ViewData["end"] = end;*/
-
-            Trip trip = TripDataLayer.GetTrip(tripId);
+            Trip trip = new Trip {TripId = tripId, Name = name, StartDate = start, EndDate = end};
+            trip.Waypoints = WaypointDataLayer.GetTripWaypoints(trip.TripId);
+            SelectedTrip.Trip = trip;
             return View(model: trip);
         }
 
@@ -74,7 +72,6 @@ namespace TheTripMasterWeb.Controllers
 
             if (!areDateTimesValid || !isTimeframeAvailable)
             {
-                IEnumerable<Waypoint> waypoints = TripDataLayer.GetTripWaypoints(name);
 
                 if (!areDateTimesValid)
                 {
@@ -86,7 +83,7 @@ namespace TheTripMasterWeb.Controllers
                     ModelState.AddModelError("", "Time-frame overlaps an existing trip.");
                 }
 
-                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime, Waypoints = waypoints });
+                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime, Waypoints = SelectedTrip.Trip.Waypoints });
             }
 
             TripDataLayer.UpdateTrip(name, startDateTime, endDateTime);
@@ -95,8 +92,7 @@ namespace TheTripMasterWeb.Controllers
 
         private bool IsTimeframeAvailable(string name, DateTime startDateTime, DateTime endDateTime)
         {
-            int userId = UserDataLayer.GetUserId(ActiveUser.User);
-            IEnumerable<Trip> trips = TripDataLayer.GetAllTripsOfUser(userId);
+            IEnumerable<Trip> trips = TripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId);
 
             foreach (Trip trip in trips)
             {

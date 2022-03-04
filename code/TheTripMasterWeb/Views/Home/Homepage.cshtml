@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Trip>
+﻿@using TheTripMasterLibrary.Model
+@model IEnumerable<TheTripMasterLibrary.Model.Trip>
 
 @{
     ViewData["Title"] = "Home";
@@ -18,9 +19,13 @@
         {
             <tr>
                 <td>
-                    <a asp-action="TripDetails" asp-controller="Trip" asp-route-tripId="@trip.TripId" id=@trip.Name>@trip.Name</a>
+                    <a asp-action="TripDetails" asp-controller="Trip"
+                       asp-route-tripId="@trip.TripId"
+                       asp-route-name="@trip.Name"
+                       asp-route-start="@trip.StartDate" 
+                       asp-route-end="@trip.EndDate">@trip.Name</a>
                 </td>
-                <td>@trip.StartDate</td>
+                <td asp-for="">@trip.StartDate</td>
                 <td>@trip.EndDate</td>
             </tr>
         }

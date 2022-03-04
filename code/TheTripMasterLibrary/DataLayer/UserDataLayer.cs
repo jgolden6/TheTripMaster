@@ -13,7 +13,6 @@ namespace TheTripMasterLibrary.DataLayer
 
         class DbUser : User
         {
-
             public DbUser(int id, string username, string password, string firstName, string lastName, string email)
             {
                 this.UserId = id;

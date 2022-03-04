@@ -5,7 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataLayer\**" />
+    <Content Remove="DataLayer\**" />
+    <EmbeddedResource Remove="DataLayer\**" />
+    <None Remove="DataLayer\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TheTripMasterLibrary\TheTripMasterLibrary.csproj" />
   </ItemGroup>
 
 </Project>
