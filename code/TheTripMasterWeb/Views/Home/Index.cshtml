@@ -1,42 +1,16 @@
-﻿@model TheTripMasterWeb.Models.User
-@{
-    ViewBag.Title = "Login";
+﻿@{
+    ViewData["Title"] = "Login";
 }
 
-<h2>Login</h2>
-
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<form method="post" asp-action="LogIn">
-    <div class="form-group row">
-        <div class="col-sm-2"><label>Username:</label></div>
-        <div class="col-sm-4">
-            <input type="text" asp-for="Username"
-                   class="form-control" />
-        </div>
-        <div class="col">
-            <span asp-validation-for="Username"
-                  class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2"><label>Password:</label></div>
-        <div class="col-sm-4">
-            <input type="password" asp-for="Password"
-                   class="form-control" />
-        </div>
-        <div class="col">
-            <span asp-validation-for="Password"
-                  class="text-danger"></span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="offset-2 col-sm-4">
-            <button type="submit" class="btn btn-primary">Log In</button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="offset-2 col-sm-4">
-            Not registered? <a asp-action="Register">Register as a new user</a>
-        </div>
-    </div>
-</form>
+<div>
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        <p>USERNAME</p>
+        <input id="username" type="text" name="username" /><br /><br />
+        <p>PASSWORD</p>
+        <input id="password" type="text" name="password" /><br /><br />
+        <input id="login" type="submit" value="Login" />
+        <a asp-action="Register" asp-controller="Home">Register</a>
+    }
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</div>

@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Schedule Trip";
+}
+
+<h2>Schedule Trip</h2>
+
+<div>
+    @using (Html.BeginForm("AddTrip", "Trip", FormMethod.Post))
+    {
+        <div class="form-group row">
+            <div class="col-2"><label>Name:</label></div>
+            <div class="col-2"><input id="name" type="text" name="name" /></div>
+        </div>
+
+        <br />
+
+        <div class="form-group row">
+            <div class="col-2">
+                @Html.Label("Start Date:")
+            </div>
+            <div class="col-2"><input id="startDateTime" name="startDateTime" type="datetime-local" /></div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                @Html.Label("End Date:")
+            </div>
+            <div class="col-2"><input id="endDateTime" name="endDateTime" type="datetime-local" /></div>
+        </div>
+
+        <input id="addTrip" type="submit" value="Confirm" />
+        <a asp-action="Homepage" asp-controller="Home">Cancel</a>
+    }
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+</div>
