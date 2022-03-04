@@ -93,5 +93,63 @@ namespace TheTripMasterLibrary.DataLayer
                 conn.Close();
             }
         }
+
+        public static List<Waypoint> GetTripWaypoints(int tripId)
+        {
+            string queryString =
+                "SELECT * FROM TheTripMasterDatabase.dbo.[Waypoint] WHERE tripId = @tripId";
+
+
+            List<Waypoint> waypoints = new List<Waypoint>();
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = new SqlCommand(queryString, conn);
+
+                cmd.Parameters.AddWithValue("@tripId", tripId);
+
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                try
+                {
+                    while (reader.Read())
+                    {
+                        Waypoint waypoint = new Waypoint
+                        {
+                            WaypointName = reader["waypointName"].ToString(),
+                            StartDate = (DateTime)reader["startDate"],
+                            EndDate = (DateTime)reader["endDate"]
+                        };
+                        waypoints.Add(waypoint);
+                    }
+                }
+                finally
+                {
+                    reader.Close();
+                }
+            }
+            return waypoints;
+        }
+
+        public static void AddWaypoint(Waypoint waypoint)
+        {
+            //int tripId = GetTripId(tripName);
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO TheTripMasterDatabase.dbo.[Waypoint] (tripId, waypointName, startDate, endDate)" +
+                                  "VALUES (@tripId, @waypointName, @startDate, @endDate)";
+
+                cmd.Parameters.AddWithValue("@tripId", SelectedTrip.trip.TripId);
+                cmd.Parameters.AddWithValue("@waypointName", waypoint.WaypointName.Trim());
+                cmd.Parameters.AddWithValue("@startDate", waypoint.StartDate);
+                cmd.Parameters.AddWithValue("@endDate", waypoint.EndDate);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
     }
 }

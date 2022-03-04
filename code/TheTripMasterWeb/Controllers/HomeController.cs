@@ -6,8 +6,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Routing;
-using TheTripMasterWeb.DataLayer;
-using TheTripMasterWeb.Models;
+using TheTripMasterLibrary.DataLayer;
+using TheTripMasterLibrary.Model;
 
 namespace TheTripMasterWeb.Controllers
 {
@@ -23,12 +23,6 @@ namespace TheTripMasterWeb.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         [HttpPost]
@@ -106,8 +100,8 @@ namespace TheTripMasterWeb.Controllers
 
         public IActionResult Homepage()
         {
-            int userId = UserDataLayer.GetUserId(ActiveUser.User);
-            List<Trip> usersTrips = TripDataLayer.GetAllTripsOfUser(userId);
+            //int userId = UserDataLayer.GetUserId(ActiveUser.User);
+            List<Trip> usersTrips = TripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId);
             return View(model:usersTrips);
         }
 

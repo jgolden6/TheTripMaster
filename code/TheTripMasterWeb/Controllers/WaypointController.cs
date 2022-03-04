@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using TheTripMasterWeb.DataLayer;
-using TheTripMasterWeb.Models;
+using TheTripMasterLibrary.DataLayer;
+using TheTripMasterLibrary.Model;
 
 namespace TheTripMasterWeb.Controllers
 {
@@ -26,16 +26,24 @@ namespace TheTripMasterWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddWaypoint(Waypoint model, string name)
+        public IActionResult AddWaypoint(Waypoint model)
         {
+            Debug.WriteLine("HERE");
             bool isNameValid = TripValidation.ValidateName(model.WaypointName);
             bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
-            bool isTimeframeAvailable = this.IsTimeframeAvailable(name, model.StartDate, model.EndDate);
+            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.trip.TripId, model.StartDate, model.EndDate);
             
             if (isNameValid && areDateTimesValid && isTimeframeAvailable)
             {
-                int tripId = TripDataLayer.AddWaypoint(model, name);
-                return RedirectToAction("TripDetails", "Trip", new {tripId = tripId});
+                TripDataLayer.AddWaypoint(model);
+                var routeData = new
+                {
+                    TripId = SelectedTrip.trip.TripId,
+                    name = SelectedTrip.trip.Name,
+                    start = SelectedTrip.trip.StartDate,
+                    end = SelectedTrip.trip.EndDate
+                };
+                return RedirectToAction("TripDetails", "Trip", routeData);
             }
 
             if (!isNameValid)
@@ -53,14 +61,19 @@ namespace TheTripMasterWeb.Controllers
                 ModelState.AddModelError("", "Time-frame overlaps an existing event.");
             }
 
-            model.TripName = name;
+            model.TripName = SelectedTrip.trip.Name;
             return View(model);
         }
 
-        private bool IsTimeframeAvailable(string tripName, DateTime startDateTime, DateTime endDateTime)
+        public IActionResult AddTransportation(string name)
         {
-            int userId = UserDataLayer.GetUserId(ActiveUser.User);
-            IEnumerable<Waypoint> waypoints = TripDataLayer.GetTripWaypoints(tripName);
+            Waypoint transportation = new Waypoint { TripName = name };
+            return View("AddTransportation", transportation);
+        }
+
+        private bool IsTimeframeAvailable(int tripId, DateTime startDateTime, DateTime endDateTime)
+        {
+            IEnumerable<Waypoint> waypoints = TripDataLayer.GetTripWaypoints(tripId);
 
             foreach (Waypoint waypoint in waypoints)
             {
