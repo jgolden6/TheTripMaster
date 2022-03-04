@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.CompilerServices;
 using TheTripMasterWeb.Models;
 
 namespace TheTripMasterWeb.DataLayer
@@ -24,7 +25,7 @@ namespace TheTripMasterWeb.DataLayer
                                   "VALUES (@userId, @tripName, @startDate, @endDate)";
 
                 cmd.Parameters.AddWithValue("@userId", userId);
-                cmd.Parameters.AddWithValue("@tripName", trip.Name);
+                cmd.Parameters.AddWithValue("@tripName", trip.Name.Trim());
                 cmd.Parameters.AddWithValue("@startDate", trip.StartDate);
                 cmd.Parameters.AddWithValue("@endDate", trip.EndDate);
 
@@ -32,6 +33,46 @@ namespace TheTripMasterWeb.DataLayer
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
+        }
+
+        public static Trip GetTrip(int tripId)
+        {
+            string queryString =
+                "SELECT * FROM TheTripMasterDatabase.dbo.[Trip] WHERE tripId = @tripId";
+
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = new SqlCommand(queryString, conn);
+
+                cmd.Parameters.AddWithValue("@tripId", tripId);
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                try
+                {
+                    while (reader.Read())
+                    {
+                        Trip trip = new Trip
+                        {
+                            TripId = tripId,
+                            Name = reader["tripName"].ToString(),
+                            StartDate = (DateTime)reader["startDate"],
+                            EndDate = (DateTime)reader["endDate"]
+                        };
+
+                        trip.Waypoints = GetTripWaypoints(trip.Name);
+                        return trip;
+                    }
+                }
+                finally
+                {
+                    reader.Close();
+
+                }
+            }
+
+            return null;
         }
 
         public static List<Trip> GetAllTripsOfUser(int userId)
@@ -55,7 +96,8 @@ namespace TheTripMasterWeb.DataLayer
                 {
                     while (reader.Read())
                     {
-                        Trip trip = new Trip{ Name = reader["tripName"].ToString(), 
+                        Trip trip = new Trip{ TripId = reader.GetInt32(0),
+                                              Name = reader["tripName"].ToString(), 
                                               StartDate = (DateTime)reader["startDate"],
                                               EndDate = (DateTime)reader["endDate"]
                         };
@@ -81,7 +123,7 @@ namespace TheTripMasterWeb.DataLayer
 
                 cmd.Parameters.AddWithValue("@startDate", startDateTime);
                 cmd.Parameters.AddWithValue("@endDate", endDateTime);
-                cmd.Parameters.AddWithValue("@tripName", name);
+                cmd.Parameters.AddWithValue("@tripName", name.Trim());
                 cmd.Parameters.AddWithValue("@userId", userId);
 
                 conn.Open();
@@ -93,7 +135,7 @@ namespace TheTripMasterWeb.DataLayer
         public static List<Waypoint> GetTripWaypoints(string tripName)
         {
             int userId = UserDataLayer.GetUserId(ActiveUser.User);
-            int tripId = TripDataLayer.GetTripId(userId, tripName);
+            int tripId = GetTripId(tripName);
 
             string queryString =
                 "SELECT * FROM TheTripMasterDatabase.dbo.[Waypoint] WHERE tripId = @tripId";
@@ -131,9 +173,8 @@ namespace TheTripMasterWeb.DataLayer
             return waypoints;
         }
 
-        public static int GetTripId(int userId, string tripName)
+        public static int GetTripId(string tripName)
         {
-            Debug.WriteLine(tripName);
             int tripId = 0;
             string queryString =
                 "SELECT tripId FROM TheTripMasterDatabase.dbo.[Trip] WHERE userId = @userId AND tripName = @tripName";
@@ -142,7 +183,7 @@ namespace TheTripMasterWeb.DataLayer
             {
                 SqlCommand cmd = new SqlCommand(queryString, conn);
 
-                cmd.Parameters.AddWithValue("@userId", userId);
+                cmd.Parameters.AddWithValue("@userId", ActiveUser.User.UserId);
                 cmd.Parameters.AddWithValue("@tripName", tripName);
 
                 conn.Open();
@@ -165,10 +206,10 @@ namespace TheTripMasterWeb.DataLayer
             return tripId;
         }
 
-        public static void AddWaypoint(Waypoint waypoint, string tripName)
+        public static int AddWaypoint(Waypoint waypoint, string tripName)
         {
             int userId = UserDataLayer.GetUserId(ActiveUser.User);
-            int tripId = GetTripId(userId, tripName);
+            int tripId = GetTripId(tripName);
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
@@ -176,7 +217,7 @@ namespace TheTripMasterWeb.DataLayer
                                   "VALUES (@tripId, @waypointName, @startDate, @endDate)";
 
                 cmd.Parameters.AddWithValue("@tripId", tripId);
-                cmd.Parameters.AddWithValue("@waypointName", waypoint.WaypointName);
+                cmd.Parameters.AddWithValue("@waypointName", waypoint.WaypointName.Trim());
                 cmd.Parameters.AddWithValue("@startDate", waypoint.StartDate);
                 cmd.Parameters.AddWithValue("@endDate", waypoint.EndDate);
 
@@ -184,6 +225,8 @@ namespace TheTripMasterWeb.DataLayer
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
+
+            return tripId;
         }
     }
 }

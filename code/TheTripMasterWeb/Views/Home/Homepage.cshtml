@@ -18,7 +18,7 @@
         {
             <tr>
                 <td>
-                    <a asp-action="TripDetails" asp-controller="Trip" asp-route-name="@trip.Name" asp-route-start="@trip.StartDate" asp-route-end="@trip.EndDate" id=@trip.Name>@trip.Name</a>
+                    <a asp-action="TripDetails" asp-controller="Trip" asp-route-tripId="@trip.TripId" id=@trip.Name>@trip.Name</a>
                 </td>
                 <td>@trip.StartDate</td>
                 <td>@trip.EndDate</td>

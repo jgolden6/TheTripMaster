@@ -14,8 +14,9 @@ namespace TheTripMasterWeb.Models
         class DbUser : User
         {
             
-            public DbUser(string username, string password, string firstName, string lastName, string email)
+            public DbUser(int id, string username, string password, string firstName, string lastName, string email)
             {
+                this.UserId = id;
                 this.Username = username;
                 this.Password = password;
                 this.FirstName = firstName;
@@ -47,7 +48,7 @@ namespace TheTripMasterWeb.Models
                 {
                     while (reader.Read())
                     {
-                        authenticatedUser = new DbUser(username, password, reader["firstName"].ToString(), reader["lastName"].ToString(), reader["email"].ToString());
+                        authenticatedUser = new DbUser((int)reader["userId"], username, password, reader["firstName"].ToString(), reader["lastName"].ToString(), reader["email"].ToString());
                     }
                 }
                 finally

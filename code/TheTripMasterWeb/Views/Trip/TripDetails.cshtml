@@ -39,25 +39,26 @@
         <h3>Waypoints</h3>
         <table class="table table-bordered table-striped table-sm">
             <thead class="thead-dark">
-            <tr>
-                <th>Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-            </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach (Waypoint waypoint in Model.Waypoints)
-            {
-                <tr>
-                    <td>
-                        <a asp-action="" asp-controller="Trip" id=@waypoint.WaypointName>@waypoint.WaypointName</a>
-                    </td>
-                    <td>@waypoint.StartDate</td>
-                    <td>@waypoint.EndDate</td>
-                </tr>
-            }
+                @foreach (Waypoint waypoint in Model.Waypoints)
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="" asp-controller="Waypoint" id=@waypoint.WaypointName>@waypoint.WaypointName</a>
+                        </td>
+                        <td>@waypoint.StartDate</td>
+                        <td>@waypoint.EndDate</td>
+                    </tr>
+                }
             </tbody>
         </table>
-        <a asp-action="AddWaypoint" asp-controller="Trip" asp-route-name="@Model.Name">Add Waypoint</a>
+        <input type="hidden" id="tripId" name="tripId" asp-for="TripId" />
+        <a asp-action="AddWaypoint" asp-controller="Waypoint" asp-route-name="@Model.Name">Add Waypoint</a>
     </div>
 </div>
