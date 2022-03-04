@@ -32,7 +32,6 @@ namespace TheTripMasterDesktop.View
             this.tripDataGridView = new System.Windows.Forms.DataGridView();
             this.addTripButton = new System.Windows.Forms.Button();
             this.logoutButton = new System.Windows.Forms.Button();
-            this.accountButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tripDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -67,16 +66,6 @@ namespace TheTripMasterDesktop.View
             this.logoutButton.UseVisualStyleBackColor = true;
             this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
             // 
-            // accountButton
-            // 
-            this.accountButton.Location = new System.Drawing.Point(273, 3);
-            this.accountButton.Name = "accountButton";
-            this.accountButton.Size = new System.Drawing.Size(75, 23);
-            this.accountButton.TabIndex = 3;
-            this.accountButton.Text = "Account";
-            this.accountButton.UseVisualStyleBackColor = true;
-            this.accountButton.Click += new System.EventHandler(this.accountButton_Click);
-            // 
             // refreshButton
             // 
             this.refreshButton.Location = new System.Drawing.Point(3, 332);
@@ -92,7 +81,6 @@ namespace TheTripMasterDesktop.View
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.refreshButton);
-            this.Controls.Add(this.accountButton);
             this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.addTripButton);
             this.Controls.Add(this.tripDataGridView);
@@ -108,7 +96,6 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.DataGridView tripDataGridView;
         private System.Windows.Forms.Button addTripButton;
         private System.Windows.Forms.Button logoutButton;
-        private System.Windows.Forms.Button accountButton;
         private System.Windows.Forms.Button refreshButton;
     }
 }

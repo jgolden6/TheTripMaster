@@ -11,6 +11,9 @@ namespace TheTripMasterLibrary.DataLayer
     {
         private const string ConnString = "Data Source=(localdb)\\ProjectsV13;Initial Catalog=TheTripMasterDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
+        /**
+         * Takes a Trip object and inserts the User ID, Trip Name, Start Date, and End Date into the Trip table.
+         */
         public static void AddTrip(Trip trip)
         {
             int userId = ActiveUser.User.UserId;
@@ -32,6 +35,11 @@ namespace TheTripMasterLibrary.DataLayer
             }
         }
 
+        /**
+         * Gets all the trips associated with the given User ID.
+         *
+         * Return: A list of trips belonging to the User.
+         */
         public static List<Trip> GetAllTripsOfUser(int userId)
         {
             string queryString =
@@ -73,6 +81,9 @@ namespace TheTripMasterLibrary.DataLayer
             return trips;
         }
 
+        /**
+         * Takes a Name, Start Time, and End Time, and updates the Trip being edited.
+         */
         public static void UpdateTrip(string name, DateTime startDateTime, DateTime endDateTime)
         {
             int userId = ActiveUser.User.UserId;
@@ -94,6 +105,11 @@ namespace TheTripMasterLibrary.DataLayer
             }
         }
 
+        /**
+         * Gets the Trip with the given Name.
+         *
+         * Return: A Trip.
+         */
         public static Trip GetSelectedTrip(string tripName)
         {
             int userId = ActiveUser.User.UserId;

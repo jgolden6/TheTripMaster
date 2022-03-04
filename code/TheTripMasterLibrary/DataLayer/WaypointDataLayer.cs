@@ -11,6 +11,9 @@ namespace TheTripMasterLibrary.DataLayer
     {
         private const string ConnString = "Data Source=(localdb)\\ProjectsV13;Initial Catalog=TheTripMasterDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
+        /**
+         * Takes a Waypoint object, inserts the Trip ID, Waypoint Name, Start Date, and End Date into the Waypoint table.
+         */
         public static void AddWaypoint(Waypoint waypoint)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
@@ -30,6 +33,11 @@ namespace TheTripMasterLibrary.DataLayer
             }
         }
 
+        /**
+         * Gets the Waypoints associated with a given trip ID.
+         *
+         * Return: A list of Waypoints.
+         */
         public static List<Waypoint> GetTripWaypoints(int tripId)
         {
             string queryString =
@@ -69,6 +77,11 @@ namespace TheTripMasterLibrary.DataLayer
             return waypoints;
         }
 
+        /**
+         * Gets a specific Waypoint given an ID.
+         *
+         * Return: The Waypoint with the given ID.
+         */
         public static Waypoint GetWaypoint(int waypointId)
         {
             string queryString =
@@ -105,6 +118,9 @@ namespace TheTripMasterLibrary.DataLayer
             return waypoint;
         }
 
+        /**
+         * Deletes the Waypoint with the given ID.
+         */
         public static void DeleteWaypoint(int waypointId)
         {
             Debug.WriteLine(waypointId);
