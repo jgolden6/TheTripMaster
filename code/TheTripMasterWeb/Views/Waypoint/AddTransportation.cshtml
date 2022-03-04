@@ -33,7 +33,7 @@
             <div class="col-4"><input id="endDate" name="endDate" type="datetime-local" asp-for="EndDate" /></div>
         </div>
         
-        <input id="addWaypoint" asp-action="AddWaypoint" asp-route-name="@Model.TripName" type="submit" value="Add" />
+        <input id="addWaypoint" asp-action="AddTransportation" asp-route-name="@Model.TripName" type="submit" value="Add" />
         <a class="btn-group" asp-action="Homepage" asp-controller="Home">Cancel</a>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     }
