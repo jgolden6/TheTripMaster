@@ -16,6 +16,7 @@ namespace TheTripMasterDesktop.View
         public event Action AddTripButtonClick;
         public event Action AccountButtonClick;
         public event Action LogoutButtonClick;
+        public event Action DataCellClick;
 
         public Overview()
         {
@@ -71,7 +72,13 @@ namespace TheTripMasterDesktop.View
          */
         private void tripDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //Take to trip details
+            Trip trip = TripDataLayer.GetSelectedTrip(this.tripDataGridView.CurrentRow.Cells[0].Value.ToString());
+
+            SelectedTrip.Trip = trip;
+
+            Debug.WriteLine(SelectedTrip.Trip.TripId);
+
+            DataCellClick?.Invoke();
         }
     }
 }

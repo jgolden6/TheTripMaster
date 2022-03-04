@@ -93,5 +93,44 @@ namespace TheTripMasterLibrary.DataLayer
                 conn.Close();
             }
         }
+
+        public static Trip GetSelectedTrip(string tripName)
+        {
+            int userId = ActiveUser.User.UserId;
+
+            string queryString =
+                "SELECT * FROM TheTripMasterDatabase.dbo.[Trip] WHERE tripName = @tripName AND userId = @userId";
+
+            Trip selectedTrip = new Trip();
+
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = new SqlCommand(queryString, conn);
+
+                cmd.Parameters.AddWithValue("@tripName", tripName);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                try
+                {
+                    while (reader.Read())
+                    {
+                        selectedTrip.TripId = (int) reader["tripId"];
+                        selectedTrip.UserId = (int) reader["userId"];
+                        selectedTrip.Name = reader["tripName"].ToString();
+                        selectedTrip.StartDate = (DateTime) reader["startDate"];
+                        selectedTrip.EndDate = (DateTime) reader["endDate"];
+                    }
+                }
+                finally
+                {
+                    reader.Close();
+                }
+            }
+            return selectedTrip;
+        }
     }
 }
