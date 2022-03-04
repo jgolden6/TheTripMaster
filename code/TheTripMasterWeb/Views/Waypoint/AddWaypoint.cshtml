@@ -5,20 +5,20 @@
 
 <h2>Add Waypoint</h2>
 
-<div class="form-group row">
-    <div class="col-2"><label>Trip Name:</label></div>
-    <div class="col-2"><input readonly="" id="TripName" type="text" name="TripName" asp-for="TripName" /></div>
-</div>
-
 <div>
-    @using (Html.BeginForm("AddWaypoint", "Trip", FormMethod.Post))
+    @using (Html.BeginForm("AddWaypoint", "Waypoint", FormMethod.Post))
     {
         <div class="form-group row">
-            <div class="col-2"><label>Waypoint Name:</label></div>
-            <div class="col-2"><input value="" id="WaypointName" type="text" name="WaypointName" asp-for="WaypointName" /></div>
+            <div class="col-2"><label>Trip Name:</label></div>
+            <div class="col-2"><input readonly="" id="tripName" type="text" name="tripName" asp-for="TripName" /></div>
         </div>
 
         <br />
+
+        <div class="form-group row">
+            <div class="col-2"><label>Waypoint Name:</label></div>
+            <div class="col-2"><input value="" id="waypointName" type="text" name="waypointName" asp-for="WaypointName" /></div>
+        </div>
 
         <div class="form-group row">
             <div class="col-2">
@@ -32,6 +32,11 @@
                 @Html.Label("End Date:")
             </div>
             <div class="col-2"><input id="endDate" name="endDate" type="datetime-local" asp-for="EndDate" /></div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2"><label>Name:</label></div>
+            <div class="col-2"><input readonly="readonly" value="@Model.TripId " id="tripId" type="text" name="tripId" asp-for="TripId" /></div>
         </div>
 
         <input id="addWaypoint" asp-route-name="@Model.TripName" type="submit" value="Add" />

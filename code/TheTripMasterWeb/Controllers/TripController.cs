@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using TheTripMasterWeb.DataLayer;
 using TheTripMasterWeb.Models;
@@ -29,10 +30,11 @@ namespace TheTripMasterWeb.Controllers
         {
             bool isNameValid = TripValidation.ValidateName(name);
             bool areDateTimesValid = TripValidation.ValidateDateTimes(startDateTime, endDateTime);
+            bool isTimeframeAvailable = this.IsTimeframeAvailable(name, startDateTime, endDateTime);
 
-            if (isNameValid && areDateTimesValid)
+            if (isNameValid && areDateTimesValid && isTimeframeAvailable)
             {
-                TripDataLayer.AddTrip(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime });
+                TripDataLayer.AddTrip(new Trip { Name = name.Trim(), StartDate = startDateTime, EndDate = endDateTime });
                 return RedirectToAction("Homepage", "Home");
             }
 
@@ -46,22 +48,21 @@ namespace TheTripMasterWeb.Controllers
                 ModelState.AddModelError("", "Invalid time frame.");
             }
 
+            if (!isTimeframeAvailable)
+            {
+                ModelState.AddModelError("", "Time-frame overlaps an existing trip");
+            }
+
             return View();
         }
 
-        public IActionResult TripDetails(string name, string start, string end)
+        public IActionResult TripDetails(int tripId)
         {
-            ViewData["name"] = name;
+            /*ViewData["name"] = name;
             ViewData["start"] = start;
-            ViewData["end"] = end;
+            ViewData["end"] = end;*/
 
-            IEnumerable<Waypoint> waypoints = TripDataLayer.GetTripWaypoints(name);
-            Trip trip = new Trip { 
-                Name = name, 
-                StartDate = Convert.ToDateTime(start), 
-                EndDate = Convert.ToDateTime(end), 
-                Waypoints = waypoints};
-
+            Trip trip = TripDataLayer.GetTrip(tripId);
             return View(model: trip);
         }
 
@@ -69,48 +70,47 @@ namespace TheTripMasterWeb.Controllers
         public IActionResult TripDetails(string name, DateTime startDateTime, DateTime endDateTime)
         {
             bool areDateTimesValid = TripValidation.ValidateDateTimes(startDateTime, endDateTime);
+            bool isTimeframeAvailable = this.IsTimeframeAvailable(name, startDateTime, endDateTime);
 
-            if (!areDateTimesValid)
+            if (!areDateTimesValid || !isTimeframeAvailable)
             {
-                ModelState.AddModelError("", "Invalid time frame.");
-                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime });
+                IEnumerable<Waypoint> waypoints = TripDataLayer.GetTripWaypoints(name);
+
+                if (!areDateTimesValid)
+                {
+                    ModelState.AddModelError("", "Invalid time frame.");
+                }
+
+                if (!isTimeframeAvailable)
+                {
+                    ModelState.AddModelError("", "Time-frame overlaps an existing trip.");
+                }
+
+                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime, Waypoints = waypoints });
             }
 
             TripDataLayer.UpdateTrip(name, startDateTime, endDateTime);
             return RedirectToAction("Homepage", "Home");
         }
 
-        public IActionResult AddWaypoint(string name)
+        private bool IsTimeframeAvailable(string name, DateTime startDateTime, DateTime endDateTime)
         {
-            Waypoint waypoint = new Waypoint {TripName = name};
-            return View(waypoint);
-        }
+            int userId = UserDataLayer.GetUserId(ActiveUser.User);
+            IEnumerable<Trip> trips = TripDataLayer.GetAllTripsOfUser(userId);
 
-        [HttpPost]
-        public IActionResult AddWaypoint(Waypoint model, string name)
-        {
-            Debug.WriteLine(name);
-            bool isNameValid = TripValidation.ValidateName(model.WaypointName);
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
-
-            if (isNameValid && areDateTimesValid)
+            foreach (Trip trip in trips)
             {
-                Debug.WriteLine(name);
-                TripDataLayer.AddWaypoint(model, name);
-                return RedirectToAction("Homepage", "Home");
+
+                if (name.Trim() != trip.Name.Trim())
+                {
+                    if (trip.StartDate < endDateTime && startDateTime < trip.EndDate)
+                    {
+                        return false;
+                    }
+                }
             }
 
-            if (!isNameValid)
-            {
-                ModelState.AddModelError("", "Invalid name.");
-            }
-
-            if (!areDateTimesValid)
-            {
-                ModelState.AddModelError("", "Invalid time frame.");
-            }
-
-            return View(model);
+            return true;
         }
     }
 }
