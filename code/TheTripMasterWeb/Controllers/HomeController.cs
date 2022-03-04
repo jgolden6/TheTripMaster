@@ -20,12 +20,21 @@ namespace TheTripMasterWeb.Controllers
             _logger = logger;
         }
 
+        /*
+         * Returns the Index View
+         */
         public IActionResult Index()
         {
             return View();
         }
 
 
+        /*
+         * Uses the datalayer to authenticate the credentials. If the user returns null, returns the Index
+         * view, with an error. If successfull, the User is set as the Active and Redirected to the homepage.
+         *
+         * Return: Index View if bad credentials, Redirect to Index action otherwise.
+         */
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
@@ -49,6 +58,12 @@ namespace TheTripMasterWeb.Controllers
             return View();
         }
 
+        /*
+         * Validates the User's inputs for validity. If Valid, Adds the new user to the database and returns
+         * the Index View. If Invalid, does not add the user and returns the Register page with some errors.
+         *
+         * Returns: Index View if valid, Register otherwise.
+         */
         [HttpPost]
         public IActionResult Register(string firstName, string lastName, string email, string username, string password, string passwordCheck)
         {
@@ -99,13 +114,22 @@ namespace TheTripMasterWeb.Controllers
             return View();
         }
 
+        /*
+         * Gets a list of all of the ActiveUser's trips from the datalayer.
+         *
+         * Returns: Homepage view using the list as a model.
+         */
         public IActionResult Homepage()
         {
-            //int userId = UserDataLayer.GetUserId(ActiveUser.User);
             List<Trip> usersTrips = TripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId);
             return View(model:usersTrips);
         }
 
+        /*
+         * Sets the ActiveUser to null and returns the Index View.
+         *
+         * Returns: Index View (Login)
+         */
         public IActionResult Logout()
         {
             ActiveUser.User = null;

@@ -20,11 +20,20 @@ namespace TheTripMasterWeb.Controllers
             _logger = logger;
         }
 
+        /*
+         * Returns AddTrip view.
+         */
         public IActionResult AddTrip()
         {
             return View();
         }
 
+        /*
+         *Validates the Trip Data and Adds the trip if valid.
+         *
+         * Returns: If valid, Redirect to homepage action.
+         *          otherwise, Returns AddTripView with model errors.
+         */
         [HttpPost]
         public IActionResult AddTrip(string name, DateTime startDateTime, DateTime endDateTime)
         {
@@ -56,6 +65,11 @@ namespace TheTripMasterWeb.Controllers
             return View();
         }
 
+        /*
+         * Creates a Trip using th specified data and retrieves it's waypoints from the datalayer.
+         *
+         * Returns: A TripDetails view with the trip as a model.
+         */
         public IActionResult TripDetails(int tripId, string name, DateTime start, DateTime end)
         {
             Trip trip = new Trip {TripId = tripId, Name = name, StartDate = start, EndDate = end};
@@ -64,6 +78,12 @@ namespace TheTripMasterWeb.Controllers
             return View(model: trip);
         }
 
+        /*
+         * Checks if the DateTimes are valid and not overlapping existing trips. Updates the trip id if valid.
+         *
+         * Returns: If valid, Redirects to Homepage action
+         *          otherwise, Returns TripDetails page populated with errors.
+         */
         [HttpPost]
         public IActionResult TripDetails(string name, DateTime startDateTime, DateTime endDateTime)
         {
@@ -90,6 +110,12 @@ namespace TheTripMasterWeb.Controllers
             return RedirectToAction("Homepage", "Home");
         }
 
+        /*
+         * Checks if the specified timeframe overlaps any of the ActiveUser's trips.
+         *
+         * Returns: false if the timeframe overlaps a trip where tripName != name,
+         *          true otherwise.
+         */
         private bool IsTimeframeAvailable(string name, DateTime startDateTime, DateTime endDateTime)
         {
             IEnumerable<Trip> trips = TripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId);
@@ -108,6 +134,9 @@ namespace TheTripMasterWeb.Controllers
             return true;
         }
 
+        /*
+         * Returns a TripDetails view using the selected trip as a model.
+         */
         public IActionResult SelectedTripDetails()
         {
             Trip trip = SelectedTrip.Trip;

@@ -19,12 +19,22 @@ namespace TheTripMasterWeb.Controllers
             _logger = logger;
         }
 
+        /*
+         * Makes a waypoint and returs the AddWaypoint view.
+         *
+         * Returns: an AddWaypoint view using the new waypoint as a model.
+         */
         public IActionResult AddWaypoint(string name)
         {
             Waypoint waypoint = new Waypoint { TripName = name };
             return View(waypoint);
         }
 
+        /*
+         * Calls AddEvent to validate and add the waypoint
+         *
+         * Returns: Redirect to TripDetails action if valid, return AddWaypoint view otherwise.
+         */
         [HttpPost]
         public IActionResult AddWaypoint(Waypoint model)
         {
@@ -45,12 +55,22 @@ namespace TheTripMasterWeb.Controllers
             return View(waypoint);
         }
 
+        /*
+         * Makes a waypoint and returns the view.
+         *
+         * Return: AddTransportation view.
+         */
         public IActionResult AddTransportation(string name)
         {
             Waypoint transportation = new Waypoint { TripName = name };
             return View("AddTransportation", transportation);
         }
 
+        /*
+         * Calls AddEvent to validate and add the waypoint
+         *
+         * Returns: Redirect to TripDetails action if valid, return AddTransportation view otherwise.
+         */
         [HttpPost]
         public IActionResult AddTransportation(Waypoint model)
         {
@@ -71,6 +91,11 @@ namespace TheTripMasterWeb.Controllers
             return View(waypoint);
         }
 
+        /*
+         * Validates the waypoint data and uses the datalayer to add it to the database if valid.
+         *
+         * Returns: null if valid, the waypoint otherwise.
+         */
         private Waypoint AddEvent(Waypoint waypoint)
         {
             bool isNameValid = TripValidation.ValidateName(waypoint.WaypointName);
@@ -102,10 +127,14 @@ namespace TheTripMasterWeb.Controllers
             return waypoint;
         }
 
+        /*
+         * Creates a waypoint and returns a WaypointDetails view
+         *
+         * Returns: A WaypointDetails.
+         */
         [HttpGet]
         public IActionResult WaypointDetails(int waypointId, string name, DateTime start, DateTime end)
         {
-            Debug.WriteLine(waypointId);
             Waypoint waypoint = new Waypoint { WaypointId = waypointId, 
                                                TripId = SelectedTrip.Trip.TripId, 
                                                TripName = SelectedTrip.Trip.Name, 
@@ -121,6 +150,12 @@ namespace TheTripMasterWeb.Controllers
             return RedirectToAction("RemoveWaypoint", new {waypointId = waypointId});
         }
 
+        /*
+         * Checks if the specified timeframe overlaps any of the trip's existing waypoints.
+         *
+         * Returns: false, if overlap,
+         *          true otherwise.
+         */
         private bool IsTimeframeAvailable(int tripId, DateTime startDateTime, DateTime endDateTime)
         {
             IEnumerable<Waypoint> waypoints = WaypointDataLayer.GetTripWaypoints(tripId);
@@ -136,14 +171,23 @@ namespace TheTripMasterWeb.Controllers
             return true;
         }
 
+        /*
+         * Uses the datalayer to retrieve waypoint data and returns a View..
+         *
+         * Returns: A RemoveWaypoint view using the waypoint as a model.
+         */
         [HttpGet]
         public IActionResult RemoveWaypoint(int waypointId)
         {
-            Debug.WriteLine(waypointId);
             Waypoint waypoint = WaypointDataLayer.GetWaypoint(waypointId);
             return View(waypoint);
         }
 
+        /*
+         * Uses the datalayer to delete the specified waypoint from the database.
+         *
+         * Returns: Redirect to TripDetails page using the SelectedTrip as a model.
+         */
         [HttpPost]
         public IActionResult RemoveWaypoint(Waypoint waypoint)
         {
