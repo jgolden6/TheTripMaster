@@ -21,6 +21,9 @@ namespace TheTripMasterDesktop.View
             InitializeComponent();
         }
 
+        /**
+         * Updates the selected trip if the data is valid and navigates to the Overview page.
+         */
         private void updateButton_Click(object sender, EventArgs e)
         {
             if (ValidateData())
@@ -30,11 +33,17 @@ namespace TheTripMasterDesktop.View
             }
         }
 
+        /**
+         * Navigates to the Add Waypoint page.
+         */
         private void addWaypointButton_Click(object sender, EventArgs e)
         {
             AddWaypointButtonClick?.Invoke();
         }
 
+        /**
+         * Navigates to the Overview page.
+         */
         private void cancelButton_Click(object sender, EventArgs e)
         {
             CancelButtonClick?.Invoke();

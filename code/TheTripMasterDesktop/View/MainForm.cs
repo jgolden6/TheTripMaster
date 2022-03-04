@@ -20,98 +20,68 @@ namespace TheTripMasterDesktop
         Overview overviewPage = new Overview();
         AddTrip addTripPage = new AddTrip();
         TripDetails tripDetailsPage = new TripDetails();
+        AddWaypoint addWaypointPage = new AddWaypoint();
 
         public MainForm()
         {
             InitializeComponent();
             this.mainPanel.Controls.Add(this.loginPage);
 
-            this.loginPage.LoginButtonClick += Login_LoginButton;
-            this.loginPage.RegisterButtonClick += Login_RegisterButton;
+            this.loginPage.LoginButtonClick += OpenOverviewPage;
+            this.loginPage.RegisterButtonClick += OpenRegisterPage;
 
-            this.registerPage.RegisterButtonClick += Register_RegisterButton;
-            this.registerPage.CancelButtonClick += Register_CancelButton;
+            this.registerPage.RegisterButtonClick += OpenLoginPage;
+            this.registerPage.CancelButtonClick += OpenLoginPage;
 
-            this.overviewPage.AddTripButtonClick += Overview_AddTripButton;
-            this.overviewPage.AccountButtonClick += Overview_AccountButton;
-            this.overviewPage.LogoutButtonClick += Overview_LogoutButton;
+            this.overviewPage.AddTripButtonClick += OpenAddTripPage;
+            this.overviewPage.LogoutButtonClick += OpenLoginPage;
+            this.overviewPage.DataCellClick += OpenTripDetailsPage;
 
-            this.addTripPage.ConfirmButtonClick += AddTrip_ConfirmButton;
-            this.addTripPage.CancelButtonClick += AddTrip_CancelButton;
+            this.addTripPage.ConfirmButtonClick += OpenOverviewPage;
+            this.addTripPage.CancelButtonClick += OpenOverviewPage;
 
-            this.tripDetailsPage.UpdateButtonClick += TripDetails_UpdateButton;
-            this.tripDetailsPage.AddWaypointButtonClick += TripDetails_AddWaypointButton;
-            this.tripDetailsPage.CancelButtonClick += TripDetails_CancelButton;
+            this.tripDetailsPage.UpdateButtonClick += OpenOverviewPage;
+            this.tripDetailsPage.AddWaypointButtonClick += OpenAddWaypointPage;
+            this.tripDetailsPage.CancelButtonClick += OpenOverviewPage;
+
+            this.addWaypointPage.ConfirmButtonClick += OpenTripDetailsPage;
+            this.addWaypointPage.CancelButtonClick += OpenTripDetailsPage;
         }
 
-        private void Login_LoginButton()
+        private void OpenLoginPage()
         {
             this.mainPanel.Controls.Clear();
-            this.mainPanel.Controls.Add(this.overviewPage);
+            this.mainPanel.Controls.Add(this.loginPage);
         }
 
-        private void Login_RegisterButton()
+        private void OpenRegisterPage()
         {
             this.mainPanel.Controls.Clear();
             this.mainPanel.Controls.Add(this.registerPage);
         }
 
-        private void Register_RegisterButton()
+        private void OpenOverviewPage()
         {
             this.mainPanel.Controls.Clear();
-            this.mainPanel.Controls.Add(this.loginPage);
+            this.mainPanel.Controls.Add(this.overviewPage);
         }
 
-        private void Register_CancelButton()
-        {
-            this.mainPanel.Controls.Clear();
-            this.mainPanel.Controls.Add(this.loginPage);
-        }
-
-        private void Overview_AddTripButton()
+        private void OpenAddTripPage()
         {
             this.mainPanel.Controls.Clear();
             this.mainPanel.Controls.Add(this.addTripPage);
         }
 
-        private void Overview_AccountButton()
-        {
-
-        }
-
-        private void Overview_LogoutButton()
+        private void OpenTripDetailsPage()
         {
             this.mainPanel.Controls.Clear();
-            this.mainPanel.Controls.Add(this.loginPage);
+            this.mainPanel.Controls.Add(this.tripDetailsPage);
         }
 
-        private void AddTrip_ConfirmButton()
+        private void OpenAddWaypointPage()
         {
             this.mainPanel.Controls.Clear();
-            this.mainPanel.Controls.Add(this.overviewPage);
-        }
-
-        private void AddTrip_CancelButton()
-        {
-            this.mainPanel.Controls.Clear();
-            this.mainPanel.Controls.Add(this.overviewPage);
-        }
-
-        private void TripDetails_UpdateButton()
-        {
-            this.mainPanel.Controls.Clear();
-            this.mainPanel.Controls.Add(this.overviewPage);
-        }
-
-        private void TripDetails_AddWaypointButton()
-        {
-
-        }
-
-        private void TripDetails_CancelButton()
-        {
-            this.mainPanel.Controls.Clear();
-            this.mainPanel.Controls.Add(this.overviewPage);
+            this.mainPanel.Controls.Add(this.addWaypointPage);
         }
     }
 }

@@ -34,20 +34,25 @@ namespace TheTripMasterDesktop
             // 
             // mainPanel
             // 
+            this.mainPanel.AutoSize = true;
+            this.mainPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.mainPanel.Location = new System.Drawing.Point(12, 12);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(517, 407);
+            this.mainPanel.Size = new System.Drawing.Size(0, 0);
             this.mainPanel.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(541, 431);
             this.Controls.Add(this.mainPanel);
             this.Name = "MainForm";
             this.Text = "The Trip Master";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
