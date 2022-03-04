@@ -16,7 +16,7 @@ namespace TheTripMasterLibrary.Model
         public static bool ValidateEmail(string email)
         {
             email ??= "";
-            return Regex.Match(email, "^[\\w]+@[\\w]+.[\\w.]+$").Success && email.Length <= 64;
+            return Regex.Match(email, "^[\\w]+@[\\w]+.[\\w.]+$").Success;
         }
 
         public static bool ValidateUsername(string username)

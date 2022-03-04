@@ -11,6 +11,9 @@ namespace TheTripMasterLibrary.DataLayer
         private const string ConnString =
             "Data Source=(localdb)\\ProjectsV13;Initial Catalog=TheTripMasterDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
+        /**
+         * Private constructor for a local User object.
+         */
         class DbUser : User
         {
             public DbUser(int id, string username, string password, string firstName, string lastName, string email)
@@ -24,6 +27,11 @@ namespace TheTripMasterLibrary.DataLayer
             }
         }
 
+        /**
+         * Verifies the given credentials, checks the username and password against the database.
+         *
+         * Return: The verified user, if the credentials are correct.
+         */
         public static User Authenticate(string username, string password)
         {
             User authenticatedUser = null;
@@ -60,6 +68,9 @@ namespace TheTripMasterLibrary.DataLayer
             return authenticatedUser;
         }
 
+        /**
+         * Takes a user objects and inserts the First Name, Last Name, Email, Username, and Password into the User table.
+         */
         public static void AddUser(User user)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
