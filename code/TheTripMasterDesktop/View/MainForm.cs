@@ -19,6 +19,7 @@ namespace TheTripMasterDesktop
         Register registerPage = new Register();
         Overview overviewPage = new Overview();
         AddTrip addTripPage = new AddTrip();
+        TripDetails tripDetailsPage = new TripDetails();
 
         public MainForm()
         {
@@ -37,6 +38,10 @@ namespace TheTripMasterDesktop
 
             this.addTripPage.ConfirmButtonClick += AddTrip_ConfirmButton;
             this.addTripPage.CancelButtonClick += AddTrip_CancelButton;
+
+            this.tripDetailsPage.UpdateButtonClick += TripDetails_UpdateButton;
+            this.tripDetailsPage.AddWaypointButtonClick += TripDetails_AddWaypointButton;
+            this.tripDetailsPage.CancelButtonClick += TripDetails_CancelButton;
         }
 
         private void Login_LoginButton()
@@ -87,6 +92,23 @@ namespace TheTripMasterDesktop
         }
 
         private void AddTrip_CancelButton()
+        {
+            this.mainPanel.Controls.Clear();
+            this.mainPanel.Controls.Add(this.overviewPage);
+        }
+
+        private void TripDetails_UpdateButton()
+        {
+            this.mainPanel.Controls.Clear();
+            this.mainPanel.Controls.Add(this.overviewPage);
+        }
+
+        private void TripDetails_AddWaypointButton()
+        {
+
+        }
+
+        private void TripDetails_CancelButton()
         {
             this.mainPanel.Controls.Clear();
             this.mainPanel.Controls.Add(this.overviewPage);

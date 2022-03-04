@@ -10,45 +10,39 @@ using TheTripMasterLibrary.Model;
 
 namespace TheTripMasterDesktop.View
 {
-    public partial class AddTrip : UserControl
+    public partial class TripDetails : UserControl
     {
-        public event Action ConfirmButtonClick;
+        public event Action UpdateButtonClick;
+        public event Action AddWaypointButtonClick;
         public event Action CancelButtonClick;
 
-        public AddTrip()
+        public TripDetails()
         {
             InitializeComponent();
         }
 
-        /**
-         * Adds the Trip to the database if the Trip is valid and navigates to the Overview page.
-         */
-        private void confirmButton_Click(object sender, EventArgs e)
+        private void updateButton_Click(object sender, EventArgs e)
         {
             if (ValidateData())
             {
-                Trip trip = new Trip
-                {
-                    UserId = ActiveUser.User.UserId, Name = this.tripNameTextBox.Text,
-                    StartDate = this.startDatePicker.Value, EndDate = this.endDatePicker.Value
-                };
-
-                TripDataLayer.AddTrip(trip);
-                ConfirmButtonClick?.Invoke();
+                TripDataLayer.UpdateTrip(this.tripNameTextBox.Text, this.startDatePicker.Value, this.endDatePicker.Value);
+                UpdateButtonClick?.Invoke();
             }
         }
 
-        /**
-         * Navigates to the Overview page.
-         */
+        private void addWaypointButton_Click(object sender, EventArgs e)
+        {
+            AddWaypointButtonClick?.Invoke();
+        }
+
         private void cancelButton_Click(object sender, EventArgs e)
         {
             CancelButtonClick?.Invoke();
         }
 
         /**
-         * Validates all the information in the input fields.
-         */
+        * Validates all the information in the input fields.
+        */
         private bool ValidateData()
         {
             return (TripValidation.ValidateName(this.tripNameTextBox.Text) &&

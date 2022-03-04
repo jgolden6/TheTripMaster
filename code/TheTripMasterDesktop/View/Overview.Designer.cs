@@ -33,6 +33,7 @@ namespace TheTripMasterDesktop.View
             this.addTripButton = new System.Windows.Forms.Button();
             this.logoutButton = new System.Windows.Forms.Button();
             this.accountButton = new System.Windows.Forms.Button();
+            this.refreshButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tripDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,6 +45,7 @@ namespace TheTripMasterDesktop.View
             this.tripDataGridView.RowTemplate.Height = 25;
             this.tripDataGridView.Size = new System.Drawing.Size(426, 261);
             this.tripDataGridView.TabIndex = 0;
+            this.tripDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tripDataGridView_CellClick);
             // 
             // addTripButton
             // 
@@ -75,10 +77,21 @@ namespace TheTripMasterDesktop.View
             this.accountButton.UseVisualStyleBackColor = true;
             this.accountButton.Click += new System.EventHandler(this.accountButton_Click);
             // 
+            // refreshButton
+            // 
+            this.refreshButton.Location = new System.Drawing.Point(3, 332);
+            this.refreshButton.Name = "refreshButton";
+            this.refreshButton.Size = new System.Drawing.Size(75, 23);
+            this.refreshButton.TabIndex = 4;
+            this.refreshButton.Text = "Refresh";
+            this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.accountButton);
             this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.addTripButton);
@@ -96,5 +109,6 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Button addTripButton;
         private System.Windows.Forms.Button logoutButton;
         private System.Windows.Forms.Button accountButton;
+        private System.Windows.Forms.Button refreshButton;
     }
 }
