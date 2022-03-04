@@ -59,8 +59,8 @@ namespace TheTripMasterWeb.Controllers
         public IActionResult TripDetails(int tripId, string name, DateTime start, DateTime end)
         {
             Trip trip = new Trip {TripId = tripId, Name = name, StartDate = start, EndDate = end};
-            trip.Waypoints = TripDataLayer.GetTripWaypoints(trip.TripId);
-            SelectedTrip.trip = trip;
+            trip.Waypoints = WaypointDataLayer.GetTripWaypoints(trip.TripId);
+            SelectedTrip.Trip = trip;
             return View(model: trip);
         }
 
@@ -83,7 +83,7 @@ namespace TheTripMasterWeb.Controllers
                     ModelState.AddModelError("", "Time-frame overlaps an existing trip.");
                 }
 
-                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime, Waypoints = SelectedTrip.trip.Waypoints });
+                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime, Waypoints = SelectedTrip.Trip.Waypoints });
             }
 
             TripDataLayer.UpdateTrip(name, startDateTime, endDateTime);

@@ -28,22 +28,59 @@ namespace TheTripMasterWeb.Controllers
         [HttpPost]
         public IActionResult AddWaypoint(Waypoint model)
         {
-            Debug.WriteLine("HERE");
-            bool isNameValid = TripValidation.ValidateName(model.WaypointName);
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
-            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.trip.TripId, model.StartDate, model.EndDate);
-            
-            if (isNameValid && areDateTimesValid && isTimeframeAvailable)
+            Waypoint waypoint = AddEvent(model);
+
+            if (waypoint == null)
             {
-                TripDataLayer.AddWaypoint(model);
                 var routeData = new
                 {
-                    TripId = SelectedTrip.trip.TripId,
-                    name = SelectedTrip.trip.Name,
-                    start = SelectedTrip.trip.StartDate,
-                    end = SelectedTrip.trip.EndDate
+                    TripId = SelectedTrip.Trip.TripId,
+                    name = SelectedTrip.Trip.Name,
+                    start = SelectedTrip.Trip.StartDate,
+                    end = SelectedTrip.Trip.EndDate
                 };
                 return RedirectToAction("TripDetails", "Trip", routeData);
+            }
+
+            return View(waypoint);
+        }
+
+        public IActionResult AddTransportation(string name)
+        {
+            Waypoint transportation = new Waypoint { TripName = name };
+            return View("AddTransportation", transportation);
+        }
+
+        [HttpPost]
+        public IActionResult AddTransportation(Waypoint model)
+        {
+            Waypoint waypoint = AddEvent(model);
+
+            if (waypoint == null)
+            {
+                var routeData = new
+                {
+                    TripId = SelectedTrip.Trip.TripId,
+                    name = SelectedTrip.Trip.Name,
+                    start = SelectedTrip.Trip.StartDate,
+                    end = SelectedTrip.Trip.EndDate
+                };
+                return RedirectToAction("TripDetails", "Trip", routeData);
+            }
+
+            return View(waypoint);
+        }
+
+        private Waypoint AddEvent(Waypoint waypoint)
+        {
+            bool isNameValid = TripValidation.ValidateName(waypoint.WaypointName);
+            bool areDateTimesValid = TripValidation.ValidateDateTimes(waypoint.StartDate, waypoint.EndDate);
+            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, waypoint.StartDate, waypoint.EndDate);
+
+            if (isNameValid && areDateTimesValid && isTimeframeAvailable)
+            {
+                WaypointDataLayer.AddWaypoint(waypoint);
+                return null;
             }
 
             if (!isNameValid)
@@ -61,28 +98,20 @@ namespace TheTripMasterWeb.Controllers
                 ModelState.AddModelError("", "Time-frame overlaps an existing event.");
             }
 
-            model.TripName = SelectedTrip.trip.Name;
-            return View(model);
-        }
-
-        public IActionResult AddTransportation(string name)
-        {
-            Waypoint transportation = new Waypoint { TripName = name };
-            return View("AddTransportation", transportation);
+            waypoint.TripName = SelectedTrip.Trip.Name;
+            return waypoint;
         }
 
         private bool IsTimeframeAvailable(int tripId, DateTime startDateTime, DateTime endDateTime)
         {
-            IEnumerable<Waypoint> waypoints = TripDataLayer.GetTripWaypoints(tripId);
+            IEnumerable<Waypoint> waypoints = WaypointDataLayer.GetTripWaypoints(tripId);
 
             foreach (Waypoint waypoint in waypoints)
             {
-                
                 if (waypoint.StartDate < endDateTime && startDateTime < waypoint.EndDate)
                 {
                     return false;
                 }
-                
             }
 
             return true;

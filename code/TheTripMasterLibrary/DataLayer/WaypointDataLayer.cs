@@ -12,8 +12,6 @@ namespace TheTripMasterLibrary.DataLayer
 
         public static void AddWaypoint(Waypoint waypoint)
         {
-            int userId = ActiveUser.User.UserId;
-
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
@@ -29,6 +27,44 @@ namespace TheTripMasterLibrary.DataLayer
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
+        }
+
+        public static List<Waypoint> GetTripWaypoints(int tripId)
+        {
+            string queryString =
+                "SELECT * FROM TheTripMasterDatabase.dbo.[Waypoint] WHERE tripId = @tripId";
+
+
+            List<Waypoint> waypoints = new List<Waypoint>();
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = new SqlCommand(queryString, conn);
+
+                cmd.Parameters.AddWithValue("@tripId", tripId);
+
+                conn.Open();
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                try
+                {
+                    while (reader.Read())
+                    {
+                        Waypoint waypoint = new Waypoint
+                        {
+                            WaypointName = reader["waypointName"].ToString(),
+                            StartDate = (DateTime)reader["startDate"],
+                            EndDate = (DateTime)reader["endDate"]
+                        };
+                        waypoints.Add(waypoint);
+                    }
+                }
+                finally
+                {
+                    reader.Close();
+                }
+            }
+            return waypoints;
         }
     }
 }
