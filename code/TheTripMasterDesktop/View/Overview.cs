@@ -14,7 +14,6 @@ namespace TheTripMasterDesktop.View
     public partial class Overview : UserControl
     {
         public event Action AddTripButtonClick;
-        public event Action AccountButtonClick;
         public event Action LogoutButtonClick;
         public event Action DataCellClick;
 
@@ -29,14 +28,6 @@ namespace TheTripMasterDesktop.View
         private void addTripButton_Click(object sender, EventArgs e)
         {
             AddTripButtonClick?.Invoke();
-        }
-
-        /**
-         * Navigates to the Account page.
-         */
-        private void accountButton_Click(object sender, EventArgs e)
-        {
-            AccountButtonClick?.Invoke();
         }
 
         /**
