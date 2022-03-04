@@ -3,32 +3,32 @@
     ViewData["Title"] = "Trip Details";
 }
 
-<h2>Trip Details</h2>
+<h2 style="padding-bottom: 40px">Trip Details</h2>
 
 <div class="row">
-    <div class="col">
+    <div class="col-sm-3">
         @using (Html.BeginForm("TripDetails", "Trip", FormMethod.Post))
         {
 
-            <div class="form-group row">
-                <div class="col-2"><label>Name:</label></div>
-                <div class="col-2"><input readonly="readonly" value="@Model.Name " id="name" type="text" name="name" asp-for="Name" /></div>
+            <div class="form-group row" style="padding-bottom: 20px">
+                <div class="col-sm-6"><label>Name:</label></div>
+                <div class="col-sm-6"><input readonly="readonly" value="@Model.Name " id="name" type="text" name="name" asp-for="Name" /></div>
             </div>
 
             <br />
 
-            <div class="form-group row">
-                <div class="col-2">
+            <div class="form-group row" style="padding-bottom: 20px">
+                <div class="col-sm-6">
                     @Html.Label("Start Date:")
                 </div>
-                <div class="col-2"><input id="startDateTime" name="startDateTime" type="datetime-local" asp-for="StartDate" /></div>
+                <div class="col-sm-6"><input id="startDateTime" name="startDateTime" type="datetime-local" asp-for="StartDate" /></div>
             </div>
 
-            <div class="form-group row">
-                <div class="col-2">
+            <div class="form-group row" style="padding-bottom: 20px">
+                <div class="col-sm-6">
                     @Html.Label("End Date:")
                 </div>
-                <div class="col-2"><input id="endDateTime" name="endDateTime" type="datetime-local" asp-for="EndDate" /></div>
+                <div class="col-sm-6"><input id="endDateTime" name="endDateTime" type="datetime-local" asp-for="EndDate" /></div>
             </div>
 
             <input id="editTrip" type="submit" value="Edit" />
@@ -36,30 +36,46 @@
         }
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
-    <div class="col">
-        <h3>Waypoints</h3>
-        <table class="table table-bordered table-striped table-sm">
-            <thead class="thead-dark">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-7">
+        <div class="row">
+            <h3>Waypoints</h3>
+            <table class="table table-bordered table-striped table-sm">
+                <thead class="thead-dark">
                 <tr>
                     <th>Name</th>
                     <th>Start Date</th>
                     <th>End Date</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 @foreach (Waypoint waypoint in Model.Waypoints)
                 {
+                    <input type="hidden" asp-for="@waypoint.WaypointId"/>
                     <tr>
                         <td>
-                            <a asp-action="" asp-controller="Waypoint" id=@waypoint.WaypointName>@waypoint.WaypointName</a>
+                            <a asp-action="WaypointDetails" asp-controller="Waypoint"
+                               asp-route-waypointId="@waypoint.WaypointId"
+                               asp-route-name="@waypoint.WaypointName"
+                               asp-route-start="@waypoint.StartDate"
+                               asp-route-end="@waypoint.EndDate">@waypoint.WaypointName</a>
                         </td>
                         <td>@waypoint.StartDate</td>
                         <td>@waypoint.EndDate</td>
                     </tr>
                 }
-            </tbody>
-        </table>
-        <a asp-action="AddWaypoint" asp-controller="Waypoint" asp-route-name="@Model.Name">Add Waypoint</a>
-        <a asp-action="AddTransportation" asp-controller="Waypoint" asp-route-name="@Model.Name">Add Transportation</a>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a style="outline: slategrey" asp-action="AddWaypoint" asp-controller="Waypoint" asp-route-name="@Model.Name">Add Waypoint</a>
+            </div>
+            <div class="col-6">
+                <a style="alignment: right" class="input-group" asp-action="AddTransportation" asp-controller="Waypoint" asp-route-name="@Model.Name">Add Transportation</a>
+            </div>
+        </div>
+        
+        
     </div>
 </div>
