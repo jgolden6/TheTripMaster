@@ -36,7 +36,7 @@
 
 
         <input id="addWaypoint" asp-route-name="@Model.TripName" type="submit" value="Add" />
-        <a asp-action="Homepage" asp-controller="Home">Cancel</a>
+        <a asp-action="SelectedTripDetails" asp-controller="Trip">Cancel</a>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     }
 </div>

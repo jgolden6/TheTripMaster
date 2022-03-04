@@ -105,8 +105,13 @@ namespace TheTripMasterWeb.Controllers
                     }
                 }
             }
-
             return true;
+        }
+
+        public IActionResult SelectedTripDetails()
+        {
+            Trip trip = SelectedTrip.Trip;
+            return View("TripDetails", model: trip);
         }
     }
 }
