@@ -1,0 +1,10 @@
+Add Lodging:
+
+1. From the Trip Details page, the user selects the Add Lodging button.
+2. The Add Lodging page is opened, displaying fields for address information.
+3. The user selects confirm to add the lodging.
+4. The lodging is created. The user is returned to the trip details page.
+	where the page now displays the trip's lodging.	
+
+4a. Invalid info (Missing fields)
+	- The lodging is not created and an error message appears.

@@ -74,6 +74,8 @@ namespace TheTripMasterWeb.Controllers
         {
             Trip trip = new Trip {TripId = tripId, Name = name, StartDate = start, EndDate = end};
             trip.Waypoints = WaypointDataLayer.GetTripWaypoints(trip.TripId);
+            trip.Waypoints = trip.Waypoints.OrderBy(p => p.StartDate);
+            trip.Lodgings = LodgingDataLayer.GetTripLodgings(trip.TripId);
             SelectedTrip.Trip = trip;
             return View(model: trip);
         }

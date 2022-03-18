@@ -123,7 +123,6 @@ namespace TheTripMasterLibrary.DataLayer
          */
         public static void DeleteWaypoint(int waypointId)
         {
-            Debug.WriteLine(waypointId);
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
