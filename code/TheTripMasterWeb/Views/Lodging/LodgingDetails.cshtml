@@ -1,0 +1,65 @@
+﻿@model Lodging
+@{
+    ViewData["Title"] = "Lodging Details";
+}
+
+<h2>Lodging Details</h2>
+
+<div class="row">
+    <div class="col">
+        @using (Html.BeginForm("LodgingDetails", "Lodging", FormMethod.Post))
+        {
+
+            <div style="padding-bottom: 40px" class="form-group row">
+                <div class="col-2"><label>Trip Name:</label></div>
+                <div class="col-4"><input class="form-control" readonly="readonly" id="tripName" type="text" name="tripName" asp-for="TripName" /></div>
+            </div>
+
+            <div style="padding-bottom: 20px" class="form-group row">
+                <div class="col-2"><label>Street Address:</label></div>
+                <div class="col-4"><input readonly="readonly" id="streetAddress" type="text" name="streetAddress" asp-for="StreetAddress" /></div>
+            </div>
+
+            <div style="padding-bottom: 20px" class="form-group row">
+                <div class="col-2"><label>City:</label></div>
+                <div class="col-4"><input readonly="readonly" id="city" type="text" name="city" asp-for="City" /></div>
+            </div>
+
+            <div style="padding-bottom: 20px" class="form-group row">
+                <div class="col-2"><label>State/Province:</label></div>
+                <div class="col-4"><input readonly="readonly" id="state" type="text" name="state" asp-for="State" /></div>
+            </div>
+
+            <div style="padding-bottom: 20px" class="form-group row">
+                <div class="col-2"><label>Zip Code:</label></div>
+                <div class="col-4"><input readonly="readonly" id="zipCode" type="text" name="zipCode" asp-for="ZipCode" /></div>
+            </div>
+
+            <div style="padding-bottom: 20px" class="form-group row">
+                <div class="col-2"><label>Description:</label></div>
+                <div class="col-4">
+                    @Html.TextAreaFor(model => model.Description, new { @rows=4, cols=60, value=@Model.Description })
+                </div>
+            </div>
+
+            <div style="padding-bottom: 20px" class="form-group row">
+                <div class="col-2">
+                    @Html.Label("Start Date:")
+                </div>
+                <div class="col-4"><input readonly="readonly" id="startDate" name="startDate" type="datetime-local" asp-for="StartDate" /></div>
+            </div>
+
+            <div style="padding-bottom: 20px" class="form-group row">
+                <div class="col-2">
+                    @Html.Label("End Date:")
+                </div>
+                <div class="col-4"><input readonly="readonly" id="endDate" name="endDate" type="datetime-local" asp-for="EndDate" /></div>
+            </div>
+
+
+            <input id="delete" asp-route-lodgingId="@Model.LodgingId" type="submit" value="Remove Lodging" />
+            <a asp-action="SelectedTripDetails" asp-controller="Trip">Cancel</a>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        }
+    </div>
+</div>

@@ -18,5 +18,7 @@ namespace TheTripMasterLibrary.Model
         public DateTime EndDate { get; set; }
 
         public IEnumerable<Waypoint> Waypoints { get; set; }
+
+        public IEnumerable<Lodging> Lodgings { get; set; }
     }
 }

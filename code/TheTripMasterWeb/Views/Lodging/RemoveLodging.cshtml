@@ -1,0 +1,33 @@
+﻿@model Lodging
+@{
+    ViewBag.Title = "Remove Lodging";
+}
+
+<h2>Confirm Removal</h2>
+
+<h3 style="padding-top: 40px">Lodging: 
+            @Model.StreetAddress (@Model.StartDate - @Model.EndDate)</h3>
+
+<form style="padding-top: 30px" asp-action="RemoveLodging" method="post">
+    <input type="hidden" asp-for="TripName" />
+    <input type="hidden" asp-for="LodgingId" />
+    <input type="hidden" asp-for="StreetAddress" />
+    <input type="hidden" asp-for="City" />
+    <input type="hidden" asp-for="State" />
+    <input type="hidden" asp-for="ZipCode" />
+    <input type="hidden" asp-for="Description" />
+    <input type="hidden" asp-for="StartDate" />
+    <input type="hidden" asp-for="EndDate" />
+
+    <button type="submit" class="btn btn-primary">Remove</button>
+    <a asp-controller="Lodging" asp-action="LodgingDetails"
+       asp-route-lodgingId="@Model.LodgingId"
+       asp-route-street="@Model.StreetAddress"
+       asp-route-city="@Model.City"
+       asp-route-state="@Model.State"
+       asp-route-zip="@Model.ZipCode"
+       asp-route-description="@Model.Description"
+       asp-route-start="@Model.StartDate"
+       asp-route-end="@Model.EndDate"
+       class="btn btn-primary">Cancel</a>
+</form>
