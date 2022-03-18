@@ -1,0 +1,7 @@
+Remove Lodging:
+
+1. From the Lodging Details page, the user selects the Remove Lodging button.
+2. The Remove Lodging page is opened, displaying the street address and timeframe of the lodging, as well as a confirm and cancel button.
+3. The user selects confirm to remove the lodging.
+4. The lodging is deleted and the user is returned to the Trip Details page.
+	The lodging is no longer displayed in the lodgings table.
