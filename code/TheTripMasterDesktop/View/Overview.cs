@@ -41,24 +41,6 @@ namespace TheTripMasterDesktop.View
         }
 
         /**
-         * Refreshes the list of Trips for the current user.
-         */
-        private void refreshButton_Click(object sender, EventArgs e)
-        {
-            DataTable tripTable = new DataTable();
-            tripTable.Columns.Add("Trip Name");
-            tripTable.Columns.Add("Start Date");
-            tripTable.Columns.Add("End Date");
-
-            foreach (Trip trip in TripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId))
-            {
-                tripTable.Rows.Add(new object[] {trip.Name, trip.StartDate.ToShortDateString(), trip.EndDate.ToShortDateString()});
-            }
-
-            this.tripDataGridView.DataSource = tripTable;
-        }
-
-        /**
          * Navigates to the Trip details page for the clicked Trip.
          */
         private void tripDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -70,6 +52,21 @@ namespace TheTripMasterDesktop.View
             Debug.WriteLine(SelectedTrip.Trip.TripId);
 
             DataCellClick?.Invoke();
+        }
+
+        public void LoadTripDataIntoGridView()
+        {
+            DataTable tripTable = new DataTable();
+            tripTable.Columns.Add("Trip Name");
+            tripTable.Columns.Add("Start Date");
+            tripTable.Columns.Add("End Date");
+
+            foreach (Trip trip in TripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId))
+            {
+                tripTable.Rows.Add(new object[] { trip.Name, trip.StartDate.ToShortDateString(), trip.EndDate.ToShortDateString() });
+            }
+
+            this.tripDataGridView.DataSource = tripTable;
         }
     }
 }

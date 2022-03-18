@@ -57,5 +57,27 @@ namespace TheTripMasterDesktop.View
             return (TripValidation.ValidateName(this.tripNameTextBox.Text) &&
                     TripValidation.ValidateDateTimes(this.startDatePicker.Value, this.endDatePicker.Value));
         }
+
+        public void LoadTripDataIntoInputFields()
+        {
+            this.tripNameTextBox.Text = SelectedTrip.Trip.Name;
+            this.startDatePicker.Value = SelectedTrip.Trip.StartDate;
+            this.endDatePicker.Value = SelectedTrip.Trip.EndDate;
+        }
+
+        public void LoadWaypointDataIntoGridView()
+        {
+            DataTable tripTable = new DataTable();
+            tripTable.Columns.Add("Name");
+            tripTable.Columns.Add("Start Date");
+            tripTable.Columns.Add("End Date");
+
+            foreach (Waypoint waypoint in WaypointDataLayer.GetTripWaypoints(SelectedTrip.Trip.TripId))
+            {
+                tripTable.Rows.Add(new object[] { waypoint.WaypointName, waypoint.StartDate.ToShortDateString(), waypoint.EndDate.ToShortDateString() });
+            }
+
+            this.waypointDataGridView.DataSource = tripTable;
+        }
     }
 }

@@ -64,6 +64,7 @@ namespace TheTripMasterDesktop
         {
             this.mainPanel.Controls.Clear();
             this.mainPanel.Controls.Add(this.overviewPage);
+            this.overviewPage.LoadTripDataIntoGridView();
         }
 
         private void OpenAddTripPage()
@@ -76,6 +77,8 @@ namespace TheTripMasterDesktop
         {
             this.mainPanel.Controls.Clear();
             this.mainPanel.Controls.Add(this.tripDetailsPage);
+            this.tripDetailsPage.LoadTripDataIntoInputFields();
+            this.tripDetailsPage.LoadWaypointDataIntoGridView();
         }
 
         private void OpenAddWaypointPage()

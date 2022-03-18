@@ -32,7 +32,6 @@ namespace TheTripMasterDesktop.View
             this.tripDataGridView = new System.Windows.Forms.DataGridView();
             this.addTripButton = new System.Windows.Forms.Button();
             this.logoutButton = new System.Windows.Forms.Button();
-            this.refreshButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tripDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,26 +65,15 @@ namespace TheTripMasterDesktop.View
             this.logoutButton.UseVisualStyleBackColor = true;
             this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
             // 
-            // refreshButton
-            // 
-            this.refreshButton.Location = new System.Drawing.Point(3, 332);
-            this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(75, 23);
-            this.refreshButton.TabIndex = 4;
-            this.refreshButton.Text = "Refresh";
-            this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
-            // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.addTripButton);
             this.Controls.Add(this.tripDataGridView);
             this.Name = "Overview";
-            this.Size = new System.Drawing.Size(432, 367);
+            this.Size = new System.Drawing.Size(432, 334);
             ((System.ComponentModel.ISupportInitialize)(this.tripDataGridView)).EndInit();
             this.ResumeLayout(false);
 
@@ -96,6 +84,5 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.DataGridView tripDataGridView;
         private System.Windows.Forms.Button addTripButton;
         private System.Windows.Forms.Button logoutButton;
-        private System.Windows.Forms.Button refreshButton;
     }
 }
