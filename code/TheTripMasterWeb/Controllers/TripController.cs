@@ -66,15 +66,18 @@ namespace TheTripMasterWeb.Controllers
         }
 
         /*
-         * Creates a Trip using th specified data and retrieves it's waypoints from the datalayer.
+         * Creates a Trip using the specified data and retrieves it's waypoints from the datalayer.
          *
          * Returns: A TripDetails view with the trip as a model.
          */
         public IActionResult TripDetails(int tripId, string name, DateTime start, DateTime end)
         {
             Trip trip = new Trip {TripId = tripId, Name = name, StartDate = start, EndDate = end};
-            trip.Waypoints = WaypointDataLayer.GetTripWaypoints(trip.TripId);
-            trip.Waypoints = trip.Waypoints.OrderBy(p => p.StartDate);
+            trip.Events = WaypointDataLayer.GetTripWaypoints(trip.TripId);
+            List<Event> events = trip.Events.ToList();
+            events.AddRange(TransportationDataLayer.GetTripTransportations(tripId));
+            trip.Events = events.AsEnumerable();
+            trip.Events = trip.Events.OrderBy(p => p.StartDate);
             trip.Lodgings = LodgingDataLayer.GetTripLodgings(trip.TripId);
             SelectedTrip.Trip = trip;
             return View(model: trip);
@@ -105,7 +108,7 @@ namespace TheTripMasterWeb.Controllers
                     ModelState.AddModelError("", "Time-frame overlaps an existing trip.");
                 }
 
-                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime, Waypoints = SelectedTrip.Trip.Waypoints });
+                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime, Events = SelectedTrip.Trip.Events });
             }
 
             TripDataLayer.UpdateTrip(name, startDateTime, endDateTime);

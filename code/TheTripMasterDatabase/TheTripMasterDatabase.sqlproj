@@ -63,6 +63,7 @@
     <Build Include="TripAttendee.sql" />
     <Build Include="Waypoint.sql" />
     <Build Include="Lodging.sql" />
+    <Build Include="Transportation.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="TheTripMasterDatabase.refactorlog" />

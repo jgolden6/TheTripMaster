@@ -34,9 +34,9 @@ namespace TheTripMasterLibrary.DataLayer
         }
 
         /**
-         * Gets the Waypoints associated with a given trip ID.
+         * Gets the Events associated with a given trip ID.
          *
-         * Return: A list of Waypoints.
+         * Return: A list of Events.
          */
         public static List<Waypoint> GetTripWaypoints(int tripId)
         {
@@ -61,7 +61,7 @@ namespace TheTripMasterLibrary.DataLayer
                     {
                         Waypoint waypoint = new Waypoint
                         {
-                            WaypointId = (int)reader["waypointId"],
+                            Id = (int)reader["waypointId"],
                             WaypointName = reader["waypointName"].ToString(),
                             StartDate = (DateTime)reader["startDate"],
                             EndDate = (DateTime)reader["endDate"]
@@ -103,7 +103,7 @@ namespace TheTripMasterLibrary.DataLayer
                 {
                     while (reader.Read())
                     {
-                        waypoint.WaypointId = (int)reader["waypointId"];
+                        waypoint.Id = (int)reader["waypointId"];
                         waypoint.TripId = (int)reader["tripId"];
                         waypoint.WaypointName = reader["waypointName"].ToString();
                         waypoint.StartDate = (DateTime)reader["startDate"];

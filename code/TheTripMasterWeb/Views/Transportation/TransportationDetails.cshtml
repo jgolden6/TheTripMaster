@@ -1,25 +1,25 @@
-﻿@model Waypoint
+﻿@model Transportation
 @{
-    ViewData["Title"] = "Waypoint Details";
+    ViewData["Title"] = "Transportation Details";
 }
 
-<h2>Waypoint Details</h2>
+<h2>Transportation Details</h2>
 
 <div class="row">
     <div class="col">
-        @using (Html.BeginForm("WaypointDetails", "Waypoint", FormMethod.Post))
+        @using (Html.BeginForm("TransportationDetails", "Transportation", FormMethod.Post))
         {
 
             <div class="form-group row">
                 <div class="col-2"><label>Trip Name:</label></div>
-                <div class="col-2"><input  readonly="readonly" id="tripName" type="text" name="tripName" asp-for="TripName" /></div>
+                <div class="col-2"><input readonly="readonly" id="tripName" type="text" name="tripName" asp-for="TripName" /></div>
             </div>
 
             <br />
 
             <div class="form-group row">
-                <div class="col-2"><label>Waypoint Name:</label></div>
-                <div class="col-2"><input readonly="readonly" id="waypointName" type="text" name="waypointName" asp-for="WaypointName" /></div>
+                <div class="col-2"><label>Transportation Type:</label></div>
+                <div class="col-2"><input readonly="readonly" id="TransportationType" type="text" name="TransportationType" asp-for="TransportationType" /></div>
             </div>
 
             <div class="form-group row">
@@ -37,8 +37,8 @@
             </div>
 
 
-            <input id="delete" asp-route-waypointId="@Model.Id" type="submit" value="Remove Event" />
-            <a asp-action="SelectedTripDetails"  asp-controller="Trip" >Cancel</a>
+            <input id="delete" asp-route-transportationId="@Model.Id" type="submit" value="Remove Event" />
+            <a asp-action="SelectedTripDetails" asp-controller="Trip">Cancel</a>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         }
     </div>

@@ -23,7 +23,7 @@ namespace TheTripMasterTest.LibraryModel
                 Name = "Trip1",
                 StartDate = DateTime.MaxValue,
                 EndDate = DateTime.MaxValue,
-                Waypoints = new List<Waypoint>()
+                Events = new List<Waypoint>()
             };
 
             trip.TripId = 2;
@@ -31,14 +31,14 @@ namespace TheTripMasterTest.LibraryModel
             trip.Name = "trip2";
             trip.StartDate = DateTime.MinValue;
             trip.EndDate = DateTime.MinValue;
-            trip.Waypoints = waypoints;
+            trip.Events = waypoints;
 
             Assert.AreEqual(2, trip.TripId);
             Assert.AreEqual(2, trip.UserId);
             Assert.AreEqual("trip2", trip.Name);
             Assert.AreEqual(DateTime.MinValue, trip.StartDate);
             Assert.AreEqual(DateTime.MinValue, trip.EndDate);
-            Assert.AreEqual(waypoints, trip.Waypoints);
+            Assert.AreEqual(waypoints, trip.Events);
         }
     }
 }

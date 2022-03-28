@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
 using System.Text;
 
 namespace TheTripMasterLibrary.Model
 {
-    public class Waypoint : Event
+    public class Transportation : Event
     {
-        public string WaypointName { get; set; }
+        public string TransportationType { get; set; }
 
         public override string ToString()
         {
-            return this.WaypointName;
+            return this.TransportationType.ToString();
         }
     }
 }

@@ -49,20 +49,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (Waypoint waypoint in Model.Waypoints)
+                    @foreach (Event event1 in Model.Events)
                     {
-                        <input type="hidden" asp-for="@waypoint.WaypointId" />
-                        <tr>
-                            <td>
-                                <a asp-action="WaypointDetails" asp-controller="Waypoint"
-                                   asp-route-waypointId="@waypoint.WaypointId"
-                                   asp-route-name="@waypoint.WaypointName"
-                                   asp-route-start="@waypoint.StartDate"
-                                   asp-route-end="@waypoint.EndDate">@waypoint.WaypointName</a>
-                            </td>
-                            <td>@waypoint.StartDate</td>
-                            <td>@waypoint.EndDate</td>
-                        </tr>
+
+                        <input type="hidden" asp-for="@event1.Id" />
+
+                        if (event1 is Waypoint)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-action="WaypointDetails" asp-controller="Waypoint"
+                                       asp-route-waypointId="@event1.Id"
+                                       asp-route-name="@event1.ToString()"
+                                       asp-route-start="@event1.StartDate"
+                                       asp-route-end="@event1.EndDate">@event1.ToString()</a>
+                                </td>
+                                <td>@event1.StartDate</td>
+                                <td>@event1.EndDate</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-action="TransportationDetails" asp-controller="Transportation"
+                                       asp-route-transportationId="@event1.Id"
+                                       asp-route-type="@event1.ToString()"
+                                       asp-route-start="@event1.StartDate"
+                                       asp-route-end="@event1.EndDate">@event1.ToString()</a>
+                                </td>
+                                <td>@event1.StartDate</td>
+                                <td>@event1.EndDate</td>
+                            </tr>
+                        }
+
                     }
                 </tbody>
             </table>
@@ -72,7 +92,7 @@
                 <a style="outline: slategrey" asp-action="AddWaypoint" asp-controller="Waypoint" asp-route-name="@Model.Name">Add Waypoint</a>
             </div>
             <div class="col-6">
-                <a style="alignment: right" class="input-group" asp-action="AddTransportation" asp-controller="Waypoint" asp-route-name="@Model.Name">Add Transportation</a>
+                <a style="alignment: right" class="input-group" asp-action="AddTransportation" asp-controller="Transportation" asp-route-name="@Model.Name">Add Transportation</a>
             </div>
         </div>
 
