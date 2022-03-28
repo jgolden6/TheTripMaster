@@ -13,10 +13,12 @@ namespace TheTripMasterWeb.Controllers
     public class WaypointController : Controller
     {
         private readonly ILogger<WaypointController> _logger;
+        private WaypointDataLayer waypointDataLayer;
 
         public WaypointController(ILogger<WaypointController> logger)
         {
             _logger = logger;
+            this.waypointDataLayer = new WaypointDataLayer();
         }
 
         /*
@@ -45,7 +47,7 @@ namespace TheTripMasterWeb.Controllers
             if (isNameValid && areDateTimesValid && isTimeframeAvailable)
             {
                 model.TripName = SelectedTrip.Trip.Name;
-                WaypointDataLayer.AddWaypoint(model);
+                this.waypointDataLayer.AddWaypoint(model);
 
                 var routeData = new
                 {
@@ -88,7 +90,7 @@ namespace TheTripMasterWeb.Controllers
 
             if (isNameValid && areDateTimesValid && isTimeframeAvailable)
             {
-                WaypointDataLayer.AddWaypoint(waypoint);
+                this.waypointDataLayer.AddWaypoint(waypoint);
                 return null;
             }
 
@@ -142,7 +144,7 @@ namespace TheTripMasterWeb.Controllers
          */
         private bool IsTimeframeAvailable(int tripId, DateTime startDateTime, DateTime endDateTime)
         {
-            IEnumerable<Waypoint> waypoints = WaypointDataLayer.GetTripWaypoints(tripId);
+            IEnumerable<Waypoint> waypoints = this.waypointDataLayer.GetTripWaypoints(tripId);
 
             foreach (Waypoint waypoint in waypoints)
             {
@@ -163,7 +165,7 @@ namespace TheTripMasterWeb.Controllers
         [HttpGet]
         public IActionResult RemoveWaypoint(int waypointId)
         {
-            Waypoint waypoint = WaypointDataLayer.GetWaypoint(waypointId);
+            Waypoint waypoint = this.waypointDataLayer.GetWaypoint(waypointId);
             return View(waypoint);
         }
 
@@ -175,7 +177,7 @@ namespace TheTripMasterWeb.Controllers
         [HttpPost]
         public IActionResult RemoveWaypoint(Waypoint waypoint)
         {
-            WaypointDataLayer.DeleteWaypoint(waypoint.Id);
+            this.waypointDataLayer.DeleteWaypoint(waypoint.Id);
 
             var routeData = new
             {

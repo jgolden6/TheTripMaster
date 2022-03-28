@@ -14,10 +14,14 @@ namespace TheTripMasterWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private UserDataLayer userDataLayer;
+        private TripDataLayer tripDataLayer;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            this.userDataLayer = new UserDataLayer();
+            this.tripDataLayer = new TripDataLayer();
         }
 
         /*
@@ -41,7 +45,7 @@ namespace TheTripMasterWeb.Controllers
             username ??= "";
             password ??= "";
 
-            User authenticatedUser = UserDataLayer.Authenticate(username, password);
+            User authenticatedUser = this.userDataLayer.Authenticate(username, password);
 
             if (authenticatedUser == null)
             {
@@ -81,7 +85,7 @@ namespace TheTripMasterWeb.Controllers
                 }
                 else
                 {
-                    UserDataLayer.AddUser(new User { FirstName = firstName, LastName = lastName, Email = email, Username = username, Password = password});
+                    this.userDataLayer.AddUser(new User { FirstName = firstName, LastName = lastName, Email = email, Username = username, Password = password});
                     return View("Index");
                 }
             }
@@ -121,7 +125,7 @@ namespace TheTripMasterWeb.Controllers
          */
         public IActionResult Homepage()
         {
-            List<Trip> usersTrips = TripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId);
+            List<Trip> usersTrips = this.tripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId);
             return View(model:usersTrips);
         }
 

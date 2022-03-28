@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using TheTripMasterLibrary.Model;
 
 namespace TheTripMasterLibrary.DataLayer
 {
-    public class UserDataLayer
+    public class UserDataLayer : DataLayer
     {
-        private const string ConnString =
-            "Data Source=(localdb)\\ProjectsV13;Initial Catalog=TheTripMasterDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
         /**
          * Private constructor for a local User object.
          */
@@ -32,15 +31,15 @@ namespace TheTripMasterLibrary.DataLayer
          *
          * Return: The verified user, if the credentials are correct.
          */
-        public static User Authenticate(string username, string password)
+        public User Authenticate(string username, string password)
         {
             User authenticatedUser = null;
 
             string queryString =
-                "SELECT * FROM TheTripMasterDatabase.dbo.[User] WHERE username = @username AND password = @password";
+                "SELECT * FROM [User] WHERE username = @username AND password = @password";
 
 
-            using (SqlConnection conn = new SqlConnection(ConnString))
+            using (SqlConnection conn = new SqlConnection(this.ConnString))
             {
                 SqlCommand cmd = new SqlCommand(queryString, conn);
 
@@ -71,13 +70,13 @@ namespace TheTripMasterLibrary.DataLayer
         /**
          * Takes a user objects and inserts the First Name, Last Name, Email, Username, and Password into the User table.
          */
-        public static void AddUser(User user)
+        public void AddUser(User user)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText =
-                    "INSERT INTO TheTripMasterDatabase.dbo.[User] (firstName, lastName, email, username, password) " +
+                    "INSERT INTO [User] (firstName, lastName, email, username, password) " +
                     "VALUES (@firstName, @lastName, @email, @username, @password)";
 
                 cmd.Parameters.AddWithValue("@firstName", user.FirstName);
