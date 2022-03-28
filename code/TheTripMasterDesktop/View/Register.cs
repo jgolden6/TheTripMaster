@@ -25,18 +25,28 @@ namespace TheTripMasterDesktop.View
          */
         private void registerButton_Click(object sender, EventArgs e)
         {
-            if (ValidateData() && this.passwordTextBox.Text == this.passwordCheckTextBox.Text)
-            {
-                User user = new User
-                {
-                    FirstName = this.firstNameTextBox.Text, LastName = this.lastNameTextBox.Text,
-                    Email = this.emailTextBox.Text, Username = this.usernameTextBox.Text,
-                    Password = this.passwordTextBox.Text
-                };
+            this.ClearErrorMessages();
 
-                UserDataLayer.AddUser(user);
-                RegisterButtonClick?.Invoke();
+            if (!ValidateData())
+            {
+                if (this.passwordTextBox.Text != this.passwordCheckTextBox.Text)
+                {
+                    this.passwordCheckErrorLabel.Text = "Passwords don't match.";
+                }
+
+                return;
             }
+
+
+            User user = new User
+            {
+                FirstName = this.firstNameTextBox.Text, LastName = this.lastNameTextBox.Text,
+                Email = this.emailTextBox.Text, Username = this.usernameTextBox.Text,
+                Password = this.passwordTextBox.Text
+            };
+
+            UserDataLayer.AddUser(user);
+            RegisterButtonClick?.Invoke();
         }
 
         /**
@@ -44,6 +54,7 @@ namespace TheTripMasterDesktop.View
          */
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            this.ClearErrorMessages();
             CancelButtonClick?.Invoke();
         }
 
@@ -57,29 +68,44 @@ namespace TheTripMasterDesktop.View
             if (!UserValidation.ValidateName(this.firstNameTextBox.Text))
             {
                 isValid = false;
+                this.firstNameErrorLabel.Text = "First name is invalid.";
             }
 
             if (!UserValidation.ValidateName(this.lastNameTextBox.Text))
             {
                 isValid = false;
+                this.lastNameErrorLabel.Text = "Last name is invalid.";
             }
 
             if (!UserValidation.ValidateEmail(this.emailTextBox.Text))
             {
                 isValid = false;
+                this.emailErrorLabel.Text = "Email is invalid.";
             }
 
             if (!UserValidation.ValidateUsername(this.usernameTextBox.Text))
             {
                 isValid = false;
+                this.usernameErrorLabel.Text = "Username is invalid.";
             }
 
             if (!UserValidation.ValidatePassword(this.passwordTextBox.Text))
             {
                 isValid = false;
+                this.passwordErrorLabel.Text = "Password is incorrect.";
             }
 
             return isValid;
+        }
+
+        private void ClearErrorMessages()
+        {
+            this.firstNameErrorLabel.Text = "";
+            this.lastNameErrorLabel.Text = "";
+            this.emailErrorLabel.Text = "";
+            this.usernameErrorLabel.Text = "";
+            this.passwordErrorLabel.Text = "";
+            this.passwordCheckErrorLabel.Text = "";
         }
     }
 }

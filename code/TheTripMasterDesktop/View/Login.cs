@@ -25,6 +25,7 @@ namespace TheTripMasterDesktop.View
          */
         private void loginButton_Click(object sender, EventArgs e)
         {
+            this.errorMessageLabel.Text = "";
             User user = UserDataLayer.Authenticate(this.usernameTextBox.Text, this.passwordTextBox.Text);
 
             this.usernameTextBox.Clear();
@@ -34,6 +35,10 @@ namespace TheTripMasterDesktop.View
             {
                 ActiveUser.User = user;
                 LoginButtonClick?.Invoke();
+            }
+            else
+            {
+                this.errorMessageLabel.Text = "Username or password is incorrect.";
             }
         }
 

@@ -43,6 +43,12 @@ namespace TheTripMasterDesktop.View
             this.passwordCheckTextBox = new System.Windows.Forms.TextBox();
             this.registerButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.firstNameErrorLabel = new System.Windows.Forms.Label();
+            this.lastNameErrorLabel = new System.Windows.Forms.Label();
+            this.emailErrorLabel = new System.Windows.Forms.Label();
+            this.usernameErrorLabel = new System.Windows.Forms.Label();
+            this.passwordErrorLabel = new System.Windows.Forms.Label();
+            this.passwordCheckErrorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -161,10 +167,70 @@ namespace TheTripMasterDesktop.View
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // firstNameErrorLabel
+            // 
+            this.firstNameErrorLabel.AutoSize = true;
+            this.firstNameErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.firstNameErrorLabel.Location = new System.Drawing.Point(46, 57);
+            this.firstNameErrorLabel.Name = "firstNameErrorLabel";
+            this.firstNameErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.firstNameErrorLabel.TabIndex = 14;
+            // 
+            // lastNameErrorLabel
+            // 
+            this.lastNameErrorLabel.AutoSize = true;
+            this.lastNameErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.lastNameErrorLabel.Location = new System.Drawing.Point(46, 92);
+            this.lastNameErrorLabel.Name = "lastNameErrorLabel";
+            this.lastNameErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.lastNameErrorLabel.TabIndex = 15;
+            // 
+            // emailErrorLabel
+            // 
+            this.emailErrorLabel.AutoSize = true;
+            this.emailErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.emailErrorLabel.Location = new System.Drawing.Point(46, 130);
+            this.emailErrorLabel.Name = "emailErrorLabel";
+            this.emailErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.emailErrorLabel.TabIndex = 16;
+            // 
+            // usernameErrorLabel
+            // 
+            this.usernameErrorLabel.AutoSize = true;
+            this.usernameErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.usernameErrorLabel.Location = new System.Drawing.Point(46, 167);
+            this.usernameErrorLabel.Name = "usernameErrorLabel";
+            this.usernameErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.usernameErrorLabel.TabIndex = 17;
+            // 
+            // passwordErrorLabel
+            // 
+            this.passwordErrorLabel.AutoSize = true;
+            this.passwordErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.passwordErrorLabel.Location = new System.Drawing.Point(46, 201);
+            this.passwordErrorLabel.Name = "passwordErrorLabel";
+            this.passwordErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.passwordErrorLabel.TabIndex = 18;
+            // 
+            // passwordCheckErrorLabel
+            // 
+            this.passwordCheckErrorLabel.AutoSize = true;
+            this.passwordCheckErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.passwordCheckErrorLabel.Location = new System.Drawing.Point(46, 236);
+            this.passwordCheckErrorLabel.Name = "passwordCheckErrorLabel";
+            this.passwordCheckErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.passwordCheckErrorLabel.TabIndex = 19;
+            // 
             // Register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.passwordCheckErrorLabel);
+            this.Controls.Add(this.passwordErrorLabel);
+            this.Controls.Add(this.usernameErrorLabel);
+            this.Controls.Add(this.emailErrorLabel);
+            this.Controls.Add(this.lastNameErrorLabel);
+            this.Controls.Add(this.firstNameErrorLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.registerButton);
             this.Controls.Add(this.passwordCheckTextBox);
@@ -202,5 +268,11 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.TextBox passwordCheckTextBox;
         private System.Windows.Forms.Button registerButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Label firstNameErrorLabel;
+        private System.Windows.Forms.Label lastNameErrorLabel;
+        private System.Windows.Forms.Label emailErrorLabel;
+        private System.Windows.Forms.Label usernameErrorLabel;
+        private System.Windows.Forms.Label passwordErrorLabel;
+        private System.Windows.Forms.Label passwordCheckErrorLabel;
     }
 }

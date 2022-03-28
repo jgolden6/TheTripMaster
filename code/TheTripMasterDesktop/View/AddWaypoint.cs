@@ -25,17 +25,18 @@ namespace TheTripMasterDesktop.View
          */
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            if (ValidateData())
-            {
-                Waypoint waypoint = new Waypoint
-                {
-                    WaypointName = this.waypointNameTextBox.Text, StartDate = this.startDatePicker.Value,
-                    EndDate = this.endDatePicker.Value
-                };
+            this.ClearErrorMessages();
 
-                WaypointDataLayer.AddWaypoint(waypoint);
-                ConfirmButtonClick?.Invoke();
-            }
+            if (!ValidateData()) return;
+
+            Waypoint waypoint = new Waypoint
+            {
+                WaypointName = this.waypointNameTextBox.Text, StartDate = this.startDatePicker.Value,
+                EndDate = this.endDatePicker.Value
+            };
+
+            WaypointDataLayer.AddWaypoint(waypoint);
+            ConfirmButtonClick?.Invoke();
         }
 
         /**
@@ -51,8 +52,29 @@ namespace TheTripMasterDesktop.View
          */
         private bool ValidateData()
         {
-            return (TripValidation.ValidateName(this.waypointNameTextBox.Text) &&
-                    TripValidation.ValidateDateTimes(this.startDatePicker.Value, this.endDatePicker.Value));
+
+            bool isValid = true;
+
+            if (!TripValidation.ValidateName(this.waypointNameTextBox.Text))
+            {
+                isValid = false;
+                this.nameErrorLabel.Text = "Invalid waypoint name.";
+            }
+
+            if (!TripValidation.ValidateDateTimes(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay,
+                this.endDatePicker.Value.Date + this.endTimePicker.Value.TimeOfDay))
+            {
+                isValid = false;
+                this.dateTimeErrorLabel.Text = "Dates are overlapping.";
+            }
+
+            return isValid;
+        }
+
+        private void ClearErrorMessages()
+        {
+            this.nameErrorLabel.Text = "";
+            this.dateTimeErrorLabel.Text = "";
         }
     }
 }

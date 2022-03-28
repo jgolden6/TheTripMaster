@@ -25,17 +25,19 @@ namespace TheTripMasterDesktop.View
          */
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            if (ValidateData())
-            {
-                Trip trip = new Trip
-                {
-                    UserId = ActiveUser.User.UserId, Name = this.tripNameTextBox.Text,
-                    StartDate = this.startDatePicker.Value, EndDate = this.endDatePicker.Value
-                };
+            this.ClearErrorMessages();
 
-                TripDataLayer.AddTrip(trip);
-                ConfirmButtonClick?.Invoke();
-            }
+            if (!ValidateData()) return;
+
+            Trip trip = new Trip
+            {
+                UserId = ActiveUser.User.UserId, Name = this.tripNameTextBox.Text,
+                StartDate = this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay,
+                EndDate = this.endDatePicker.Value.Date + this.endTimePicker.Value.TimeOfDay
+            };
+
+            TripDataLayer.AddTrip(trip);
+            ConfirmButtonClick?.Invoke();
         }
 
         /**
@@ -43,6 +45,7 @@ namespace TheTripMasterDesktop.View
          */
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            this.ClearErrorMessages();
             CancelButtonClick?.Invoke();
         }
 
@@ -51,8 +54,28 @@ namespace TheTripMasterDesktop.View
          */
         private bool ValidateData()
         {
-            return (TripValidation.ValidateName(this.tripNameTextBox.Text) &&
-                    TripValidation.ValidateDateTimes(this.startDatePicker.Value, this.endDatePicker.Value));
+            bool isValid = true;
+
+            if (!TripValidation.ValidateName(this.tripNameTextBox.Text))
+            {
+                isValid = false;
+                this.tripNameErrorLabel.Text = "Invalid trip name.";
+            }
+            
+            if (!TripValidation.ValidateDateTimes(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay, 
+                this.endDatePicker.Value.Date + this.endTimePicker.Value.TimeOfDay))
+            {
+                isValid = false;
+                this.dateTimeErrorLabel.Text = "Dates are overlapping.";
+            }
+
+            return isValid;
+        }
+
+        private void ClearErrorMessages()
+        {
+            this.tripNameErrorLabel.Text = "";
+            this.dateTimeErrorLabel.Text = "";
         }
     }
 }

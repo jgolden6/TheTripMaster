@@ -78,6 +78,8 @@ namespace TheTripMasterDesktop.View
             // 
             // startDatePicker
             // 
+            this.startDatePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+            this.startDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.startDatePicker.Location = new System.Drawing.Point(88, 63);
             this.startDatePicker.Name = "startDatePicker";
             this.startDatePicker.Size = new System.Drawing.Size(200, 23);
@@ -85,6 +87,8 @@ namespace TheTripMasterDesktop.View
             // 
             // endDatePicker
             // 
+            this.endDatePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+            this.endDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.endDatePicker.Location = new System.Drawing.Point(88, 104);
             this.endDatePicker.Name = "endDatePicker";
             this.endDatePicker.Size = new System.Drawing.Size(200, 23);
