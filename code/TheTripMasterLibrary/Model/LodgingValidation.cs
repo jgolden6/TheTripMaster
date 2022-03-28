@@ -16,7 +16,7 @@ namespace TheTripMasterLibrary.Model
         {
             zip ??= "";
             int n;
-            return zip.Length > 0 && zip.Length <= 5 && int.TryParse("123", out n);
+            return zip.Length > 0 && zip.Length <= 5 && int.TryParse(zip, out n);
         }
 
         public static bool ValidateDescription(string description)

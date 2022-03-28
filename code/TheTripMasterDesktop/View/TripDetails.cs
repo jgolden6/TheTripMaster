@@ -22,6 +22,7 @@ namespace TheTripMasterDesktop.View
         public event Action CancelButtonClick;
         public event Action WaypointDataCellClick;
         public event Action TransportDataCellClick;
+        public event Action LodgingDataCellClick;
 
         public TripDetails()
         {
@@ -136,7 +137,12 @@ namespace TheTripMasterDesktop.View
 
         private void lodgingDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            Lodging lodging =
+                this.lodgingDataLayer.GetLodging(int.Parse(this.lodgingDataGridView.CurrentRow.Cells[0].Value.ToString()));
 
+            SelectedLodging.Lodging = lodging;
+
+            LodgingDataCellClick?.Invoke();
         }
     }
 }

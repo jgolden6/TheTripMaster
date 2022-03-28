@@ -25,6 +25,7 @@ namespace TheTripMasterDesktop
         WaypointDetails waypointDetailsPage = new WaypointDetails();
         TransportDetails transportDetailsPage = new TransportDetails();
         AddLodging addLodgingPage = new AddLodging();
+        LodgingDetails lodgingDetailsPage = new LodgingDetails();
 
         public MainForm()
         {
@@ -50,6 +51,7 @@ namespace TheTripMasterDesktop
             this.tripDetailsPage.CancelButtonClick += OpenOverviewPage;
             this.tripDetailsPage.WaypointDataCellClick += OpenWaypointDetailsPage;
             this.tripDetailsPage.TransportDataCellClick += OpenTransportDetailsPage;
+            this.tripDetailsPage.LodgingDataCellClick += OpenLodgingDetailsPage;
 
             this.addWaypointPage.ConfirmButtonClick += OpenTripDetailsPage;
             this.addWaypointPage.CancelButtonClick += OpenTripDetailsPage;
@@ -65,6 +67,9 @@ namespace TheTripMasterDesktop
 
             this.addLodgingPage.ConfirmButtonClick += OpenTripDetailsPage;
             this.addLodgingPage.CancelButtonClick += OpenTripDetailsPage;
+
+            this.lodgingDetailsPage.DeleteButtonClick += OpenTripDetailsPage;
+            this.lodgingDetailsPage.CancelButtonClick += OpenTripDetailsPage;
         }
 
         private void OpenLoginPage()
@@ -131,6 +136,13 @@ namespace TheTripMasterDesktop
         {
             this.mainPanel.Controls.Clear();
             this.mainPanel.Controls.Add(this.addLodgingPage);
+        }
+
+        private void OpenLodgingDetailsPage()
+        {
+            this.mainPanel.Controls.Clear();
+            this.mainPanel.Controls.Add(this.lodgingDetailsPage);
+            this.lodgingDetailsPage.LoadLodgingDataIntoInputFields();
         }
     }
 }
