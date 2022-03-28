@@ -4,5 +4,10 @@ Edit Trip Details:
 2. The user selects the Edit button to confirm the change.
 3. The Trip is edited and the user is returned to the Home page where the trip's new information is now displayed.
 
-3a. Invalid Info (Duplicate name, overlapping times, end date before start date)
+
+2a. The user selects cancel to abort the Add.
+	- The user is returned to the Trip Details page. No lodging is added.
+
+
+3b. Invalid Info (Duplicate name, overlapping times, end date before start date)
 	- The trip is not changed and an error message appears.

@@ -1,0 +1,11 @@
+Remove Waypoint:
+
+1. From the Waypoint Details page, the user selects the Remove Waypoint button.
+2. The Remove Waypoint page is opened, displaying the waypoint name and timeframe of the waypoint, as well as a confirm and cancel button.
+3. The user selects confirm to remove the Waypoint.
+4. The Waypoint is deleted and the user is returned to the Trip Details page.
+	The Waypoint is no longer displayed in the itinerary.
+
+
+3a. The user selects cancel to abort the Removal.
+	- The user is returned to the Waypoint Details page. The Waypoint is not deleted.

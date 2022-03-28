@@ -5,5 +5,10 @@ Add Waypoints:
 3. The user selects confirm to add the waypoint.
 4. The waypoint is created. The user is returned to the Trip Details page, where the waypoint is now displayed in the  waypoint list.
 
-4a. Invalid Info (Duplicate name, overlapping times, end date before start date)
+
+3a. The user selects cancel to abort the Add.
+	- The user is returned to the Trip Details page. No waypoint is added.
+
+
+4b. Invalid Info (Duplicate name, overlapping times, end date before start date)
 	- The waypoint is not created and an error message appears.

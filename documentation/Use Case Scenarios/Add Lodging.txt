@@ -6,5 +6,10 @@ Add Lodging:
 4. The lodging is created. The user is returned to the trip details page.
 	where the page now displays the trip's lodging.	
 
-4a. Invalid info (Missing fields)
+
+3a. The user selects cancel to abort the Add.
+	- The user is returned to the Trip Details page. No lodging is added.
+
+
+4b. Invalid info (Missing fields)
 	- The lodging is not created and an error message appears.

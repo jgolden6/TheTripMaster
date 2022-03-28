@@ -6,5 +6,10 @@ Add Transportation:
 4. The transportation is created. The user is returned to the Trip Details or Waypoint Details page,
 	where the pages now display a box with the transportation information.
 
-4a. Invalid info (Overlapping times, end date before start date)
+
+3a. The user selects cancel to abort the Add.
+	- The user is returned to the Trip Details page. No transportation is added.
+
+
+4b. Invalid info (Overlapping times, end date before start date)
 	- The transportation is not created and an error message appears.
