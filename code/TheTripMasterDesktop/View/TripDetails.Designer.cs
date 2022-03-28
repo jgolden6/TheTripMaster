@@ -35,11 +35,14 @@ namespace TheTripMasterDesktop.View
             this.label3 = new System.Windows.Forms.Label();
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
             this.endDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.waypointDataGridView = new System.Windows.Forms.DataGridView();
-            this.updateButton = new System.Windows.Forms.Button();
+            this.eventDataGridView = new System.Windows.Forms.DataGridView();
             this.addWaypointButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.waypointDataGridView)).BeginInit();
+            this.addTransportButton = new System.Windows.Forms.Button();
+            this.lodgingDataGridView = new System.Windows.Forms.DataGridView();
+            this.addLodgingButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.eventDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lodgingDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -94,30 +97,21 @@ namespace TheTripMasterDesktop.View
             this.endDatePicker.Size = new System.Drawing.Size(200, 23);
             this.endDatePicker.TabIndex = 5;
             // 
-            // waypointDataGridView
+            // eventDataGridView
             // 
-            this.waypointDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.waypointDataGridView.Location = new System.Drawing.Point(21, 146);
-            this.waypointDataGridView.Name = "waypointDataGridView";
-            this.waypointDataGridView.RowTemplate.Height = 25;
-            this.waypointDataGridView.Size = new System.Drawing.Size(267, 101);
-            this.waypointDataGridView.TabIndex = 6;
-            // 
-            // updateButton
-            // 
-            this.updateButton.Location = new System.Drawing.Point(21, 267);
-            this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(75, 23);
-            this.updateButton.TabIndex = 7;
-            this.updateButton.Text = "Update";
-            this.updateButton.UseVisualStyleBackColor = true;
-            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
+            this.eventDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.eventDataGridView.Location = new System.Drawing.Point(21, 146);
+            this.eventDataGridView.Name = "eventDataGridView";
+            this.eventDataGridView.RowTemplate.Height = 25;
+            this.eventDataGridView.Size = new System.Drawing.Size(267, 101);
+            this.eventDataGridView.TabIndex = 6;
+            this.eventDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.eventDataGridView_CellClick);
             // 
             // addWaypointButton
             // 
-            this.addWaypointButton.Location = new System.Drawing.Point(102, 267);
+            this.addWaypointButton.Location = new System.Drawing.Point(21, 253);
             this.addWaypointButton.Name = "addWaypointButton";
-            this.addWaypointButton.Size = new System.Drawing.Size(105, 23);
+            this.addWaypointButton.Size = new System.Drawing.Size(98, 23);
             this.addWaypointButton.TabIndex = 8;
             this.addWaypointButton.Text = "Add Waypoint";
             this.addWaypointButton.UseVisualStyleBackColor = true;
@@ -125,22 +119,53 @@ namespace TheTripMasterDesktop.View
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(213, 267);
+            this.cancelButton.Location = new System.Drawing.Point(229, 23);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.Size = new System.Drawing.Size(59, 23);
             this.cancelButton.TabIndex = 9;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // addTransportButton
+            // 
+            this.addTransportButton.Location = new System.Drawing.Point(190, 253);
+            this.addTransportButton.Name = "addTransportButton";
+            this.addTransportButton.Size = new System.Drawing.Size(98, 23);
+            this.addTransportButton.TabIndex = 10;
+            this.addTransportButton.Text = "Add Transport";
+            this.addTransportButton.UseVisualStyleBackColor = true;
+            this.addTransportButton.Click += new System.EventHandler(this.addTransportButton_Click);
+            // 
+            // lodgingDataGridView
+            // 
+            this.lodgingDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.lodgingDataGridView.Location = new System.Drawing.Point(21, 309);
+            this.lodgingDataGridView.Name = "lodgingDataGridView";
+            this.lodgingDataGridView.RowTemplate.Height = 25;
+            this.lodgingDataGridView.Size = new System.Drawing.Size(267, 101);
+            this.lodgingDataGridView.TabIndex = 11;
+            // 
+            // addLodgingButton
+            // 
+            this.addLodgingButton.Location = new System.Drawing.Point(21, 416);
+            this.addLodgingButton.Name = "addLodgingButton";
+            this.addLodgingButton.Size = new System.Drawing.Size(98, 23);
+            this.addLodgingButton.TabIndex = 12;
+            this.addLodgingButton.Text = "Add Lodging";
+            this.addLodgingButton.UseVisualStyleBackColor = true;
+            this.addLodgingButton.Click += new System.EventHandler(this.addLodgingButton_Click);
+            // 
             // TripDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.addLodgingButton);
+            this.Controls.Add(this.lodgingDataGridView);
+            this.Controls.Add(this.addTransportButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.addWaypointButton);
-            this.Controls.Add(this.updateButton);
-            this.Controls.Add(this.waypointDataGridView);
+            this.Controls.Add(this.eventDataGridView);
             this.Controls.Add(this.endDatePicker);
             this.Controls.Add(this.startDatePicker);
             this.Controls.Add(this.label3);
@@ -148,8 +173,9 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.tripNameTextBox);
             this.Controls.Add(this.label1);
             this.Name = "TripDetails";
-            this.Size = new System.Drawing.Size(310, 312);
-            ((System.ComponentModel.ISupportInitialize)(this.waypointDataGridView)).EndInit();
+            this.Size = new System.Drawing.Size(310, 457);
+            ((System.ComponentModel.ISupportInitialize)(this.eventDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lodgingDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,9 +189,11 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker startDatePicker;
         private System.Windows.Forms.DateTimePicker endDatePicker;
-        private System.Windows.Forms.DataGridView waypointDataGridView;
-        private System.Windows.Forms.Button updateButton;
+        private System.Windows.Forms.DataGridView eventDataGridView;
         private System.Windows.Forms.Button addWaypointButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button addTransportButton;
+        private System.Windows.Forms.DataGridView lodgingDataGridView;
+        private System.Windows.Forms.Button addLodgingButton;
     }
 }

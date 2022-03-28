@@ -29,14 +29,8 @@ namespace TheTripMasterDesktop.View
 
             if (!ValidateData())
             {
-                if (this.passwordTextBox.Text != this.passwordCheckTextBox.Text)
-                {
-                    this.passwordCheckErrorLabel.Text = "Passwords don't match.";
-                }
-
                 return;
             }
-
 
             User user = new User
             {
@@ -93,6 +87,12 @@ namespace TheTripMasterDesktop.View
             {
                 isValid = false;
                 this.passwordErrorLabel.Text = "Password is incorrect.";
+            }
+
+            if (this.passwordTextBox.Text != this.passwordCheckTextBox.Text)
+            {
+                isValid = false;
+                this.passwordCheckErrorLabel.Text = "Passwords don't match.";
             }
 
             return isValid;

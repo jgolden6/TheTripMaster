@@ -49,8 +49,6 @@ namespace TheTripMasterDesktop.View
 
             SelectedTrip.Trip = trip;
 
-            Debug.WriteLine(SelectedTrip.Trip.TripId);
-
             DataCellClick?.Invoke();
         }
 

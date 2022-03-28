@@ -12,25 +12,16 @@ namespace TheTripMasterDesktop.View
 {
     public partial class TripDetails : UserControl
     {
-        public event Action UpdateButtonClick;
         public event Action AddWaypointButtonClick;
+        public event Action AddTransportButtonClick;
+        public event Action AddLodgingButtonClick;
         public event Action CancelButtonClick;
+        public event Action WaypointDataCellClick;
+        public event Action TransportDataCellClick;
 
         public TripDetails()
         {
             InitializeComponent();
-        }
-
-        /**
-         * Updates the selected trip if the data is valid and navigates to the Overview page.
-         */
-        private void updateButton_Click(object sender, EventArgs e)
-        {
-            if (ValidateData())
-            {
-                TripDataLayer.UpdateTrip(this.tripNameTextBox.Text, this.startDatePicker.Value, this.endDatePicker.Value);
-                UpdateButtonClick?.Invoke();
-            }
         }
 
         /**
@@ -39,6 +30,18 @@ namespace TheTripMasterDesktop.View
         private void addWaypointButton_Click(object sender, EventArgs e)
         {
             AddWaypointButtonClick?.Invoke();
+        }
+
+
+        private void addTransportButton_Click(object sender, EventArgs e)
+        {
+            AddTransportButtonClick?.Invoke();
+        }
+
+
+        private void addLodgingButton_Click(object sender, EventArgs e)
+        {
+            AddLodgingButtonClick?.Invoke();
         }
 
         /**
@@ -68,16 +71,45 @@ namespace TheTripMasterDesktop.View
         public void LoadWaypointDataIntoGridView()
         {
             DataTable tripTable = new DataTable();
+            tripTable.Columns.Add("Id");
+            tripTable.Columns.Add("Type");
             tripTable.Columns.Add("Name");
             tripTable.Columns.Add("Start Date");
             tripTable.Columns.Add("End Date");
 
             foreach (Waypoint waypoint in WaypointDataLayer.GetTripWaypoints(SelectedTrip.Trip.TripId))
             {
-                tripTable.Rows.Add(new object[] { waypoint.WaypointName, waypoint.StartDate.ToShortDateString(), waypoint.EndDate.ToShortDateString() });
+                tripTable.Rows.Add(new object[] { waypoint.Id, "Waypoint", waypoint.WaypointName, waypoint.StartDate.ToShortDateString(), waypoint.EndDate.ToShortDateString()});
             }
 
-            this.waypointDataGridView.DataSource = tripTable;
+            foreach (Transportation transport in TransportationDataLayer.GetTripTransportations(SelectedTrip.Trip.TripId))
+            {
+                tripTable.Rows.Add(new object[] { transport.Id, "Transport", transport.TransportationType, transport.StartDate.ToShortDateString(), transport.EndDate.ToShortDateString() });
+            }
+
+            this.eventDataGridView.DataSource = tripTable;
+        }
+
+        private void eventDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.eventDataGridView.CurrentRow.Cells[1].Value.ToString().Equals("Waypoint"))
+            {
+                Waypoint waypoint =
+                    WaypointDataLayer.GetWaypoint(int.Parse(this.eventDataGridView.CurrentRow.Cells[0].Value.ToString()));
+
+                SelectedEvent.Event = waypoint;
+
+                WaypointDataCellClick?.Invoke();
+            }
+            else
+            {
+                Transportation transport =
+                    TransportationDataLayer.GetTransportation(int.Parse(this.eventDataGridView.CurrentRow.Cells[0].Value.ToString()));
+
+                SelectedEvent.Event = transport;
+
+                TransportDataCellClick?.Invoke();
+            }
         }
     }
 }

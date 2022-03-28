@@ -185,7 +185,7 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "AddWaypoint";
-            this.Size = new System.Drawing.Size(312, 293);
+            this.Size = new System.Drawing.Size(312, 240);
             this.ResumeLayout(false);
             this.PerformLayout();
 

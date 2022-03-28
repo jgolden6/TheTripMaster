@@ -21,6 +21,9 @@ namespace TheTripMasterDesktop
         AddTrip addTripPage = new AddTrip();
         TripDetails tripDetailsPage = new TripDetails();
         AddWaypoint addWaypointPage = new AddWaypoint();
+        AddTransport addTransportPage = new AddTransport();
+        WaypointDetails waypointDetailsPage = new WaypointDetails();
+        TransportDetails transportDetailsPage = new TransportDetails();
 
         public MainForm()
         {
@@ -40,12 +43,23 @@ namespace TheTripMasterDesktop
             this.addTripPage.ConfirmButtonClick += OpenOverviewPage;
             this.addTripPage.CancelButtonClick += OpenOverviewPage;
 
-            this.tripDetailsPage.UpdateButtonClick += OpenOverviewPage;
+            this.tripDetailsPage.AddTransportButtonClick += OpenAddTransportPage;
             this.tripDetailsPage.AddWaypointButtonClick += OpenAddWaypointPage;
             this.tripDetailsPage.CancelButtonClick += OpenOverviewPage;
+            this.tripDetailsPage.WaypointDataCellClick += OpenWaypointDetailsPage;
+            this.tripDetailsPage.TransportDataCellClick += OpenTransportDetailsPage;
 
             this.addWaypointPage.ConfirmButtonClick += OpenTripDetailsPage;
             this.addWaypointPage.CancelButtonClick += OpenTripDetailsPage;
+
+            this.addTransportPage.ConfirmButtonClick += OpenTripDetailsPage;
+            this.addTransportPage.CancelButtonClick += OpenTripDetailsPage;
+
+            this.waypointDetailsPage.DeleteButtonClick += OpenTripDetailsPage;
+            this.waypointDetailsPage.CancelButtonClick += OpenTripDetailsPage;
+
+            this.transportDetailsPage.DeleteButtonClick += OpenTripDetailsPage;
+            this.transportDetailsPage.CancelButtonClick += OpenTripDetailsPage;
         }
 
         private void OpenLoginPage()
@@ -85,6 +99,26 @@ namespace TheTripMasterDesktop
         {
             this.mainPanel.Controls.Clear();
             this.mainPanel.Controls.Add(this.addWaypointPage);
+        }
+
+        private void OpenAddTransportPage()
+        {
+            this.mainPanel.Controls.Clear();
+            this.mainPanel.Controls.Add(this.addTransportPage);
+        }
+
+        private void OpenWaypointDetailsPage()
+        {
+            this.mainPanel.Controls.Clear();
+            this.mainPanel.Controls.Add(this.waypointDetailsPage);
+            this.waypointDetailsPage.LoadWaypointDataIntoInputFields();
+        }
+
+        private void OpenTransportDetailsPage()
+        {
+            this.mainPanel.Controls.Clear();
+            this.mainPanel.Controls.Add(this.transportDetailsPage);
+            this.transportDetailsPage.LoadTransportDataIntoInputFields();
         }
     }
 }
