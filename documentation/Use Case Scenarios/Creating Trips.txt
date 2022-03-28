@@ -5,5 +5,10 @@ Creating Trips:
 3. User selects confirm.
 4. The trip is created and the user is redirected to the Home page where their trip is now displayed.
 
-4a. Invalid info (Duplicate trip name, overlapping times, end date before start date)
+
+3a. The user selects cancel to abort the Add.
+	- The user is returned to the Trip Details page. No trip is added.
+
+
+4b. Invalid info (Duplicate trip name, overlapping times, end date before start date)
 	- User remains on the Create Trip page and an error message appears.

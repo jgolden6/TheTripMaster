@@ -1,0 +1,11 @@
+Remove Transportation:
+
+1. From the Transportation Details page, the user selects the Remove Transportation button.
+2. The Remove Transportation page is opened, displaying the Transportation name and timeframe of the Transportation, as well as a confirm and cancel button.
+3. The user selects confirm to remove the Transportation.
+4. The Transportation is deleted and the user is returned to the Trip Details page.
+	The Transportation is no longer displayed in the itinerary.
+
+
+3a. The user selects cancel to abort the Removal.
+	- The user is returned to the Transportation Details page. The Transportation is not deleted.
