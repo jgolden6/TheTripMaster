@@ -14,7 +14,7 @@ namespace TheTripMasterTest.LibraryModel
         {
             Waypoint waypoint = new Waypoint
             {
-                WaypointId = 1,
+                Id = 1,
                 TripId = 1,
                 WaypointName = "Waypoint1",
                 TripName = "Trip1",
@@ -22,14 +22,14 @@ namespace TheTripMasterTest.LibraryModel
                 EndDate = DateTime.MaxValue,
             };
 
-            waypoint.WaypointId = 2;
+            waypoint.Id = 2;
             waypoint.TripId = 2;
             waypoint.WaypointName = "Waypoint2";
             waypoint.TripName = "Trip2";
             waypoint.StartDate = DateTime.MinValue;
             waypoint.EndDate = DateTime.MinValue;
 
-            Assert.AreEqual(2, waypoint.WaypointId);
+            Assert.AreEqual(2, waypoint.Id);
             Assert.AreEqual(2, waypoint.TripId);
             Assert.AreEqual("Waypoint2", waypoint.WaypointName);
             Assert.AreEqual("Trip2", waypoint.TripName);

@@ -1,24 +1,24 @@
-﻿@model Waypoint
+﻿@model Transportation
 @{
-    ViewBag.Title = "Remove Event";
+    ViewBag.Title = "Remove Transportation";
 }
 
 <h2>Confirm Removal</h2>
 
-<h3>Transport: @Model.WaypointName (@Model.StartDate - @Model.EndDate)</h3>
+<h3>Transport: @Model.TransportationType (@Model.StartDate - @Model.EndDate)</h3>
 
-<form asp-action="RemoveWaypoint" method="post">
+<form asp-action="RemoveTransportation" method="post">
     <input type="hidden" asp-for="TripId" />
     <input type="hidden" asp-for="TripName" />
     <input type="hidden" asp-for="Id" />
-    <input type="hidden" asp-for="WaypointName" />
+    <input type="hidden" asp-for="TransportationType" />
     <input type="hidden" asp-for="StartDate" />
     <input type="hidden" asp-for="EndDate" />
 
     <button type="submit" class="btn btn-primary">Remove</button>
-    <a asp-controller="Waypoint" asp-action="WaypointDetails"
-       asp-route-waypointId="@Model.Id"
-       asp-route-name="@Model.WaypointName"
+    <a asp-controller="Transportation" asp-action="TransportationDetails"
+       asp-route-transportationId="@Model.Id"
+       asp-route-type="@Model.TransportationType"
        asp-route-start="@Model.StartDate"
        asp-route-end="@Model.EndDate"
        class="btn btn-primary">Cancel</a>

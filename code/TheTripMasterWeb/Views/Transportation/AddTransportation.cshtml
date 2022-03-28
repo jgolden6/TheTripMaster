@@ -1,4 +1,4 @@
-﻿@model Waypoint
+﻿@model Transportation
 @{
     ViewData["Title"] = "Add Transportation";
 }
@@ -6,7 +6,7 @@
 <h2 style="padding-bottom: 10px; padding-top: 10px">Add Transportation</h2>
 
 <div>
-    @using (Html.BeginForm("AddWaypoint", "Waypoint", FormMethod.Post))
+    @using (Html.BeginForm("AddTransportation", "Transportation", FormMethod.Post))
     {
         <div style="padding-bottom: 40px" class="form-group row">
             <div class="col-2"><label>Trip Name:</label></div>
@@ -15,7 +15,7 @@
 
         <div style="padding-bottom: 20px" class="form-group row">
             <div class="col-2"><label>Transport Type:</label></div>
-            <select class="col-4" id="waypointName" type="text" name="waypointName" title="Type" asp-for="WaypointName" asp-items="new SelectList(Enum.GetNames(typeof(TransportationType)))">Select a travel method</select>
+            <select class="col-4" id="transportationType" type="text" name="transportationType" title="Type" asp-for="TransportationType" asp-items="new SelectList(Enum.GetNames(typeof(TransportationType)))">Select a travel method</select>
         </div>
         
 
@@ -33,7 +33,7 @@
             <div class="col-4"><input id="endDate" name="endDate" type="datetime-local" asp-for="EndDate" /></div>
         </div>
         
-        <input id="addWaypoint" asp-action="AddTransportation" asp-route-name="@Model.TripName" type="submit" value="Add" />
+        <input id="addTransportation" asp-action="AddTransportation" asp-route-name="@Model.TripName" type="submit" value="Add" />
         <a class="btn-group" asp-action="SelectedTripDetails" asp-controller="Trip">Cancel</a>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     }
