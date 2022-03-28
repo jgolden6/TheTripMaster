@@ -12,10 +12,12 @@ namespace TheTripMasterWeb.Controllers
     public class TransportationController : Controller
     {
         private readonly ILogger<TransportationController> _logger;
+        private TransportationDataLayer transportationDataLayer;
 
         public TransportationController(ILogger<TransportationController> logger)
         {
             _logger = logger;
+            this.transportationDataLayer = new TransportationDataLayer();
         }
 
         /*
@@ -44,7 +46,7 @@ namespace TheTripMasterWeb.Controllers
             if (isNameValid && areDateTimesValid && isTimeframeAvailable)
             {
                 model.TripName = SelectedTrip.Trip.Name;
-                TransportationDataLayer.AddTransportation(model);
+                this.transportationDataLayer.AddTransportation(model);
 
                 var routeData = new
                 {
@@ -108,7 +110,7 @@ namespace TheTripMasterWeb.Controllers
         [HttpGet]
         public IActionResult RemoveTransportation(int transportationId)
         {
-            Transportation transportation = TransportationDataLayer.GetTransportation(transportationId);
+            Transportation transportation = this.transportationDataLayer.GetTransportation(transportationId);
             return View(transportation);
         }
 
@@ -120,7 +122,7 @@ namespace TheTripMasterWeb.Controllers
         [HttpPost]
         public IActionResult RemoveTransportation(Transportation transportation)
         {
-            TransportationDataLayer.DeleteTransportation(transportation.Id);
+            this.transportationDataLayer.DeleteTransportation(transportation.Id);
 
             var routeData = new
             {
@@ -140,11 +142,11 @@ namespace TheTripMasterWeb.Controllers
          */
         private bool IsTimeframeAvailable(int tripId, DateTime startDateTime, DateTime endDateTime)
         {
-            IEnumerable<Waypoint> waypoints = WaypointDataLayer.GetTripWaypoints(tripId);
+            IEnumerable<Transportation> transports = this.transportationDataLayer.GetTripTransportations(tripId);
 
-            foreach (Waypoint waypoint in waypoints)
+            foreach (Transportation transport in transports)
             {
-                if (waypoint.StartDate < endDateTime && startDateTime < waypoint.EndDate)
+                if (transport.StartDate < endDateTime && startDateTime < transport.EndDate)
                 {
                     return false;
                 }

@@ -14,10 +14,18 @@ namespace TheTripMasterWeb.Controllers
     public class TripController : Controller
     {
         private readonly ILogger<TripController> _logger;
+        private TripDataLayer tripDataLayer;
+        private WaypointDataLayer waypointDataLayer;
+        private TransportationDataLayer transportationDataLayer;
+        private LodgingDataLayer lodgingDataLayer;
 
         public TripController(ILogger<TripController> logger)
         {
             _logger = logger;
+            this.tripDataLayer = new TripDataLayer();
+            this.waypointDataLayer = new WaypointDataLayer();
+            this.transportationDataLayer = new TransportationDataLayer();
+            this.lodgingDataLayer = new LodgingDataLayer();
         }
 
         /*
@@ -43,7 +51,7 @@ namespace TheTripMasterWeb.Controllers
 
             if (isNameValid && areDateTimesValid && isTimeframeAvailable)
             {
-                TripDataLayer.AddTrip(new Trip { Name = name.Trim(), StartDate = startDateTime, EndDate = endDateTime });
+                this.tripDataLayer.AddTrip(new Trip { Name = name.Trim(), StartDate = startDateTime, EndDate = endDateTime });
                 return RedirectToAction("Homepage", "Home");
             }
 
@@ -73,12 +81,12 @@ namespace TheTripMasterWeb.Controllers
         public IActionResult TripDetails(int tripId, string name, DateTime start, DateTime end)
         {
             Trip trip = new Trip {TripId = tripId, Name = name, StartDate = start, EndDate = end};
-            trip.Events = WaypointDataLayer.GetTripWaypoints(trip.TripId);
+            trip.Events = this.waypointDataLayer.GetTripWaypoints(trip.TripId);
             List<Event> events = trip.Events.ToList();
-            events.AddRange(TransportationDataLayer.GetTripTransportations(tripId));
+            events.AddRange(this.transportationDataLayer.GetTripTransportations(tripId));
             trip.Events = events.AsEnumerable();
             trip.Events = trip.Events.OrderBy(p => p.StartDate);
-            trip.Lodgings = LodgingDataLayer.GetTripLodgings(trip.TripId);
+            trip.Lodgings = this.lodgingDataLayer.GetTripLodgings(trip.TripId);
             SelectedTrip.Trip = trip;
             return View(model: trip);
         }
@@ -111,7 +119,7 @@ namespace TheTripMasterWeb.Controllers
                 return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime, Events = SelectedTrip.Trip.Events });
             }
 
-            TripDataLayer.UpdateTrip(name, startDateTime, endDateTime);
+            this.tripDataLayer.UpdateTrip(name, startDateTime, endDateTime);
             return RedirectToAction("Homepage", "Home");
         }
 
@@ -123,7 +131,7 @@ namespace TheTripMasterWeb.Controllers
          */
         private bool IsTimeframeAvailable(string name, DateTime startDateTime, DateTime endDateTime)
         {
-            IEnumerable<Trip> trips = TripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId);
+            IEnumerable<Trip> trips = this.tripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId);
 
             foreach (Trip trip in trips)
             {

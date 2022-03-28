@@ -13,10 +13,12 @@ namespace TheTripMasterWeb.Controllers
     public class LodgingController : Controller
     {
         private readonly ILogger<LodgingController> _logger;
+        private LodgingDataLayer lodgingDataLayer;
 
         public LodgingController(ILogger<LodgingController> logger)
         {
             _logger = logger;
+            this.lodgingDataLayer = new LodgingDataLayer();
         }
 
         /*
@@ -53,7 +55,7 @@ namespace TheTripMasterWeb.Controllers
                 {
                     model.Description = "";
                 }
-                LodgingDataLayer.AddLodging(model);
+                this.lodgingDataLayer.AddLodging(model);
                 var routeData = new
                 {
                     TripId = SelectedTrip.Trip.TripId,
@@ -110,7 +112,7 @@ namespace TheTripMasterWeb.Controllers
          */
         private bool IsTimeframeAvailable(int tripId, DateTime startDateTime, DateTime endDateTime)
         {
-            IEnumerable<Lodging> lodgings = LodgingDataLayer.GetTripLodgings(tripId);
+            IEnumerable<Lodging> lodgings = this.lodgingDataLayer.GetTripLodgings(tripId);
 
             foreach (Lodging lodging in lodgings)
             {
@@ -160,7 +162,7 @@ namespace TheTripMasterWeb.Controllers
         [HttpGet]
         public IActionResult RemoveLodging(int lodgingId)
         {
-            Lodging lodging = LodgingDataLayer.GetLodging(lodgingId);
+            Lodging lodging = this.lodgingDataLayer.GetLodging(lodgingId);
             Debug.WriteLine(lodgingId);
             return View(lodging);
         }
@@ -173,7 +175,7 @@ namespace TheTripMasterWeb.Controllers
         [HttpPost]
         public IActionResult RemoveLodging(Lodging lodging)
         {
-            LodgingDataLayer.DeleteLodging(lodging.LodgingId);
+            this.lodgingDataLayer.DeleteLodging(lodging.LodgingId);
 
             var routeData = new
             {

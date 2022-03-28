@@ -6,19 +6,17 @@ using TheTripMasterLibrary.Model;
 
 namespace TheTripMasterLibrary.DataLayer
 {
-    public class LodgingDataLayer
+    public class LodgingDataLayer : DataLayer
     {
-        private const string ConnString = "Data Source=(localdb)\\ProjectsV13;Initial Catalog=TheTripMasterDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
         /**
          * Takes a Lodging object, inserts the Trip ID, Address fields, Start Date, and End Date into the Lodging table.
          */
-        public static void AddLodging(Lodging lodging)
+        public void AddLodging(Lodging lodging)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO TheTripMasterDatabase.dbo.[Lodging] (tripId, streetAddress, city, state, zipCode, description, startDate, endDate) " +
+                cmd.CommandText = "INSERT INTO [Lodging] (tripId, streetAddress, city, state, zipCode, description, startDate, endDate) " +
                                   "VALUES (@tripId, @streetAddress, @city, @state, @zipCode, @description, @startDate, @endDate)";
 
                 cmd.Parameters.AddWithValue("@tripId", SelectedTrip.Trip.TripId);
@@ -41,10 +39,10 @@ namespace TheTripMasterLibrary.DataLayer
          *
          * Return: A list of Lodgings.
          */
-        public static List<Lodging> GetTripLodgings(int tripId)
+        public List<Lodging> GetTripLodgings(int tripId)
         {
             string queryString =
-                "SELECT * FROM TheTripMasterDatabase.dbo.[Lodging] WHERE tripId = @tripId";
+                "SELECT * FROM [Lodging] WHERE tripId = @tripId";
 
 
             List<Lodging> lodgings = new List<Lodging>();
@@ -89,10 +87,10 @@ namespace TheTripMasterLibrary.DataLayer
          *
          * Return: The Lodging with the given ID.
          */
-        public static Lodging GetLodging(int lodgingId)
+        public Lodging GetLodging(int lodgingId)
         {
             string queryString =
-                "SELECT * FROM TheTripMasterDatabase.dbo.[Lodging] WHERE lodgingId = @lodgingId";
+                "SELECT * FROM [Lodging] WHERE lodgingId = @lodgingId";
 
             Lodging lodging = new Lodging();
 
@@ -131,12 +129,12 @@ namespace TheTripMasterLibrary.DataLayer
         /**
          * Deletes the Lodging with the given ID.
          */
-        public static void DeleteLodging(int lodgingId)
+        public void DeleteLodging(int lodgingId)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM TheTripMasterDatabase.dbo.[Lodging] WHERE lodgingId = @lodgingId";
+                cmd.CommandText = "DELETE FROM [Lodging] WHERE lodgingId = @lodgingId";
 
                 cmd.Parameters.AddWithValue("@lodgingId", lodgingId);
 

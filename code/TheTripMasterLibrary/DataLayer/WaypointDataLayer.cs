@@ -7,19 +7,17 @@ using TheTripMasterLibrary.Model;
 
 namespace TheTripMasterLibrary.DataLayer
 {
-    public class WaypointDataLayer
+    public class WaypointDataLayer : DataLayer
     {
-        private const string ConnString = "Data Source=(localdb)\\ProjectsV13;Initial Catalog=TheTripMasterDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
         /**
          * Takes a Waypoint object, inserts the Trip ID, Waypoint Name, Start Date, and End Date into the Waypoint table.
          */
-        public static void AddWaypoint(Waypoint waypoint)
+        public void AddWaypoint(Waypoint waypoint)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO TheTripMasterDatabase.dbo.[Waypoint] (tripId, waypointName, startDate, endDate) " +
+                cmd.CommandText = "INSERT INTO [Waypoint] (tripId, waypointName, startDate, endDate) " +
                                   "VALUES (@tripId, @waypointName, @startDate, @endDate)";
 
                 cmd.Parameters.AddWithValue("@tripId", SelectedTrip.Trip.TripId);
@@ -38,10 +36,10 @@ namespace TheTripMasterLibrary.DataLayer
          *
          * Return: A list of Events.
          */
-        public static List<Waypoint> GetTripWaypoints(int tripId)
+        public List<Waypoint> GetTripWaypoints(int tripId)
         {
             string queryString =
-                "SELECT * FROM TheTripMasterDatabase.dbo.[Waypoint] WHERE tripId = @tripId";
+                "SELECT * FROM [Waypoint] WHERE tripId = @tripId";
 
 
             List<Waypoint> waypoints = new List<Waypoint>();
@@ -82,10 +80,10 @@ namespace TheTripMasterLibrary.DataLayer
          *
          * Return: The Waypoint with the given ID.
          */
-        public static Waypoint GetWaypoint(int waypointId)
+        public Waypoint GetWaypoint(int waypointId)
         {
             string queryString =
-                "SELECT * FROM TheTripMasterDatabase.dbo.[Waypoint] WHERE waypointId = @waypointId";
+                "SELECT * FROM [Waypoint] WHERE waypointId = @waypointId";
 
             Waypoint waypoint = new Waypoint();
 
@@ -121,12 +119,12 @@ namespace TheTripMasterLibrary.DataLayer
         /**
          * Deletes the Waypoint with the given ID.
          */
-        public static void DeleteWaypoint(int waypointId)
+        public void DeleteWaypoint(int waypointId)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM TheTripMasterDatabase.dbo.[Waypoint] WHERE waypointId = @waypointId";
+                cmd.CommandText = "DELETE FROM [Waypoint] WHERE waypointId = @waypointId";
 
                 cmd.Parameters.AddWithValue("@waypointId", waypointId);
 
