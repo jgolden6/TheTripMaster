@@ -12,6 +12,8 @@ namespace TheTripMasterDesktop.View
 {
     public partial class AddTransport : UserControl
     {
+        TransportationDataLayer dataLayer = new TransportationDataLayer();
+
         public event Action ConfirmButtonClick;
         public event Action CancelButtonClick;
 
@@ -33,7 +35,7 @@ namespace TheTripMasterDesktop.View
                 EndDate = this.endDatePicker.Value
             };
 
-            TransportationDataLayer.AddTransportation(transportation);
+            this.dataLayer.AddTransportation(transportation);
             ConfirmButtonClick?.Invoke();
         }
 

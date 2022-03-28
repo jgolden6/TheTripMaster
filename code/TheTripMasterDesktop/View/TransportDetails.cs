@@ -12,6 +12,8 @@ namespace TheTripMasterDesktop.View
 {
     public partial class TransportDetails : UserControl
     {
+        TransportationDataLayer dataLayer = new TransportationDataLayer();
+
         public event Action DeleteButtonClick;
         public event Action CancelButtonClick;
 
@@ -22,7 +24,7 @@ namespace TheTripMasterDesktop.View
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            TransportationDataLayer.DeleteTransportation(SelectedEvent.Event.Id);
+            this.dataLayer.DeleteTransportation(SelectedEvent.Event.Id);
             DeleteButtonClick?.Invoke();
         }
 

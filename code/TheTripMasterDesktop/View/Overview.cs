@@ -13,6 +13,8 @@ namespace TheTripMasterDesktop.View
 {
     public partial class Overview : UserControl
     {
+        TripDataLayer dataLayer = new TripDataLayer();
+
         public event Action AddTripButtonClick;
         public event Action LogoutButtonClick;
         public event Action DataCellClick;
@@ -45,7 +47,7 @@ namespace TheTripMasterDesktop.View
          */
         private void tripDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Trip trip = TripDataLayer.GetSelectedTrip(this.tripDataGridView.CurrentRow.Cells[0].Value.ToString());
+            Trip trip = this.dataLayer.GetSelectedTrip(this.tripDataGridView.CurrentRow.Cells[0].Value.ToString());
 
             SelectedTrip.Trip = trip;
 
@@ -59,7 +61,7 @@ namespace TheTripMasterDesktop.View
             tripTable.Columns.Add("Start Date");
             tripTable.Columns.Add("End Date");
 
-            foreach (Trip trip in TripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId))
+            foreach (Trip trip in this.dataLayer.GetAllTripsOfUser(ActiveUser.User.UserId))
             {
                 tripTable.Rows.Add(new object[] { trip.Name, trip.StartDate.ToShortDateString(), trip.EndDate.ToShortDateString() });
             }

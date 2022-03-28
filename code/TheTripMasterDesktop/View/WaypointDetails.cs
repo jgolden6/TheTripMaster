@@ -12,6 +12,8 @@ namespace TheTripMasterDesktop.View
 {
     public partial class WaypointDetails : UserControl
     {
+        WaypointDataLayer dataLayer = new WaypointDataLayer();
+
         public event Action DeleteButtonClick;
         public event Action CancelButtonClick;
 
@@ -22,7 +24,7 @@ namespace TheTripMasterDesktop.View
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            WaypointDataLayer.DeleteWaypoint(SelectedEvent.Event.Id);
+            this.dataLayer.DeleteWaypoint(SelectedEvent.Event.Id);
             DeleteButtonClick?.Invoke();
         }
 

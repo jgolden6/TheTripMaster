@@ -12,6 +12,8 @@ namespace TheTripMasterDesktop.View
 {
     public partial class Register : UserControl
     {
+        UserDataLayer dataLayer = new UserDataLayer();
+
         public event Action RegisterButtonClick;
         public event Action CancelButtonClick;
 
@@ -39,7 +41,7 @@ namespace TheTripMasterDesktop.View
                 Password = this.passwordTextBox.Text
             };
 
-            UserDataLayer.AddUser(user);
+            this.dataLayer.AddUser(user);
             RegisterButtonClick?.Invoke();
         }
 

@@ -12,6 +12,8 @@ namespace TheTripMasterDesktop.View
 {
     public partial class AddWaypoint : UserControl
     {
+        WaypointDataLayer dataLayer = new WaypointDataLayer();
+
         public event Action ConfirmButtonClick;
         public event Action CancelButtonClick;
 
@@ -35,7 +37,7 @@ namespace TheTripMasterDesktop.View
                 EndDate = this.endDatePicker.Value
             };
 
-            WaypointDataLayer.AddWaypoint(waypoint);
+            this.dataLayer.AddWaypoint(waypoint);
             ConfirmButtonClick?.Invoke();
         }
 

@@ -12,6 +12,9 @@ namespace TheTripMasterDesktop.View
 {
     public partial class TripDetails : UserControl
     {
+        WaypointDataLayer waypointDataLayer = new WaypointDataLayer();
+        TransportationDataLayer transportDataLayer = new TransportationDataLayer();
+
         public event Action AddWaypointButtonClick;
         public event Action AddTransportButtonClick;
         public event Action AddLodgingButtonClick;
@@ -77,12 +80,12 @@ namespace TheTripMasterDesktop.View
             tripTable.Columns.Add("Start Date");
             tripTable.Columns.Add("End Date");
 
-            foreach (Waypoint waypoint in WaypointDataLayer.GetTripWaypoints(SelectedTrip.Trip.TripId))
+            foreach (Waypoint waypoint in this.waypointDataLayer.GetTripWaypoints(SelectedTrip.Trip.TripId))
             {
                 tripTable.Rows.Add(new object[] { waypoint.Id, "Waypoint", waypoint.WaypointName, waypoint.StartDate.ToShortDateString(), waypoint.EndDate.ToShortDateString()});
             }
 
-            foreach (Transportation transport in TransportationDataLayer.GetTripTransportations(SelectedTrip.Trip.TripId))
+            foreach (Transportation transport in this.transportDataLayer.GetTripTransportations(SelectedTrip.Trip.TripId))
             {
                 tripTable.Rows.Add(new object[] { transport.Id, "Transport", transport.TransportationType, transport.StartDate.ToShortDateString(), transport.EndDate.ToShortDateString() });
             }
@@ -95,7 +98,7 @@ namespace TheTripMasterDesktop.View
             if (this.eventDataGridView.CurrentRow.Cells[1].Value.ToString().Equals("Waypoint"))
             {
                 Waypoint waypoint =
-                    WaypointDataLayer.GetWaypoint(int.Parse(this.eventDataGridView.CurrentRow.Cells[0].Value.ToString()));
+                    this.waypointDataLayer.GetWaypoint(int.Parse(this.eventDataGridView.CurrentRow.Cells[0].Value.ToString()));
 
                 SelectedEvent.Event = waypoint;
 
@@ -104,7 +107,7 @@ namespace TheTripMasterDesktop.View
             else
             {
                 Transportation transport =
-                    TransportationDataLayer.GetTransportation(int.Parse(this.eventDataGridView.CurrentRow.Cells[0].Value.ToString()));
+                    this.transportDataLayer.GetTransportation(int.Parse(this.eventDataGridView.CurrentRow.Cells[0].Value.ToString()));
 
                 SelectedEvent.Event = transport;
 

@@ -12,6 +12,8 @@ namespace TheTripMasterDesktop.View
 {
     public partial class Login : UserControl
     {
+        UserDataLayer dataLayer = new UserDataLayer();
+
         public event Action LoginButtonClick;
         public event Action RegisterButtonClick;
 
@@ -26,7 +28,7 @@ namespace TheTripMasterDesktop.View
         private void loginButton_Click(object sender, EventArgs e)
         {
             this.errorMessageLabel.Text = "";
-            User user = UserDataLayer.Authenticate(this.usernameTextBox.Text, this.passwordTextBox.Text);
+            User user = this.dataLayer.Authenticate(this.usernameTextBox.Text, this.passwordTextBox.Text);
 
             this.usernameTextBox.Clear();
             this.passwordTextBox.Clear();
