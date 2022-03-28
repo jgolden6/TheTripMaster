@@ -6,19 +6,17 @@ using TheTripMasterLibrary.Model;
 
 namespace TheTripMasterLibrary.DataLayer
 {
-    public class TransportationDataLayer
+    public class TransportationDataLayer : DataLayer
     {
-        private const string ConnString = "Data Source=(localdb)\\ProjectsV13;Initial Catalog=TheTripMasterDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
         /**
          * Gets a specific Transportation given an ID.
          *
          * Return: The Transportation with the given ID.
          */
-        public static Transportation GetTransportation(int transportationId)
+        public Transportation GetTransportation(int transportationId)
         {
             string queryString =
-                "SELECT * FROM TheTripMasterDatabase.dbo.[Transportation] WHERE transportationId = @transportationId";
+                "SELECT * FROM [Transportation] WHERE transportationId = @transportationId";
 
             Transportation transportation = new Transportation();
 
@@ -56,10 +54,10 @@ namespace TheTripMasterLibrary.DataLayer
          *
          * Return: A list of Events.
          */
-        public static List<Transportation> GetTripTransportations(int tripId)
+        public List<Transportation> GetTripTransportations(int tripId)
         {
             string queryString =
-                "SELECT * FROM TheTripMasterDatabase.dbo.[Transportation] WHERE tripId = @tripId";
+                "SELECT * FROM [Transportation] WHERE tripId = @tripId";
 
 
             List<Transportation> transportations = new List<Transportation>();
@@ -98,12 +96,12 @@ namespace TheTripMasterLibrary.DataLayer
         /**
          * Takes a Transportation object, inserts the Trip ID, Transportation Type, Start Date, and End Date into the Transportation table.
          */
-        public static void AddTransportation(Transportation transportation)
+        public void AddTransportation(Transportation transportation)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO TheTripMasterDatabase.dbo.[Transportation] (tripId, transportationType, startDate, endDate) " +
+                cmd.CommandText = "INSERT INTO [Transportation] (tripId, transportationType, startDate, endDate) " +
                                   "VALUES (@tripId, @transportationType, @startDate, @endDate)";
 
                 cmd.Parameters.AddWithValue("@tripId", SelectedTrip.Trip.TripId);
@@ -120,12 +118,12 @@ namespace TheTripMasterLibrary.DataLayer
         /**
         * Deletes the Transportation with the given ID.
         */
-        public static void DeleteTransportation(int transportationId)
+        public void DeleteTransportation(int transportationId)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM TheTripMasterDatabase.dbo.[Transportation] WHERE transportationId = @transportationId";
+                cmd.CommandText = "DELETE FROM [Transportation] WHERE transportationId = @transportationId";
 
                 cmd.Parameters.AddWithValue("@transportationId", transportationId);
 

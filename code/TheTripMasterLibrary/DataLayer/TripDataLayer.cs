@@ -7,21 +7,19 @@ using TheTripMasterLibrary.Model;
 
 namespace TheTripMasterLibrary.DataLayer
 {
-    public class TripDataLayer
+    public class TripDataLayer : DataLayer
     {
-        private const string ConnString = "Data Source=(localdb)\\ProjectsV13;Initial Catalog=TheTripMasterDatabase;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
         /**
          * Takes a Trip object and inserts the User ID, Trip Name, Start Date, and End Date into the Trip table.
          */
-        public static void AddTrip(Trip trip)
+        public void AddTrip(Trip trip)
         {
             int userId = ActiveUser.User.UserId;
 
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO TheTripMasterDatabase.dbo.[Trip] (userId, tripName, startDate, endDate) " +
+                cmd.CommandText = "INSERT INTO [Trip] (userId, tripName, startDate, endDate) " +
                                   "VALUES (@userId, @tripName, @startDate, @endDate)";
 
                 cmd.Parameters.AddWithValue("@userId", userId);
@@ -40,10 +38,10 @@ namespace TheTripMasterLibrary.DataLayer
          *
          * Return: A list of trips belonging to the User.
          */
-        public static List<Trip> GetAllTripsOfUser(int userId)
+        public List<Trip> GetAllTripsOfUser(int userId)
         {
             string queryString =
-                "SELECT * FROM TheTripMasterDatabase.dbo.[Trip] WHERE userId = @userId";
+                "SELECT * FROM [Trip] WHERE userId = @userId";
 
 
             List<Trip> trips = new List<Trip>();
@@ -84,14 +82,14 @@ namespace TheTripMasterLibrary.DataLayer
         /**
          * Takes a Name, Start Time, and End Time, and updates the Trip being edited.
          */
-        public static void UpdateTrip(string name, DateTime startDateTime, DateTime endDateTime)
+        public void UpdateTrip(string name, DateTime startDateTime, DateTime endDateTime)
         {
             int userId = ActiveUser.User.UserId;
 
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE TheTripMasterDatabase.dbo.[Trip] SET startDate = @startDate, endDate = @endDate WHERE tripName = @tripName AND userId = @userId";
+                cmd.CommandText = "UPDATE [Trip] SET startDate = @startDate, endDate = @endDate WHERE tripName = @tripName AND userId = @userId";
 
 
                 cmd.Parameters.AddWithValue("@startDate", startDateTime);
@@ -110,12 +108,12 @@ namespace TheTripMasterLibrary.DataLayer
          *
          * Return: A Trip.
          */
-        public static Trip GetSelectedTrip(string tripName)
+        public Trip GetSelectedTrip(string tripName)
         {
             int userId = ActiveUser.User.UserId;
 
             string queryString =
-                "SELECT * FROM TheTripMasterDatabase.dbo.[Trip] WHERE tripName = @tripName AND userId = @userId";
+                "SELECT * FROM [Trip] WHERE tripName = @tripName AND userId = @userId";
 
             Trip selectedTrip = new Trip();
 
