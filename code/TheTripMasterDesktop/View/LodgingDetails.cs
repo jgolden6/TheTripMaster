@@ -22,17 +22,26 @@ namespace TheTripMasterDesktop.View
             InitializeComponent();
         }
 
+        /**
+         * Deletes the selected lodging and navigates to the Trip Details page.
+         */
         private void deleteButton_Click(object sender, EventArgs e)
         {
             this.dataLayer.DeleteLodging(SelectedLodging.Lodging.LodgingId);
             DeleteButtonClick?.Invoke();
         }
 
+        /**
+         * Navigates to the Trip Details page.
+         */
         private void cancelButton_Click(object sender, EventArgs e)
         {
             CancelButtonClick?.Invoke();
         }
 
+        /**
+         * Loads the lodging data into the fields on the page.
+         */
         public void LoadLodgingDataIntoInputFields()
         {
             this.addressTextBox.Text = SelectedLodging.Lodging.StreetAddress;

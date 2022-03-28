@@ -24,6 +24,7 @@ namespace TheTripMasterDesktop.View
 
         /**
          * Adds the Trip to the database if the Trip is valid and navigates to the Overview page.
+         * Displays error messages for invalid data if the data isn't valid.
          */
         private void confirmButton_Click(object sender, EventArgs e)
         {

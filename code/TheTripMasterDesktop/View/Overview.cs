@@ -54,6 +54,9 @@ namespace TheTripMasterDesktop.View
             DataCellClick?.Invoke();
         }
 
+        /**
+         * Populates the trip grid view with relevant data from the user's trips.
+         */
         public void LoadTripDataIntoGridView()
         {
             DataTable tripTable = new DataTable();

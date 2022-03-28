@@ -37,13 +37,17 @@ namespace TheTripMasterDesktop.View
             AddWaypointButtonClick?.Invoke();
         }
 
-
+        /**
+         * Navigates to the Add Transport page.
+         */
         private void addTransportButton_Click(object sender, EventArgs e)
         {
             AddTransportButtonClick?.Invoke();
         }
 
-
+        /**
+         * Navigates to the Add Lodging page.
+         */
         private void addLodgingButton_Click(object sender, EventArgs e)
         {
             AddLodgingButtonClick?.Invoke();
@@ -57,6 +61,9 @@ namespace TheTripMasterDesktop.View
             CancelButtonClick?.Invoke();
         }
 
+        /**
+         * Loads the relevant trip data into the fields on the page.
+         */
         public void LoadTripDataIntoInputFields()
         {
             this.tripNameTextBox.Text = SelectedTrip.Trip.Name;
@@ -64,6 +71,9 @@ namespace TheTripMasterDesktop.View
             this.endDatePicker.Value = SelectedTrip.Trip.EndDate;
         }
 
+        /**
+         * Populates the event grid view with the data from the trip's waypoints and transportation.
+         */
         public void LoadEventDataIntoGridView()
         {
             DataTable eventTable = new DataTable();
@@ -93,6 +103,9 @@ namespace TheTripMasterDesktop.View
             this.eventDataGridView.DataSource = eventTable;
         }
 
+        /**
+         * Populates the lodging grid view with the data from the trip's lodging.
+         */
         public void LoadLodgingDataIntoGridView()
         {
             DataTable lodgingTable = new DataTable();
@@ -113,6 +126,10 @@ namespace TheTripMasterDesktop.View
             this.lodgingDataGridView.DataSource = lodgingTable;
         }
 
+        /**
+         * Sets the selected event to the waypoint or transportation selected,
+         * and navigates to the Waypoint Details or the Transport Details page.
+         */
         private void eventDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (this.eventDataGridView.CurrentRow.Cells[1].Value.ToString().Equals("Waypoint"))
@@ -135,6 +152,9 @@ namespace TheTripMasterDesktop.View
             }
         }
 
+        /**
+         * Sets the selected lodging to the lodging selected and navigates to the Lodging Selected page.
+         */
         private void lodgingDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Lodging lodging =

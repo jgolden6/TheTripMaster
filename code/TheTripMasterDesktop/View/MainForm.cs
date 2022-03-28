@@ -27,6 +27,9 @@ namespace TheTripMasterDesktop
         AddLodging addLodgingPage = new AddLodging();
         LodgingDetails lodgingDetailsPage = new LodgingDetails();
 
+        /**
+         * Adds the login page to the main panel and registers all the button events.
+         */
         public MainForm()
         {
             InitializeComponent();

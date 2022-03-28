@@ -22,17 +22,26 @@ namespace TheTripMasterDesktop.View
             InitializeComponent();
         }
 
+        /**
+         * Deletes the selected event and navigates to the Trip Details page.
+         */
         private void deleteButton_Click(object sender, EventArgs e)
         {
             this.dataLayer.DeleteTransportation(SelectedEvent.Event.Id);
             DeleteButtonClick?.Invoke();
         }
 
+        /**
+         * Navigates to the Trip Details page.
+         */
         private void cancelButton_Click(object sender, EventArgs e)
         {
             CancelButtonClick?.Invoke();
         }
 
+        /**
+         * Loads the relevant transportation data into the fields on the page.
+         */
         public void LoadTransportDataIntoInputFields()
         {
             this.transportNameTextBox.Text = SelectedEvent.Event.ToString();

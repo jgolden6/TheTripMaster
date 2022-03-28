@@ -24,6 +24,7 @@ namespace TheTripMasterDesktop.View
 
         /**
          * Adds the user to the database if the information is valid and navigates to the Login page.
+         * Displays error messages for invalid data if the data isn't valid.
          */
         private void registerButton_Click(object sender, EventArgs e)
         {

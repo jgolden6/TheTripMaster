@@ -24,6 +24,7 @@ namespace TheTripMasterDesktop.View
 
         /**
          * Sets the active user and navigates to the Overview page if the credentials are valid.
+         * Displays error messages for invalid data if the data isn't valid.
          */
         private void loginButton_Click(object sender, EventArgs e)
         {

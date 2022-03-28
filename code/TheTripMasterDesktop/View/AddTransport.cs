@@ -22,6 +22,10 @@ namespace TheTripMasterDesktop.View
             InitializeComponent();
         }
 
+        /**
+         * Adds the transportation if the data is valid and navigates to the Trip Details page.
+         * Displays error messages for invalid data if the data isn't valid.
+         */
         private void confirmButton_Click(object sender, EventArgs e)
         {
             this.ClearErrorMessages();
@@ -39,6 +43,9 @@ namespace TheTripMasterDesktop.View
             ConfirmButtonClick?.Invoke();
         }
 
+        /**
+         * Navigates to the Trip Details page.
+         */
         private void cancelButton_Click(object sender, EventArgs e)
         {
             CancelButtonClick?.Invoke();

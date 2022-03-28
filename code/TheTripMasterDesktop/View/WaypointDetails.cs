@@ -22,17 +22,27 @@ namespace TheTripMasterDesktop.View
             InitializeComponent();
         }
 
+        /**
+         * Deletes the selected waypoint and navigates to the Trip Details page.
+         */
         private void deleteButton_Click(object sender, EventArgs e)
         {
             this.dataLayer.DeleteWaypoint(SelectedEvent.Event.Id);
             DeleteButtonClick?.Invoke();
         }
 
+
+        /**
+         * Navigates to the Trip Details page.
+         */
         private void cancelButton_Click(object sender, EventArgs e)
         {
             CancelButtonClick?.Invoke();
         }
 
+        /**
+         * Loads the relevant waypoint data into the fields on the page.
+         */
         public void LoadWaypointDataIntoInputFields()
         {
             this.waypointNameTextBox.Text = SelectedEvent.Event.ToString();
