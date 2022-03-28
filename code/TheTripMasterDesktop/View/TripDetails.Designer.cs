@@ -145,6 +145,7 @@ namespace TheTripMasterDesktop.View
             this.lodgingDataGridView.RowTemplate.Height = 25;
             this.lodgingDataGridView.Size = new System.Drawing.Size(267, 101);
             this.lodgingDataGridView.TabIndex = 11;
+            this.lodgingDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lodgingDataGridView_CellClick);
             // 
             // addLodgingButton
             // 

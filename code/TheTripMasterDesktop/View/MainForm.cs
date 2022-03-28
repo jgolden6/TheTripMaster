@@ -24,6 +24,7 @@ namespace TheTripMasterDesktop
         AddTransport addTransportPage = new AddTransport();
         WaypointDetails waypointDetailsPage = new WaypointDetails();
         TransportDetails transportDetailsPage = new TransportDetails();
+        AddLodging addLodgingPage = new AddLodging();
 
         public MainForm()
         {
@@ -45,6 +46,7 @@ namespace TheTripMasterDesktop
 
             this.tripDetailsPage.AddTransportButtonClick += OpenAddTransportPage;
             this.tripDetailsPage.AddWaypointButtonClick += OpenAddWaypointPage;
+            this.tripDetailsPage.AddLodgingButtonClick += OpenAddLodgingPage;
             this.tripDetailsPage.CancelButtonClick += OpenOverviewPage;
             this.tripDetailsPage.WaypointDataCellClick += OpenWaypointDetailsPage;
             this.tripDetailsPage.TransportDataCellClick += OpenTransportDetailsPage;
@@ -60,6 +62,9 @@ namespace TheTripMasterDesktop
 
             this.transportDetailsPage.DeleteButtonClick += OpenTripDetailsPage;
             this.transportDetailsPage.CancelButtonClick += OpenTripDetailsPage;
+
+            this.addLodgingPage.ConfirmButtonClick += OpenTripDetailsPage;
+            this.addLodgingPage.CancelButtonClick += OpenTripDetailsPage;
         }
 
         private void OpenLoginPage()
@@ -92,7 +97,8 @@ namespace TheTripMasterDesktop
             this.mainPanel.Controls.Clear();
             this.mainPanel.Controls.Add(this.tripDetailsPage);
             this.tripDetailsPage.LoadTripDataIntoInputFields();
-            this.tripDetailsPage.LoadWaypointDataIntoGridView();
+            this.tripDetailsPage.LoadEventDataIntoGridView();
+            this.tripDetailsPage.LoadLodgingDataIntoGridView();
         }
 
         private void OpenAddWaypointPage()
@@ -119,6 +125,12 @@ namespace TheTripMasterDesktop
             this.mainPanel.Controls.Clear();
             this.mainPanel.Controls.Add(this.transportDetailsPage);
             this.transportDetailsPage.LoadTransportDataIntoInputFields();
+        }
+
+        private void OpenAddLodgingPage()
+        {
+            this.mainPanel.Controls.Clear();
+            this.mainPanel.Controls.Add(this.addLodgingPage);
         }
     }
 }

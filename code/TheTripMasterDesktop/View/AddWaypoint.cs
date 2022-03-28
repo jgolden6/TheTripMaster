@@ -33,7 +33,8 @@ namespace TheTripMasterDesktop.View
 
             Waypoint waypoint = new Waypoint
             {
-                WaypointName = this.waypointNameTextBox.Text, StartDate = this.startDatePicker.Value,
+                WaypointName = this.waypointNameTextBox.Text,
+                StartDate = this.startDatePicker.Value,
                 EndDate = this.endDatePicker.Value
             };
 

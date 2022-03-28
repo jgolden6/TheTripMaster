@@ -14,6 +14,7 @@ namespace TheTripMasterDesktop.View
     {
         WaypointDataLayer waypointDataLayer = new WaypointDataLayer();
         TransportationDataLayer transportDataLayer = new TransportationDataLayer();
+        LodgingDataLayer lodgingDataLayer = new LodgingDataLayer();
 
         public event Action AddWaypointButtonClick;
         public event Action AddTransportButtonClick;
@@ -55,15 +56,6 @@ namespace TheTripMasterDesktop.View
             CancelButtonClick?.Invoke();
         }
 
-        /**
-        * Validates all the information in the input fields.
-        */
-        private bool ValidateData()
-        {
-            return (TripValidation.ValidateName(this.tripNameTextBox.Text) &&
-                    TripValidation.ValidateDateTimes(this.startDatePicker.Value, this.endDatePicker.Value));
-        }
-
         public void LoadTripDataIntoInputFields()
         {
             this.tripNameTextBox.Text = SelectedTrip.Trip.Name;
@@ -71,26 +63,53 @@ namespace TheTripMasterDesktop.View
             this.endDatePicker.Value = SelectedTrip.Trip.EndDate;
         }
 
-        public void LoadWaypointDataIntoGridView()
+        public void LoadEventDataIntoGridView()
         {
-            DataTable tripTable = new DataTable();
-            tripTable.Columns.Add("Id");
-            tripTable.Columns.Add("Type");
-            tripTable.Columns.Add("Name");
-            tripTable.Columns.Add("Start Date");
-            tripTable.Columns.Add("End Date");
+            DataTable eventTable = new DataTable();
+            eventTable.Columns.Add("Id");
+            eventTable.Columns.Add("Type");
+            eventTable.Columns.Add("Name");
+            eventTable.Columns.Add("Start Date");
+            eventTable.Columns.Add("End Date");
 
             foreach (Waypoint waypoint in this.waypointDataLayer.GetTripWaypoints(SelectedTrip.Trip.TripId))
             {
-                tripTable.Rows.Add(new object[] { waypoint.Id, "Waypoint", waypoint.WaypointName, waypoint.StartDate.ToShortDateString(), waypoint.EndDate.ToShortDateString()});
+                eventTable.Rows.Add(new object[] { 
+                    waypoint.Id, "Waypoint", waypoint.WaypointName, 
+                    waypoint.StartDate.ToShortDateString(), waypoint.EndDate.ToShortDateString()
+
+                });
             }
 
             foreach (Transportation transport in this.transportDataLayer.GetTripTransportations(SelectedTrip.Trip.TripId))
             {
-                tripTable.Rows.Add(new object[] { transport.Id, "Transport", transport.TransportationType, transport.StartDate.ToShortDateString(), transport.EndDate.ToShortDateString() });
+                eventTable.Rows.Add(new object[] { 
+                    transport.Id, "Transport", transport.TransportationType, 
+                    transport.StartDate.ToShortDateString(), transport.EndDate.ToShortDateString()
+                });
             }
 
-            this.eventDataGridView.DataSource = tripTable;
+            this.eventDataGridView.DataSource = eventTable;
+        }
+
+        public void LoadLodgingDataIntoGridView()
+        {
+            DataTable lodgingTable = new DataTable();
+            lodgingTable.Columns.Add("Id");
+            lodgingTable.Columns.Add("Address");
+            lodgingTable.Columns.Add("Start Date");
+            lodgingTable.Columns.Add("End Date");
+
+            foreach (Lodging lodging in this.lodgingDataLayer.GetTripLodgings(SelectedTrip.Trip.TripId))
+            {
+                lodgingTable.Rows.Add(new object[]
+                {
+                    lodging.LodgingId, lodging.StreetAddress, lodging.StartDate.ToShortDateString(),
+                    lodging.EndDate.ToShortDateString()
+                });
+            }
+
+            this.lodgingDataGridView.DataSource = lodgingTable;
         }
 
         private void eventDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -113,6 +132,11 @@ namespace TheTripMasterDesktop.View
 
                 TransportDataCellClick?.Invoke();
             }
+        }
+
+        private void lodgingDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
