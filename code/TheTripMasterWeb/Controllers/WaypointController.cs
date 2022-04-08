@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TheTripMasterLibrary.DataLayer;
@@ -113,14 +114,24 @@ namespace TheTripMasterWeb.Controllers
          * Returns: A WaypointDetails.
          */
         [HttpGet]
-        public IActionResult WaypointDetails(int waypointId, string name, DateTime start, DateTime end)
+        public IActionResult WaypointDetails(int waypointId, string name, string street, string city, string state, string zip, DateTime start, DateTime end)
         {
             Waypoint waypoint = new Waypoint { Id = waypointId, 
                                                TripId = SelectedTrip.Trip.TripId, 
                                                TripName = SelectedTrip.Trip.Name, 
-                                               WaypointName = name, 
+                                               WaypointName = name,
+                                               StreetAddress = street,
+                                               City = city,
+                                               State = state,
+                                               ZipCode = zip,
                                                StartDate = start, 
                                                EndDate = end };
+
+            Coordinates coords = AddressValidation.GetLatitudeLongitude(waypoint.StreetAddress, waypoint.City, waypoint.State, waypoint.ZipCode);
+
+            waypoint.Latitude = coords.Latitude;
+            waypoint.Longitude = coords.Longitude;
+
             return View(model: waypoint);
         }
 

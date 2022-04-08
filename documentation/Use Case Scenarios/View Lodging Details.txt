@@ -1,4 +1,4 @@
 View Lodging Details:
 
-1. From the Trip Details page, the user selects a lodging from the list od lodgings.
+1. From the Trip Details page, the user selects a lodging from the list of lodgings.
 2. The user is redirected to the Lodging Details page, populated with the selected Lodging's information and a map displaying its location.
