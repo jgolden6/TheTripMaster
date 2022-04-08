@@ -21,6 +21,10 @@ namespace TheTripMasterTest.LibraryDataLayer
                 TripId = 18,
                 TripName = "Belgium",
                 WaypointName = "Tower",
+                StreetAddress = "4299 Express Ln",
+                City = "Sarasota",
+                State = "Florida",
+                ZipCode = "34238",
                 StartDate = DateTime.Parse("7/2/2022 12:00:00 AM"),
                 EndDate = DateTime.Parse("7/3/2022 12:00:00 AM")
             };
@@ -66,6 +70,10 @@ namespace TheTripMasterTest.LibraryDataLayer
                 TripId = 25,
                 TripName = "Boston",
                 WaypointName = "River",
+                StreetAddress = "4299 Express Ln",
+                City = "Sarasota",
+                State = "Florida",
+                ZipCode = "34238",
                 StartDate = DateTime.Parse("1/2/2024 12:00:00 AM"),
                 EndDate = DateTime.Parse("1/3/2024 12:00:00 AM")
             };
