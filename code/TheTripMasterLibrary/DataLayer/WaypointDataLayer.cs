@@ -17,11 +17,15 @@ namespace TheTripMasterLibrary.DataLayer
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO [Waypoint] (tripId, waypointName, startDate, endDate) " +
-                                  "VALUES (@tripId, @waypointName, @startDate, @endDate)";
+                cmd.CommandText = "INSERT INTO [Waypoint] (tripId, waypointName, streetAddress, city, state, zipCode, startDate, endDate) " +
+                                  "VALUES (@tripId, @waypointName, @streetAddress, @city, @state, @zipCode, @startDate, @endDate)";
 
                 cmd.Parameters.AddWithValue("@tripId", SelectedTrip.Trip.TripId);
                 cmd.Parameters.AddWithValue("@waypointName", waypoint.WaypointName);
+                cmd.Parameters.AddWithValue("@streetAddress", waypoint.StreetAddress);
+                cmd.Parameters.AddWithValue("@city", waypoint.City);
+                cmd.Parameters.AddWithValue("@state", waypoint.State);
+                cmd.Parameters.AddWithValue("@zipCode", waypoint.ZipCode);
                 cmd.Parameters.AddWithValue("@startDate", waypoint.StartDate);
                 cmd.Parameters.AddWithValue("@endDate", waypoint.EndDate);
 

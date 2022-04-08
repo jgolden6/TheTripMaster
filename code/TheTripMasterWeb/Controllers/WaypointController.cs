@@ -41,6 +41,11 @@ namespace TheTripMasterWeb.Controllers
         public IActionResult AddWaypoint(Waypoint model)
         {
             bool isNameValid = TripValidation.ValidateName(model.WaypointName);
+            bool isStreetAddressValid = AddressValidation.ValidateAddressField(model.StreetAddress);
+            bool isCityValid = AddressValidation.ValidateAddressField(model.City);
+            bool isStateValid = AddressValidation.ValidateAddressField(model.State);
+            bool isZipCodeValid = AddressValidation.ValidateZipCode(model.ZipCode);
+            bool isAddressValid = AddressValidation.ValidateAddress(model.StreetAddress, model.City, model.State, model.ZipCode);
             bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
             bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.StartDate, model.EndDate);
 
@@ -64,6 +69,26 @@ namespace TheTripMasterWeb.Controllers
                 ModelState.AddModelError("", "Invalid name.");
             }
 
+            if (!isStreetAddressValid)
+            {
+                ModelState.AddModelError("", "Invalid Street Address.");
+            }
+
+            if (!isCityValid)
+            {
+                ModelState.AddModelError("", "Invalid City.");
+            }
+
+            if (!isStateValid)
+            {
+                ModelState.AddModelError("", "Invalid State/Province.");
+            }
+
+            if (!isZipCodeValid)
+            {
+                ModelState.AddModelError("", "Invalid Zip Code");
+            }
+
             if (!areDateTimesValid)
             {
                 ModelState.AddModelError("", "Invalid time frame.");
@@ -72,6 +97,11 @@ namespace TheTripMasterWeb.Controllers
             if (!isTimeframeAvailable)
             {
                 ModelState.AddModelError("", "Time-frame overlaps an existing event.");
+            }
+
+            if (!isAddressValid)
+            {
+                ModelState.AddModelError("", "This address does not exist.");
             }
 
             return View(model);

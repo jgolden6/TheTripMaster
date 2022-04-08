@@ -44,10 +44,10 @@ namespace TheTripMasterWeb.Controllers
         [HttpPost]
         public IActionResult AddLodging(Lodging model)
         {
-            bool isStreetAddressValid = LodgingValidation.ValidateAddressField(model.StreetAddress);
-            bool isCityValid = LodgingValidation.ValidateAddressField(model.City);
-            bool isStateValid = LodgingValidation.ValidateAddressField(model.State);
-            bool isZipCodeValid = LodgingValidation.ValidateZipCode(model.ZipCode);
+            bool isStreetAddressValid = AddressValidation.ValidateAddressField(model.StreetAddress);
+            bool isCityValid = AddressValidation.ValidateAddressField(model.City);
+            bool isStateValid = AddressValidation.ValidateAddressField(model.State);
+            bool isZipCodeValid = AddressValidation.ValidateZipCode(model.ZipCode);
             bool isDescriptionValid = LodgingValidation.ValidateDescription(model.Description);
             bool areDateTimesValid = LodgingValidation.ValidateDateTimes(model.StartDate, model.EndDate);
             bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.StartDate, model.EndDate);
