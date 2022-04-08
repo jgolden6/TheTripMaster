@@ -80,13 +80,13 @@ namespace TheTripMasterDesktop.View
             eventTable.Columns.Add("Id");
             eventTable.Columns.Add("Type");
             eventTable.Columns.Add("Name");
-            eventTable.Columns.Add("Start Date");
-            eventTable.Columns.Add("End Date");
+            eventTable.Columns.Add("Start Date", typeof(DateTime));
+            eventTable.Columns.Add("End Date", typeof(DateTime));
 
             foreach (Waypoint waypoint in this.waypointDataLayer.GetTripWaypoints(SelectedTrip.Trip.TripId))
             {
                 eventTable.Rows.Add(new object[] { 
-                    waypoint.Id, "Waypoint", waypoint.WaypointName, 
+                    waypoint.Id, "Waypoint", waypoint.WaypointName.Trim(), 
                     waypoint.StartDate.ToShortDateString(), waypoint.EndDate.ToShortDateString()
 
                 });
@@ -95,12 +95,15 @@ namespace TheTripMasterDesktop.View
             foreach (Transportation transport in this.transportDataLayer.GetTripTransportations(SelectedTrip.Trip.TripId))
             {
                 eventTable.Rows.Add(new object[] { 
-                    transport.Id, "Transport", transport.TransportationType, 
+                    transport.Id, "Transport", transport.TransportationType.Trim(), 
                     transport.StartDate.ToShortDateString(), transport.EndDate.ToShortDateString()
                 });
             }
 
             this.eventDataGridView.DataSource = eventTable;
+            this.eventDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.eventDataGridView.RowHeadersVisible = false;
+            this.eventDataGridView.Sort(this.eventDataGridView.Columns[3], ListSortDirection.Ascending);
         }
 
         /**
@@ -111,19 +114,22 @@ namespace TheTripMasterDesktop.View
             DataTable lodgingTable = new DataTable();
             lodgingTable.Columns.Add("Id");
             lodgingTable.Columns.Add("Address");
-            lodgingTable.Columns.Add("Start Date");
-            lodgingTable.Columns.Add("End Date");
+            lodgingTable.Columns.Add("Start Date", typeof(DateTime));
+            lodgingTable.Columns.Add("End Date", typeof(DateTime));
 
             foreach (Lodging lodging in this.lodgingDataLayer.GetTripLodgings(SelectedTrip.Trip.TripId))
             {
                 lodgingTable.Rows.Add(new object[]
                 {
-                    lodging.LodgingId, lodging.StreetAddress, lodging.StartDate.ToShortDateString(),
+                    lodging.LodgingId, lodging.StreetAddress.Trim(), lodging.StartDate.ToShortDateString(),
                     lodging.EndDate.ToShortDateString()
                 });
             }
 
             this.lodgingDataGridView.DataSource = lodgingTable;
+            this.lodgingDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.lodgingDataGridView.RowHeadersVisible = false;
+            this.lodgingDataGridView.Sort(this.lodgingDataGridView.Columns[2], ListSortDirection.Ascending);
         }
 
         /**

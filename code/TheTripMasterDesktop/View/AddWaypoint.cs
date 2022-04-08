@@ -34,6 +34,10 @@ namespace TheTripMasterDesktop.View
             Waypoint waypoint = new Waypoint
             {
                 WaypointName = this.waypointNameTextBox.Text,
+                StreetAddress = this.addressTextBox.Text,
+                City = this.cityTextBox.Text,
+                State = this.stateTextBox.Text,
+                ZipCode = this.zipcodeTextBox.Text,
                 StartDate = this.startDatePicker.Value,
                 EndDate = this.endDatePicker.Value
             };

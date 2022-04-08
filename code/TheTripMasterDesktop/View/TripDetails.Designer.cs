@@ -103,7 +103,7 @@ namespace TheTripMasterDesktop.View
             this.eventDataGridView.Location = new System.Drawing.Point(21, 146);
             this.eventDataGridView.Name = "eventDataGridView";
             this.eventDataGridView.RowTemplate.Height = 25;
-            this.eventDataGridView.Size = new System.Drawing.Size(267, 101);
+            this.eventDataGridView.Size = new System.Drawing.Size(403, 101);
             this.eventDataGridView.TabIndex = 6;
             this.eventDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.eventDataGridView_CellClick);
             // 
@@ -129,7 +129,7 @@ namespace TheTripMasterDesktop.View
             // 
             // addTransportButton
             // 
-            this.addTransportButton.Location = new System.Drawing.Point(190, 253);
+            this.addTransportButton.Location = new System.Drawing.Point(136, 253);
             this.addTransportButton.Name = "addTransportButton";
             this.addTransportButton.Size = new System.Drawing.Size(98, 23);
             this.addTransportButton.TabIndex = 10;
@@ -143,7 +143,7 @@ namespace TheTripMasterDesktop.View
             this.lodgingDataGridView.Location = new System.Drawing.Point(21, 309);
             this.lodgingDataGridView.Name = "lodgingDataGridView";
             this.lodgingDataGridView.RowTemplate.Height = 25;
-            this.lodgingDataGridView.Size = new System.Drawing.Size(267, 101);
+            this.lodgingDataGridView.Size = new System.Drawing.Size(403, 101);
             this.lodgingDataGridView.TabIndex = 11;
             this.lodgingDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lodgingDataGridView_CellClick);
             // 
@@ -174,7 +174,7 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.tripNameTextBox);
             this.Controls.Add(this.label1);
             this.Name = "TripDetails";
-            this.Size = new System.Drawing.Size(310, 457);
+            this.Size = new System.Drawing.Size(451, 457);
             ((System.ComponentModel.ISupportInitialize)(this.eventDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lodgingDataGridView)).EndInit();
             this.ResumeLayout(false);

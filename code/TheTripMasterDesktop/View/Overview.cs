@@ -61,8 +61,8 @@ namespace TheTripMasterDesktop.View
         {
             DataTable tripTable = new DataTable();
             tripTable.Columns.Add("Trip Name");
-            tripTable.Columns.Add("Start Date");
-            tripTable.Columns.Add("End Date");
+            tripTable.Columns.Add("Start Date", typeof(DateTime));
+            tripTable.Columns.Add("End Date", typeof(DateTime));
 
             foreach (Trip trip in this.dataLayer.GetAllTripsOfUser(ActiveUser.User.UserId))
             {
@@ -70,6 +70,9 @@ namespace TheTripMasterDesktop.View
             }
 
             this.tripDataGridView.DataSource = tripTable;
+            this.tripDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.tripDataGridView.RowHeadersVisible = false;
+            this.tripDataGridView.Sort(this.tripDataGridView.Columns[1], ListSortDirection.Ascending);
         }
     }
 }
