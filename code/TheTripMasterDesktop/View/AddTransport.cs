@@ -20,6 +20,7 @@ namespace TheTripMasterDesktop.View
         public AddTransport()
         {
             InitializeComponent();
+            this.typeComboBox.DataSource = Enum.GetNames(typeof(TransportationType));
         }
 
         /**
