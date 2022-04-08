@@ -51,6 +51,12 @@ namespace TheTripMasterDesktop.View
             this.startDatePicker.Value = SelectedLodging.Lodging.StartDate;
             this.endDatePicker.Value = SelectedLodging.Lodging.EndDate;
             this.descriptionTextBox.Text = SelectedLodging.Lodging.Description;
+            this.webControl1.WebView = this.webView1;
+            this.webView1.Url = "https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=" +
+                                this.addressTextBox.Text + "," +
+                                this.cityTextBox.Text + "," +
+                                this.stateTextBox.Text +
+                                "&key=AIzaSyDmIIfvmSD3Yd0Bb4Bl-LTvkkLC0MFnZ4E";
         }
     }
 }

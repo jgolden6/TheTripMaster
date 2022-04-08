@@ -45,6 +45,8 @@ namespace TheTripMasterDesktop.View
             this.label1 = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
+            this.webView1 = new EO.WebBrowser.WebView();
+            this.webControl1 = new EO.WinForm.WebControl();
             this.SuspendLayout();
             // 
             // descriptionTextBox
@@ -184,10 +186,27 @@ namespace TheTripMasterDesktop.View
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
+            // webView1
+            // 
+            this.webView1.InputMsgFilter = null;
+            this.webView1.ObjectForScripting = null;
+            this.webView1.Title = null;
+            this.webView1.Url = "";
+            // 
+            // webControl1
+            // 
+            this.webControl1.BackColor = System.Drawing.Color.White;
+            this.webControl1.Location = new System.Drawing.Point(324, 29);
+            this.webControl1.Name = "webControl1";
+            this.webControl1.Size = new System.Drawing.Size(330, 395);
+            this.webControl1.TabIndex = 64;
+            this.webControl1.Text = "webControl1";
+            // 
             // LodgingDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.webControl1);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.descriptionTextBox);
@@ -205,7 +224,7 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "LodgingDetails";
-            this.Size = new System.Drawing.Size(340, 447);
+            this.Size = new System.Drawing.Size(679, 447);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,5 +247,7 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button deleteButton;
+        private EO.WebBrowser.WebView webView1;
+        private EO.WinForm.WebControl webControl1;
     }
 }
