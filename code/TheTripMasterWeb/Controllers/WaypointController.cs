@@ -78,42 +78,6 @@ namespace TheTripMasterWeb.Controllers
         }
 
         /*
-         * Validates the waypoint data and uses the datalayer to add it to the database if valid.
-         *
-         * Returns: null if valid, the waypoint otherwise.
-         */
-        private Waypoint AddEvent(Waypoint waypoint)
-        {
-            bool isNameValid = TripValidation.ValidateName(waypoint.WaypointName);
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(waypoint.StartDate, waypoint.EndDate);
-            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, waypoint.StartDate, waypoint.EndDate);
-
-            if (isNameValid && areDateTimesValid && isTimeframeAvailable)
-            {
-                this.waypointDataLayer.AddWaypoint(waypoint);
-                return null;
-            }
-
-            if (!isNameValid)
-            {
-                ModelState.AddModelError("", "Invalid name.");
-            }
-
-            if (!areDateTimesValid)
-            {
-                ModelState.AddModelError("", "Invalid time frame.");
-            }
-
-            if (!isTimeframeAvailable)
-            {
-                ModelState.AddModelError("", "Time-frame overlaps an existing event.");
-            }
-
-            waypoint.TripName = SelectedTrip.Trip.Name;
-            return waypoint;
-        }
-
-        /*
          * Creates a waypoint and returns a WaypointDetails view
          *
          * Returns: A WaypointDetails.

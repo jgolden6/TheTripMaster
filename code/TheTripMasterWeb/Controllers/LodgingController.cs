@@ -3,10 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using GoogleMaps.LocationServices;
 using Microsoft.Extensions.Logging;
 using TheTripMasterLibrary.DataLayer;
 using TheTripMasterLibrary.Model;
+using Xamarin.Forms.Maps;
 
 namespace TheTripMasterWeb.Controllers
 {
@@ -47,6 +51,7 @@ namespace TheTripMasterWeb.Controllers
             bool isDescriptionValid = LodgingValidation.ValidateDescription(model.Description);
             bool areDateTimesValid = LodgingValidation.ValidateDateTimes(model.StartDate, model.EndDate);
             bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.StartDate, model.EndDate);
+            bool isAddressValid = AddressValidation.ValidateAddress(model.StreetAddress, model.City, model.State, model.ZipCode);
 
             if (isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isDescriptionValid &&
                 areDateTimesValid && isTimeframeAvailable)
@@ -101,6 +106,11 @@ namespace TheTripMasterWeb.Controllers
                 ModelState.AddModelError("", "Time-frame overlaps an existing event.");
             }
 
+            if (!isAddressValid)
+            {
+                ModelState.AddModelError("", "This address does not exist.");
+            }
+
             return View(new Lodging { TripName = SelectedTrip.Trip.Name});
         }
 
@@ -137,14 +147,20 @@ namespace TheTripMasterWeb.Controllers
             {
                 LodgingId = lodgingId,
                 TripName = SelectedTrip.Trip.Name,
-                StreetAddress = street,
-                City = city,
-                State = state,
-                ZipCode = zip,
-                Description = description,
+                StreetAddress = street.Trim(),
+                City = city.Trim(),
+                State = state.Trim(),
+                ZipCode = zip.Trim(),
+                Description = description.Trim(),
                 StartDate = start,
                 EndDate = end
             };
+            
+            Coordinates coords = AddressValidation.GetLatitudeLongitude(lodging.StreetAddress, lodging.City, lodging.State, lodging.ZipCode);
+
+            lodging.Latitude = coords.Latitude;
+            lodging.Longitude = coords.Longitude;
+
             return View(model: lodging);
         }
 
