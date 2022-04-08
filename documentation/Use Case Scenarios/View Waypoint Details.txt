@@ -1,4 +1,4 @@
 View Waypoint Details:
 
 1. From the Trip Details page, the user selects a Waypoint from the itinerary.
-2. The user is redirected to the Waypoint Details page, populated with the selected Waypoint's information.
+2. The user is redirected to the Waypoint Details page, populated with the selected Waypoint's information and a map displaying its location..

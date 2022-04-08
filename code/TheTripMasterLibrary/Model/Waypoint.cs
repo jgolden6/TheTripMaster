@@ -9,6 +9,10 @@ namespace TheTripMasterLibrary.Model
     {
         public string WaypointName { get; set; }
 
+        public string Latitude { get; set; }
+
+        public string Longitude { get; set; }
+
         public override string ToString()
         {
             return this.WaypointName;
