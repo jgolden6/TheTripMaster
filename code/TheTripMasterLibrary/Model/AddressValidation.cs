@@ -21,14 +21,15 @@ namespace TheTripMasterLibrary.Model
 
         public static bool ValidateAddress(string streetAddress, string city, string state, string zipCode)
         {
-            if (GetLatitudeLongitude(streetAddress, city, state, zipCode) == null)
+            Coordinates coords = GetLatitudeLongitude(streetAddress, city, state, zipCode);
+
+            if (coords == null)
             {
                 return false;
             }
 
             return true;
         }
-
 
         public static Coordinates GetLatitudeLongitude(string streetAddress, string city, string state, string zipCode)
         {
