@@ -18,6 +18,10 @@ namespace TheTripMasterLibrary.Model
 
         public string ZipCode { get; set; }
 
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
+
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
