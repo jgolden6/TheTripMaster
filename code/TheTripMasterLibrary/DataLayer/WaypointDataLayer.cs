@@ -65,6 +65,10 @@ namespace TheTripMasterLibrary.DataLayer
                         {
                             Id = (int)reader["waypointId"],
                             WaypointName = reader["waypointName"].ToString(),
+                            StreetAddress = reader["streetAddress"].ToString(),
+                            City = reader["city"].ToString(),
+                            State = reader["state"].ToString(),
+                            ZipCode = reader["zipCode"].ToString(),
                             StartDate = (DateTime)reader["startDate"],
                             EndDate = (DateTime)reader["endDate"]
                         };
@@ -108,6 +112,10 @@ namespace TheTripMasterLibrary.DataLayer
                         waypoint.Id = (int)reader["waypointId"];
                         waypoint.TripId = (int)reader["tripId"];
                         waypoint.WaypointName = reader["waypointName"].ToString();
+                        waypoint.StreetAddress = reader["streetAddress"].ToString();
+                        waypoint.City = reader["city"].ToString();
+                        waypoint.State = reader["state"].ToString();
+                        waypoint.ZipCode = reader["zipCode"].ToString();
                         waypoint.StartDate = (DateTime)reader["startDate"];
                         waypoint.EndDate = (DateTime)reader["endDate"];
                     }

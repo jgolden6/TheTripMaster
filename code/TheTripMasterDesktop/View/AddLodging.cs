@@ -63,25 +63,25 @@ namespace TheTripMasterDesktop.View
         {
             bool isValid = true;
 
-            if (!LodgingValidation.ValidateAddressField(this.addressTextBox.Text))
+            if (!AddressValidation.ValidateAddressField(this.addressTextBox.Text))
             {
                 isValid = false;
                 this.addressErrorLabel.Text = "Invalid address.";
             }
 
-            if (!LodgingValidation.ValidateAddressField(this.cityTextBox.Text))
+            if (!AddressValidation.ValidateAddressField(this.cityTextBox.Text))
             {
                 isValid = false;
                 this.cityErrorLabel.Text = "Invalid city.";
             }
 
-            if (!LodgingValidation.ValidateAddressField(this.stateTextBox.Text))
+            if (!AddressValidation.ValidateAddressField(this.stateTextBox.Text))
             {
                 isValid = false;
                 this.stateErrorLabel.Text = "Invalid state.";
             }
 
-            if (!LodgingValidation.ValidateZipCode(this.zipcodeTextBox.Text))
+            if (!AddressValidation.ValidateZipCode(this.zipcodeTextBox.Text))
             {
                 isValid = false;
                 this.zipcodeErrorLabel.Text = "Invalid zip code.";

@@ -43,12 +43,24 @@ namespace TheTripMasterDesktop.View
             this.label5 = new System.Windows.Forms.Label();
             this.nameErrorLabel = new System.Windows.Forms.Label();
             this.dateTimeErrorLabel = new System.Windows.Forms.Label();
+            this.stateErrorLabel = new System.Windows.Forms.Label();
+            this.cityErrorLabel = new System.Windows.Forms.Label();
+            this.addressErrorLabel = new System.Windows.Forms.Label();
+            this.zipcodeTextBox = new System.Windows.Forms.TextBox();
+            this.stateTextBox = new System.Windows.Forms.TextBox();
+            this.cityTextBox = new System.Windows.Forms.TextBox();
+            this.addressTextBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.zipcodeErrorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 24);
+            this.label1.Location = new System.Drawing.Point(16, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 15);
             this.label1.TabIndex = 0;
@@ -57,7 +69,7 @@ namespace TheTripMasterDesktop.View
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 71);
+            this.label2.Location = new System.Drawing.Point(16, 240);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 15);
             this.label2.TabIndex = 1;
@@ -66,7 +78,7 @@ namespace TheTripMasterDesktop.View
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 129);
+            this.label3.Location = new System.Drawing.Point(16, 298);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 15);
             this.label3.TabIndex = 2;
@@ -81,21 +93,21 @@ namespace TheTripMasterDesktop.View
             // 
             // startDatePicker
             // 
-            this.startDatePicker.Location = new System.Drawing.Point(89, 65);
+            this.startDatePicker.Location = new System.Drawing.Point(89, 234);
             this.startDatePicker.Name = "startDatePicker";
             this.startDatePicker.Size = new System.Drawing.Size(200, 23);
             this.startDatePicker.TabIndex = 4;
             // 
             // endDatePicker
             // 
-            this.endDatePicker.Location = new System.Drawing.Point(89, 123);
+            this.endDatePicker.Location = new System.Drawing.Point(89, 292);
             this.endDatePicker.Name = "endDatePicker";
             this.endDatePicker.Size = new System.Drawing.Size(200, 23);
             this.endDatePicker.TabIndex = 5;
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(22, 200);
+            this.confirmButton.Location = new System.Drawing.Point(22, 369);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
             this.confirmButton.TabIndex = 6;
@@ -105,7 +117,7 @@ namespace TheTripMasterDesktop.View
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(214, 200);
+            this.cancelButton.Location = new System.Drawing.Point(214, 369);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 7;
@@ -116,7 +128,7 @@ namespace TheTripMasterDesktop.View
             // startTimePicker
             // 
             this.startTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.startTimePicker.Location = new System.Drawing.Point(176, 94);
+            this.startTimePicker.Location = new System.Drawing.Point(176, 263);
             this.startTimePicker.Name = "startTimePicker";
             this.startTimePicker.Size = new System.Drawing.Size(113, 23);
             this.startTimePicker.TabIndex = 8;
@@ -124,7 +136,7 @@ namespace TheTripMasterDesktop.View
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(89, 100);
+            this.label4.Location = new System.Drawing.Point(89, 269);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 15);
             this.label4.TabIndex = 9;
@@ -133,7 +145,7 @@ namespace TheTripMasterDesktop.View
             // endTimePicker
             // 
             this.endTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.endTimePicker.Location = new System.Drawing.Point(176, 152);
+            this.endTimePicker.Location = new System.Drawing.Point(176, 321);
             this.endTimePicker.Name = "endTimePicker";
             this.endTimePicker.Size = new System.Drawing.Size(113, 23);
             this.endTimePicker.TabIndex = 10;
@@ -141,7 +153,7 @@ namespace TheTripMasterDesktop.View
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(89, 158);
+            this.label5.Location = new System.Drawing.Point(89, 327);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 15);
             this.label5.TabIndex = 11;
@@ -161,15 +173,127 @@ namespace TheTripMasterDesktop.View
             // 
             this.dateTimeErrorLabel.AutoSize = true;
             this.dateTimeErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.dateTimeErrorLabel.Location = new System.Drawing.Point(22, 182);
+            this.dateTimeErrorLabel.Location = new System.Drawing.Point(22, 351);
             this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
             this.dateTimeErrorLabel.Size = new System.Drawing.Size(0, 15);
             this.dateTimeErrorLabel.TabIndex = 13;
+            // 
+            // stateErrorLabel
+            // 
+            this.stateErrorLabel.AutoSize = true;
+            this.stateErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.stateErrorLabel.Location = new System.Drawing.Point(89, 172);
+            this.stateErrorLabel.Name = "stateErrorLabel";
+            this.stateErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.stateErrorLabel.TabIndex = 52;
+            // 
+            // cityErrorLabel
+            // 
+            this.cityErrorLabel.AutoSize = true;
+            this.cityErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.cityErrorLabel.Location = new System.Drawing.Point(89, 131);
+            this.cityErrorLabel.Name = "cityErrorLabel";
+            this.cityErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.cityErrorLabel.TabIndex = 51;
+            // 
+            // addressErrorLabel
+            // 
+            this.addressErrorLabel.AutoSize = true;
+            this.addressErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.addressErrorLabel.Location = new System.Drawing.Point(89, 88);
+            this.addressErrorLabel.Name = "addressErrorLabel";
+            this.addressErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.addressErrorLabel.TabIndex = 50;
+            // 
+            // zipcodeTextBox
+            // 
+            this.zipcodeTextBox.Location = new System.Drawing.Point(89, 190);
+            this.zipcodeTextBox.Name = "zipcodeTextBox";
+            this.zipcodeTextBox.Size = new System.Drawing.Size(200, 23);
+            this.zipcodeTextBox.TabIndex = 49;
+            // 
+            // stateTextBox
+            // 
+            this.stateTextBox.Location = new System.Drawing.Point(89, 149);
+            this.stateTextBox.Name = "stateTextBox";
+            this.stateTextBox.Size = new System.Drawing.Size(200, 23);
+            this.stateTextBox.TabIndex = 48;
+            // 
+            // cityTextBox
+            // 
+            this.cityTextBox.Location = new System.Drawing.Point(89, 106);
+            this.cityTextBox.Name = "cityTextBox";
+            this.cityTextBox.Size = new System.Drawing.Size(200, 23);
+            this.cityTextBox.TabIndex = 47;
+            // 
+            // addressTextBox
+            // 
+            this.addressTextBox.Location = new System.Drawing.Point(89, 65);
+            this.addressTextBox.Name = "addressTextBox";
+            this.addressTextBox.Size = new System.Drawing.Size(200, 23);
+            this.addressTextBox.TabIndex = 46;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(16, 193);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(58, 15);
+            this.label6.TabIndex = 45;
+            this.label6.Text = "Zip Code:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(16, 152);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(36, 15);
+            this.label7.TabIndex = 44;
+            this.label7.Text = "State:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(16, 109);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(31, 15);
+            this.label8.TabIndex = 43;
+            this.label8.Text = "City:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(16, 68);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(52, 15);
+            this.label9.TabIndex = 42;
+            this.label9.Text = "Address:";
+            // 
+            // zipcodeErrorLabel
+            // 
+            this.zipcodeErrorLabel.AutoSize = true;
+            this.zipcodeErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.zipcodeErrorLabel.Location = new System.Drawing.Point(89, 216);
+            this.zipcodeErrorLabel.Name = "zipcodeErrorLabel";
+            this.zipcodeErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.zipcodeErrorLabel.TabIndex = 53;
             // 
             // AddWaypoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.zipcodeErrorLabel);
+            this.Controls.Add(this.stateErrorLabel);
+            this.Controls.Add(this.cityErrorLabel);
+            this.Controls.Add(this.addressErrorLabel);
+            this.Controls.Add(this.zipcodeTextBox);
+            this.Controls.Add(this.stateTextBox);
+            this.Controls.Add(this.cityTextBox);
+            this.Controls.Add(this.addressTextBox);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.dateTimeErrorLabel);
             this.Controls.Add(this.nameErrorLabel);
             this.Controls.Add(this.label5);
@@ -185,7 +309,7 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "AddWaypoint";
-            this.Size = new System.Drawing.Size(312, 240);
+            this.Size = new System.Drawing.Size(312, 413);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,5 +331,17 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label nameErrorLabel;
         private System.Windows.Forms.Label dateTimeErrorLabel;
+        private System.Windows.Forms.Label stateErrorLabel;
+        private System.Windows.Forms.Label cityErrorLabel;
+        private System.Windows.Forms.Label addressErrorLabel;
+        private System.Windows.Forms.TextBox zipcodeTextBox;
+        private System.Windows.Forms.TextBox stateTextBox;
+        private System.Windows.Forms.TextBox cityTextBox;
+        private System.Windows.Forms.TextBox addressTextBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label zipcodeErrorLabel;
     }
 }

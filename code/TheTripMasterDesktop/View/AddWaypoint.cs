@@ -58,6 +58,30 @@ namespace TheTripMasterDesktop.View
 
             bool isValid = true;
 
+            if (!AddressValidation.ValidateAddressField(this.addressTextBox.Text))
+            {
+                isValid = false;
+                this.addressErrorLabel.Text = "Invalid address.";
+            }
+
+            if (!AddressValidation.ValidateAddressField(this.cityTextBox.Text))
+            {
+                isValid = false;
+                this.cityErrorLabel.Text = "Invalid city.";
+            }
+
+            if (!AddressValidation.ValidateAddressField(this.stateTextBox.Text))
+            {
+                isValid = false;
+                this.stateErrorLabel.Text = "Invalid state.";
+            }
+
+            if (!AddressValidation.ValidateZipCode(this.zipcodeTextBox.Text))
+            {
+                isValid = false;
+                this.zipcodeErrorLabel.Text = "Invalid zip code.";
+            }
+
             if (!TripValidation.ValidateName(this.waypointNameTextBox.Text))
             {
                 isValid = false;
@@ -76,6 +100,10 @@ namespace TheTripMasterDesktop.View
 
         private void ClearErrorMessages()
         {
+            this.addressErrorLabel.Text = "";
+            this.cityErrorLabel.Text = "";
+            this.stateErrorLabel.Text = "";
+            this.zipcodeErrorLabel.Text = "";
             this.nameErrorLabel.Text = "";
             this.dateTimeErrorLabel.Text = "";
         }

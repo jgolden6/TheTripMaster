@@ -45,9 +45,20 @@ namespace TheTripMasterDesktop.View
          */
         public void LoadWaypointDataIntoInputFields()
         {
+            Waypoint waypoint = (Waypoint)SelectedEvent.Event;
             this.waypointNameTextBox.Text = SelectedEvent.Event.ToString();
+            this.addressTextBox.Text = waypoint.StreetAddress;
+            this.cityTextBox.Text = waypoint.City;
+            this.stateTextBox.Text = waypoint.State;
+            this.zipcodeTextBox.Text = waypoint.ZipCode;
             this.startDatePicker.Value = SelectedEvent.Event.StartDate;
             this.endDatePicker.Value = SelectedEvent.Event.EndDate;
+            this.webControl1.WebView = this.webView1;
+            this.webView1.Url = "https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=" +
+                                this.addressTextBox.Text + "," +
+                                this.cityTextBox.Text + "," +
+                                this.stateTextBox.Text +
+                                "&key=AIzaSyDmIIfvmSD3Yd0Bb4Bl-LTvkkLC0MFnZ4E";
         }
     }
 }
