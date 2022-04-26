@@ -46,10 +46,10 @@ namespace TheTripMasterDesktop.View
         public void LoadWaypointDataIntoInputFields()
         {
             Waypoint waypoint = (Waypoint)SelectedEvent.Event;
-            this.waypointNameTextBox.Text = SelectedEvent.Event.ToString();
-            this.addressTextBox.Text = waypoint.StreetAddress;
-            this.cityTextBox.Text = waypoint.City;
-            this.stateTextBox.Text = waypoint.State;
+            this.waypointNameTextBox.Text = SelectedEvent.Event.ToString().Trim();
+            this.addressTextBox.Text = waypoint.StreetAddress.Trim();
+            this.cityTextBox.Text = waypoint.City.Trim();
+            this.stateTextBox.Text = waypoint.State.Trim();
             this.zipcodeTextBox.Text = waypoint.ZipCode;
             this.startDatePicker.Value = SelectedEvent.Event.StartDate;
             this.endDatePicker.Value = SelectedEvent.Event.EndDate;

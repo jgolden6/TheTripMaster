@@ -44,7 +44,7 @@ namespace TheTripMasterDesktop.View
          */
         public void LoadTransportDataIntoInputFields()
         {
-            this.transportNameTextBox.Text = SelectedEvent.Event.ToString();
+            this.transportNameTextBox.Text = SelectedEvent.Event.ToString().Trim();
             this.startDatePicker.Value = SelectedEvent.Event.StartDate;
             this.endDatePicker.Value = SelectedEvent.Event.EndDate;
         }

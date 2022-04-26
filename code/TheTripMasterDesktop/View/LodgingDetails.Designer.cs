@@ -51,7 +51,7 @@ namespace TheTripMasterDesktop.View
             // 
             // descriptionTextBox
             // 
-            this.descriptionTextBox.Location = new System.Drawing.Point(103, 282);
+            this.descriptionTextBox.Location = new System.Drawing.Point(121, 282);
             this.descriptionTextBox.Multiline = true;
             this.descriptionTextBox.Name = "descriptionTextBox";
             this.descriptionTextBox.Size = new System.Drawing.Size(200, 96);
@@ -70,7 +70,7 @@ namespace TheTripMasterDesktop.View
             // 
             this.endDatePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss";
             this.endDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.endDatePicker.Location = new System.Drawing.Point(103, 240);
+            this.endDatePicker.Location = new System.Drawing.Point(121, 240);
             this.endDatePicker.Name = "endDatePicker";
             this.endDatePicker.Size = new System.Drawing.Size(200, 23);
             this.endDatePicker.TabIndex = 55;
@@ -79,7 +79,7 @@ namespace TheTripMasterDesktop.View
             // 
             this.startDatePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss";
             this.startDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.startDatePicker.Location = new System.Drawing.Point(103, 198);
+            this.startDatePicker.Location = new System.Drawing.Point(121, 198);
             this.startDatePicker.Name = "startDatePicker";
             this.startDatePicker.Size = new System.Drawing.Size(200, 23);
             this.startDatePicker.TabIndex = 54;
@@ -104,28 +104,28 @@ namespace TheTripMasterDesktop.View
             // 
             // zipcodeTextBox
             // 
-            this.zipcodeTextBox.Location = new System.Drawing.Point(103, 154);
+            this.zipcodeTextBox.Location = new System.Drawing.Point(121, 154);
             this.zipcodeTextBox.Name = "zipcodeTextBox";
             this.zipcodeTextBox.Size = new System.Drawing.Size(200, 23);
             this.zipcodeTextBox.TabIndex = 51;
             // 
             // stateTextBox
             // 
-            this.stateTextBox.Location = new System.Drawing.Point(103, 113);
+            this.stateTextBox.Location = new System.Drawing.Point(121, 113);
             this.stateTextBox.Name = "stateTextBox";
             this.stateTextBox.Size = new System.Drawing.Size(200, 23);
             this.stateTextBox.TabIndex = 50;
             // 
             // cityTextBox
             // 
-            this.cityTextBox.Location = new System.Drawing.Point(103, 70);
+            this.cityTextBox.Location = new System.Drawing.Point(121, 70);
             this.cityTextBox.Name = "cityTextBox";
             this.cityTextBox.Size = new System.Drawing.Size(200, 23);
             this.cityTextBox.TabIndex = 49;
             // 
             // addressTextBox
             // 
-            this.addressTextBox.Location = new System.Drawing.Point(103, 29);
+            this.addressTextBox.Location = new System.Drawing.Point(121, 29);
             this.addressTextBox.Name = "addressTextBox";
             this.addressTextBox.Size = new System.Drawing.Size(200, 23);
             this.addressTextBox.TabIndex = 48;
@@ -162,13 +162,13 @@ namespace TheTripMasterDesktop.View
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(30, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 15);
+            this.label1.Size = new System.Drawing.Size(85, 15);
             this.label1.TabIndex = 44;
-            this.label1.Text = "Address:";
+            this.label1.Text = "Street Address:";
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(205, 401);
+            this.cancelButton.Location = new System.Drawing.Point(223, 401);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(98, 23);
             this.cancelButton.TabIndex = 63;
@@ -196,9 +196,9 @@ namespace TheTripMasterDesktop.View
             // webControl1
             // 
             this.webControl1.BackColor = System.Drawing.Color.White;
-            this.webControl1.Location = new System.Drawing.Point(324, 29);
+            this.webControl1.Location = new System.Drawing.Point(342, 29);
             this.webControl1.Name = "webControl1";
-            this.webControl1.Size = new System.Drawing.Size(330, 395);
+            this.webControl1.Size = new System.Drawing.Size(308, 395);
             this.webControl1.TabIndex = 64;
             this.webControl1.Text = "webControl1";
             // 

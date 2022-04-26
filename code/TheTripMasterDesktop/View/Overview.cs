@@ -66,7 +66,7 @@ namespace TheTripMasterDesktop.View
 
             foreach (Trip trip in this.dataLayer.GetAllTripsOfUser(ActiveUser.User.UserId))
             {
-                tripTable.Rows.Add(new object[] { trip.Name, trip.StartDate.ToShortDateString(), trip.EndDate.ToShortDateString() });
+                tripTable.Rows.Add(new object[] { trip.Name.Trim(), trip.StartDate.ToShortDateString(), trip.EndDate.ToShortDateString() });
             }
 
             this.tripDataGridView.DataSource = tripTable;

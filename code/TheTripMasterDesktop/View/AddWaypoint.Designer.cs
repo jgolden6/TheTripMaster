@@ -86,21 +86,21 @@ namespace TheTripMasterDesktop.View
             // 
             // waypointNameTextBox
             // 
-            this.waypointNameTextBox.Location = new System.Drawing.Point(89, 21);
+            this.waypointNameTextBox.Location = new System.Drawing.Point(107, 21);
             this.waypointNameTextBox.Name = "waypointNameTextBox";
             this.waypointNameTextBox.Size = new System.Drawing.Size(100, 23);
             this.waypointNameTextBox.TabIndex = 3;
             // 
             // startDatePicker
             // 
-            this.startDatePicker.Location = new System.Drawing.Point(89, 234);
+            this.startDatePicker.Location = new System.Drawing.Point(107, 234);
             this.startDatePicker.Name = "startDatePicker";
             this.startDatePicker.Size = new System.Drawing.Size(200, 23);
             this.startDatePicker.TabIndex = 4;
             // 
             // endDatePicker
             // 
-            this.endDatePicker.Location = new System.Drawing.Point(89, 292);
+            this.endDatePicker.Location = new System.Drawing.Point(107, 292);
             this.endDatePicker.Name = "endDatePicker";
             this.endDatePicker.Size = new System.Drawing.Size(200, 23);
             this.endDatePicker.TabIndex = 5;
@@ -117,7 +117,7 @@ namespace TheTripMasterDesktop.View
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(214, 369);
+            this.cancelButton.Location = new System.Drawing.Point(232, 369);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 7;
@@ -128,7 +128,7 @@ namespace TheTripMasterDesktop.View
             // startTimePicker
             // 
             this.startTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.startTimePicker.Location = new System.Drawing.Point(176, 263);
+            this.startTimePicker.Location = new System.Drawing.Point(194, 263);
             this.startTimePicker.Name = "startTimePicker";
             this.startTimePicker.Size = new System.Drawing.Size(113, 23);
             this.startTimePicker.TabIndex = 8;
@@ -136,7 +136,7 @@ namespace TheTripMasterDesktop.View
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(89, 269);
+            this.label4.Location = new System.Drawing.Point(107, 269);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 15);
             this.label4.TabIndex = 9;
@@ -145,7 +145,7 @@ namespace TheTripMasterDesktop.View
             // endTimePicker
             // 
             this.endTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.endTimePicker.Location = new System.Drawing.Point(176, 321);
+            this.endTimePicker.Location = new System.Drawing.Point(194, 321);
             this.endTimePicker.Name = "endTimePicker";
             this.endTimePicker.Size = new System.Drawing.Size(113, 23);
             this.endTimePicker.TabIndex = 10;
@@ -153,7 +153,7 @@ namespace TheTripMasterDesktop.View
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(89, 327);
+            this.label5.Location = new System.Drawing.Point(107, 327);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 15);
             this.label5.TabIndex = 11;
@@ -207,28 +207,28 @@ namespace TheTripMasterDesktop.View
             // 
             // zipcodeTextBox
             // 
-            this.zipcodeTextBox.Location = new System.Drawing.Point(89, 190);
+            this.zipcodeTextBox.Location = new System.Drawing.Point(107, 190);
             this.zipcodeTextBox.Name = "zipcodeTextBox";
             this.zipcodeTextBox.Size = new System.Drawing.Size(200, 23);
             this.zipcodeTextBox.TabIndex = 49;
             // 
             // stateTextBox
             // 
-            this.stateTextBox.Location = new System.Drawing.Point(89, 149);
+            this.stateTextBox.Location = new System.Drawing.Point(107, 149);
             this.stateTextBox.Name = "stateTextBox";
             this.stateTextBox.Size = new System.Drawing.Size(200, 23);
             this.stateTextBox.TabIndex = 48;
             // 
             // cityTextBox
             // 
-            this.cityTextBox.Location = new System.Drawing.Point(89, 106);
+            this.cityTextBox.Location = new System.Drawing.Point(107, 106);
             this.cityTextBox.Name = "cityTextBox";
             this.cityTextBox.Size = new System.Drawing.Size(200, 23);
             this.cityTextBox.TabIndex = 47;
             // 
             // addressTextBox
             // 
-            this.addressTextBox.Location = new System.Drawing.Point(89, 65);
+            this.addressTextBox.Location = new System.Drawing.Point(107, 65);
             this.addressTextBox.Name = "addressTextBox";
             this.addressTextBox.Size = new System.Drawing.Size(200, 23);
             this.addressTextBox.TabIndex = 46;
@@ -265,9 +265,9 @@ namespace TheTripMasterDesktop.View
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(16, 68);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(52, 15);
+            this.label9.Size = new System.Drawing.Size(85, 15);
             this.label9.TabIndex = 42;
-            this.label9.Text = "Address:";
+            this.label9.Text = "Street Address:";
             // 
             // zipcodeErrorLabel
             // 
@@ -309,7 +309,7 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "AddWaypoint";
-            this.Size = new System.Drawing.Size(312, 413);
+            this.Size = new System.Drawing.Size(332, 413);
             this.ResumeLayout(false);
             this.PerformLayout();
 

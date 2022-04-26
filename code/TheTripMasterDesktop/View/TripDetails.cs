@@ -66,7 +66,7 @@ namespace TheTripMasterDesktop.View
          */
         public void LoadTripDataIntoInputFields()
         {
-            this.tripNameTextBox.Text = SelectedTrip.Trip.Name;
+            this.tripNameTextBox.Text = SelectedTrip.Trip.Name.Trim();
             this.startDatePicker.Value = SelectedTrip.Trip.StartDate;
             this.endDatePicker.Value = SelectedTrip.Trip.EndDate;
         }
@@ -78,15 +78,15 @@ namespace TheTripMasterDesktop.View
         {
             DataTable eventTable = new DataTable();
             eventTable.Columns.Add("Id");
-            eventTable.Columns.Add("Type");
             eventTable.Columns.Add("Name");
+            eventTable.Columns.Add("Type");
             eventTable.Columns.Add("Start Date", typeof(DateTime));
             eventTable.Columns.Add("End Date", typeof(DateTime));
 
             foreach (Waypoint waypoint in this.waypointDataLayer.GetTripWaypoints(SelectedTrip.Trip.TripId))
             {
                 eventTable.Rows.Add(new object[] { 
-                    waypoint.Id, "Waypoint", waypoint.WaypointName.Trim(), 
+                    waypoint.Id, waypoint.WaypointName.Trim(), "Waypoint",
                     waypoint.StartDate.ToShortDateString(), waypoint.EndDate.ToShortDateString()
 
                 });
@@ -95,7 +95,7 @@ namespace TheTripMasterDesktop.View
             foreach (Transportation transport in this.transportDataLayer.GetTripTransportations(SelectedTrip.Trip.TripId))
             {
                 eventTable.Rows.Add(new object[] { 
-                    transport.Id, "Transport", transport.TransportationType.Trim(), 
+                    transport.Id, transport.TransportationType.Trim(), "Transport",
                     transport.StartDate.ToShortDateString(), transport.EndDate.ToShortDateString()
                 });
             }
@@ -103,6 +103,7 @@ namespace TheTripMasterDesktop.View
             this.eventDataGridView.DataSource = eventTable;
             this.eventDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.eventDataGridView.RowHeadersVisible = false;
+            this.eventDataGridView.Columns[0].Visible = false;
             this.eventDataGridView.Sort(this.eventDataGridView.Columns[3], ListSortDirection.Ascending);
         }
 
@@ -113,7 +114,7 @@ namespace TheTripMasterDesktop.View
         {
             DataTable lodgingTable = new DataTable();
             lodgingTable.Columns.Add("Id");
-            lodgingTable.Columns.Add("Address");
+            lodgingTable.Columns.Add("Street Address");
             lodgingTable.Columns.Add("Start Date", typeof(DateTime));
             lodgingTable.Columns.Add("End Date", typeof(DateTime));
 
@@ -129,6 +130,7 @@ namespace TheTripMasterDesktop.View
             this.lodgingDataGridView.DataSource = lodgingTable;
             this.lodgingDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.lodgingDataGridView.RowHeadersVisible = false;
+            this.lodgingDataGridView.Columns[0].Visible = false;
             this.lodgingDataGridView.Sort(this.lodgingDataGridView.Columns[2], ListSortDirection.Ascending);
         }
 
@@ -138,7 +140,7 @@ namespace TheTripMasterDesktop.View
          */
         private void eventDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (this.eventDataGridView.CurrentRow.Cells[1].Value.ToString().Equals("Waypoint"))
+            if (this.eventDataGridView.CurrentRow.Cells[2].Value.ToString().Equals("Waypoint"))
             {
                 Waypoint waypoint =
                     this.waypointDataLayer.GetWaypoint(int.Parse(this.eventDataGridView.CurrentRow.Cells[0].Value.ToString()));

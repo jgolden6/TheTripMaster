@@ -44,13 +44,13 @@ namespace TheTripMasterDesktop.View
          */
         public void LoadLodgingDataIntoInputFields()
         {
-            this.addressTextBox.Text = SelectedLodging.Lodging.StreetAddress;
-            this.cityTextBox.Text = SelectedLodging.Lodging.City;
-            this.stateTextBox.Text = SelectedLodging.Lodging.State;
+            this.addressTextBox.Text = SelectedLodging.Lodging.StreetAddress.Trim();
+            this.cityTextBox.Text = SelectedLodging.Lodging.City.Trim();
+            this.stateTextBox.Text = SelectedLodging.Lodging.State.Trim();
             this.zipcodeTextBox.Text = SelectedLodging.Lodging.ZipCode;
             this.startDatePicker.Value = SelectedLodging.Lodging.StartDate;
             this.endDatePicker.Value = SelectedLodging.Lodging.EndDate;
-            this.descriptionTextBox.Text = SelectedLodging.Lodging.Description;
+            this.descriptionTextBox.Text = SelectedLodging.Lodging.Description.Trim();
             this.webControl1.WebView = this.webView1;
             this.webView1.Url = "https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=" +
                                 this.addressTextBox.Text + "," +
