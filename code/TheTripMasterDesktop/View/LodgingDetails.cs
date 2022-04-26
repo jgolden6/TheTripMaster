@@ -58,5 +58,10 @@ namespace TheTripMasterDesktop.View
                                 this.stateTextBox.Text +
                                 "&key=AIzaSyDmIIfvmSD3Yd0Bb4Bl-LTvkkLC0MFnZ4E";
         }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

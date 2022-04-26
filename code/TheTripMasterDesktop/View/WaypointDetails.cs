@@ -16,6 +16,7 @@ namespace TheTripMasterDesktop.View
 
         public event Action DeleteButtonClick;
         public event Action CancelButtonClick;
+        public event Action EditButtonClick;
 
         public WaypointDetails()
         {
@@ -53,12 +54,19 @@ namespace TheTripMasterDesktop.View
             this.zipcodeTextBox.Text = waypoint.ZipCode;
             this.startDatePicker.Value = SelectedEvent.Event.StartDate;
             this.endDatePicker.Value = SelectedEvent.Event.EndDate;
-            this.webControl1.WebView = this.webView1;
+            //this.webControl1.WebView = this.webView1;
             this.webView1.Url = "https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=" +
                                 this.addressTextBox.Text + "," +
                                 this.cityTextBox.Text + "," +
                                 this.stateTextBox.Text +
                                 "&key=AIzaSyDmIIfvmSD3Yd0Bb4Bl-LTvkkLC0MFnZ4E";
+        }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            this.dataLayer.UpdateWaypoint(this.waypointNameTextBox.Text, this.addressTextBox.Text, this.cityTextBox.Text,
+                this.stateTextBox.Text, this.zipcodeTextBox.Text, this.startDatePicker.Value, this.endDatePicker.Value);
+            EditButtonClick?.Invoke();
         }
     }
 }

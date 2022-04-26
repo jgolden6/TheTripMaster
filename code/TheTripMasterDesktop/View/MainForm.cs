@@ -64,6 +64,7 @@ namespace TheTripMasterDesktop
 
             this.waypointDetailsPage.DeleteButtonClick += OpenTripDetailsPage;
             this.waypointDetailsPage.CancelButtonClick += OpenTripDetailsPage;
+            this.waypointDetailsPage.EditButtonClick += OpenTripDetailsPage;
 
             this.transportDetailsPage.DeleteButtonClick += OpenTripDetailsPage;
             this.transportDetailsPage.CancelButtonClick += OpenTripDetailsPage;

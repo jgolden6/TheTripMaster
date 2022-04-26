@@ -43,10 +43,11 @@ namespace TheTripMasterDesktop.View
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cancelButton = new System.Windows.Forms.Button();
-            this.deleteButton = new System.Windows.Forms.Button();
             this.webView1 = new EO.WebBrowser.WebView();
             this.webControl1 = new EO.WinForm.WebControl();
+            this.editButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // descriptionTextBox
@@ -166,26 +167,6 @@ namespace TheTripMasterDesktop.View
             this.label1.TabIndex = 44;
             this.label1.Text = "Street Address:";
             // 
-            // cancelButton
-            // 
-            this.cancelButton.Location = new System.Drawing.Point(223, 401);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(98, 23);
-            this.cancelButton.TabIndex = 63;
-            this.cancelButton.Text = "Cancel";
-            this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
-            // 
-            // deleteButton
-            // 
-            this.deleteButton.Location = new System.Drawing.Point(30, 401);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(98, 23);
-            this.deleteButton.TabIndex = 62;
-            this.deleteButton.Text = "Delete";
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
-            // 
             // webView1
             // 
             this.webView1.InputMsgFilter = null;
@@ -202,13 +183,44 @@ namespace TheTripMasterDesktop.View
             this.webControl1.TabIndex = 64;
             this.webControl1.Text = "webControl1";
             // 
+            // editButton
+            // 
+            this.editButton.Location = new System.Drawing.Point(30, 401);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(76, 23);
+            this.editButton.TabIndex = 67;
+            this.editButton.Text = "Edit";
+            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(244, 401);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(76, 23);
+            this.button1.TabIndex = 66;
+            this.button1.Text = "Cancel";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(135, 401);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(76, 23);
+            this.button2.TabIndex = 65;
+            this.button2.Text = "Delete";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.deleteButton_Click);
+            // 
             // LodgingDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.editButton);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.webControl1);
-            this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.descriptionTextBox);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.endDatePicker);
@@ -245,9 +257,10 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.Button deleteButton;
         private EO.WebBrowser.WebView webView1;
         private EO.WinForm.WebControl webControl1;
+        private System.Windows.Forms.Button editButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

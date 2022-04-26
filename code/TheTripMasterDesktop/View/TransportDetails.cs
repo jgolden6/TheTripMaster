@@ -48,5 +48,10 @@ namespace TheTripMasterDesktop.View
             this.startDatePicker.Value = SelectedEvent.Event.StartDate;
             this.endDatePicker.Value = SelectedEvent.Event.EndDate;
         }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

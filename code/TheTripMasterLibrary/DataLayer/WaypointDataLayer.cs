@@ -145,5 +145,29 @@ namespace TheTripMasterLibrary.DataLayer
                 conn.Close();
             }
         }
+
+        public void UpdateWaypoint(string name, string address, string city, string state, string zipcode, DateTime startDateTime, DateTime endDateTime)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE [Waypoint] SET waypointName = @name, streetAddress = @address, " +
+                                  "city = @city, state = @state, zipCode = @zipcode, startDate = @startDate, endDate = @endDate " +
+                                  "WHERE waypointId = @waypointId";
+
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@address", address);
+                cmd.Parameters.AddWithValue("@city", city);
+                cmd.Parameters.AddWithValue("@state", state);
+                cmd.Parameters.AddWithValue("@zipcode", zipcode);
+                cmd.Parameters.AddWithValue("@startDate", startDateTime);
+                cmd.Parameters.AddWithValue("@endDate", endDateTime);
+                cmd.Parameters.AddWithValue("@waypointId", SelectedEvent.Event.Id);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
     }
 }

@@ -46,14 +46,14 @@ namespace TheTripMasterDesktop.View
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.webView1 = new EO.WebBrowser.WebView();
-            this.webControl1 = new EO.WinForm.WebControl();
+            this.editButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(210, 321);
+            this.cancelButton.Location = new System.Drawing.Point(232, 318);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(98, 23);
+            this.cancelButton.Size = new System.Drawing.Size(76, 23);
             this.cancelButton.TabIndex = 20;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -61,9 +61,9 @@ namespace TheTripMasterDesktop.View
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(24, 321);
+            this.deleteButton.Location = new System.Drawing.Point(123, 318);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(98, 23);
+            this.deleteButton.Size = new System.Drawing.Size(76, 23);
             this.deleteButton.TabIndex = 18;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -191,20 +191,21 @@ namespace TheTripMasterDesktop.View
             this.webView1.ObjectForScripting = null;
             this.webView1.Title = null;
             // 
-            // webControl1
+            // editButton
             // 
-            this.webControl1.BackColor = System.Drawing.Color.White;
-            this.webControl1.Location = new System.Drawing.Point(326, 26);
-            this.webControl1.Name = "webControl1";
-            this.webControl1.Size = new System.Drawing.Size(316, 318);
-            this.webControl1.TabIndex = 60;
-            this.webControl1.Text = "webControl1";
+            this.editButton.Location = new System.Drawing.Point(18, 318);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(76, 23);
+            this.editButton.TabIndex = 60;
+            this.editButton.Text = "Edit";
+            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // WaypointDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.webControl1);
+            this.Controls.Add(this.editButton);
             this.Controls.Add(this.zipcodeTextBox);
             this.Controls.Add(this.stateTextBox);
             this.Controls.Add(this.cityTextBox);
@@ -247,6 +248,6 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private EO.WebBrowser.WebView webView1;
-        private EO.WinForm.WebControl webControl1;
+        private System.Windows.Forms.Button editButton;
     }
 }

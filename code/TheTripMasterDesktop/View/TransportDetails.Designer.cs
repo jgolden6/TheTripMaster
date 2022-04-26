@@ -35,8 +35,9 @@ namespace TheTripMasterDesktop.View
             this.label2 = new System.Windows.Forms.Label();
             this.transportNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.deleteButton = new System.Windows.Forms.Button();
+            this.editButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // endDatePicker
@@ -79,7 +80,7 @@ namespace TheTripMasterDesktop.View
             // 
             this.transportNameTextBox.Location = new System.Drawing.Point(91, 26);
             this.transportNameTextBox.Name = "transportNameTextBox";
-            this.transportNameTextBox.Size = new System.Drawing.Size(100, 23);
+            this.transportNameTextBox.Size = new System.Drawing.Size(200, 23);
             this.transportNameTextBox.TabIndex = 12;
             // 
             // label1
@@ -91,30 +92,41 @@ namespace TheTripMasterDesktop.View
             this.label1.TabIndex = 11;
             this.label1.Text = "Name:";
             // 
-            // deleteButton
+            // editButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(24, 153);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(98, 23);
-            this.deleteButton.TabIndex = 21;
-            this.deleteButton.Text = "Delete";
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            this.editButton.Location = new System.Drawing.Point(24, 155);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(76, 23);
+            this.editButton.TabIndex = 63;
+            this.editButton.Text = "Edit";
+            this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(193, 153);
+            this.cancelButton.Location = new System.Drawing.Point(215, 155);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(98, 23);
-            this.cancelButton.TabIndex = 22;
+            this.cancelButton.Size = new System.Drawing.Size(76, 23);
+            this.cancelButton.TabIndex = 62;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(120, 155);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(76, 23);
+            this.deleteButton.TabIndex = 61;
+            this.deleteButton.Text = "Delete";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // TransportDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.editButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.endDatePicker);
@@ -137,7 +149,8 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox transportNameTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button deleteButton;
     }
 }
