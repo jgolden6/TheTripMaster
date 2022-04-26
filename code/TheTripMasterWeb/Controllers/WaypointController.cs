@@ -23,7 +23,7 @@ namespace TheTripMasterWeb.Controllers
         }
 
         /*
-         * Makes a waypoint and returs the AddWaypoint view.
+         * Makes a waypoint and returns the AddWaypoint view.
          *
          * Returns: an AddWaypoint view using the new waypoint as a model.
          */
@@ -50,7 +50,7 @@ namespace TheTripMasterWeb.Controllers
             bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
             bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.StartDate, model.EndDate);
 
-            if (isNameValid && areDateTimesValid && isTimeframeAvailable)
+            if (isNameValid && areDateTimesValid && isTimeframeAvailable && isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isAddressValid)
             {
                 model.TripName = SelectedTrip.Trip.Name;
                 this.waypointDataLayer.AddWaypoint(model);
