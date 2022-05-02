@@ -9,49 +9,49 @@
     @using (Html.BeginForm("AddLodging", "Lodging", FormMethod.Post))
     {
         <div style="padding-bottom: 40px" class="form-group row">
-            <div class="col-2"><label>Trip Name:</label></div>
-            <div class="col-4"><input class="form-control" readonly="readonly" id="tripName" type="text" name="tripName" asp-for="TripName" /></div>
+            <div style="min-width: 7em" class="col-2"><label>Trip Name:</label></div>
+            <div class="col-5"><input class="form-control" readonly="readonly" id="tripName" type="text" name="tripName" asp-for="TripName" /></div>
         </div>
 
         <div style="padding-bottom: 20px" class="form-group row">
-            <div class="col-2"><label>Street Address:</label></div>
-            <div class="col-4"><input value="" id="streetAddress" type="text" name="streetAddress" asp-for="StreetAddress" /></div>
+            <div style="min-width: 7em" class="col-2"><label>Street Address:</label></div>
+            <div class="col-6"><input value="" id="streetAddress" type="text" name="streetAddress" asp-for="StreetAddress" /></div>
         </div>
 
         <div style="padding-bottom: 20px" class="form-group row">
-            <div class="col-2"><label>City:</label></div>
-            <div class="col-4"><input value="" id="city" type="text" name="city" asp-for="City" /></div>
+            <div style="min-width: 7em" class="col-2"><label>City:</label></div>
+            <div class="col-6"><input value="" id="city" type="text" name="city" asp-for="City" /></div>
         </div>
 
         <div style="padding-bottom: 20px" class="form-group row">
-            <div class="col-2"><label>State/Province:</label></div>
-            <div class="col-4"><input value="" id="state" type="text" name="state" asp-for="State" /></div>
+            <div style="min-width: 7em" class="col-2"><label>State/Province:</label></div>
+            <div class="col-6"><input value="" id="state" type="text" name="state" asp-for="State" /></div>
         </div>
 
         <div style="padding-bottom: 20px" class="form-group row">
-            <div class="col-2"><label>Zip Code:</label></div>
-            <div class="col-4"><input value="" id="zipCode" type="text" name="zipCode" asp-for="ZipCode" /></div>
+            <div style="min-width: 7em" class="col-2"><label>Zip Code:</label></div>
+            <div class="col-6"><input value="" id="zipCode" type="text" name="zipCode" asp-for="ZipCode" /></div>
         </div>
 
         <div style="padding-bottom: 20px" class="form-group row">
-            <div class="col-2"><label>Description:</label></div>
-            <div class="col-4">
+            <div style="min-width: 7em" class="col-2"><label>Description:</label></div>
+            <div class="col-6">
                 @Html.TextAreaFor(model => model.Description, new { style = " rows=4, columns=60" })
             </div>
         </div>
 
         <div style="padding-bottom: 20px" class="form-group row">
-            <div class="col-2">
+            <div style="min-width: 7em" class="col-2">
                 @Html.Label("Start Date:")
             </div>
-            <div class="col-4"><input id="startDate" name="startDate" type="datetime-local" asp-for="StartDate" /></div>
+            <div class="col-6"><input id="startDate" name="startDate" type="datetime-local" asp-for="StartDate" /></div>
         </div>
 
         <div style="padding-bottom: 20px" class="form-group row">
-            <div class="col-2">
+            <div style="min-width: 7em" class="col-2">
                 @Html.Label("End Date:")
             </div>
-            <div class="col-4"><input id="endDate" name="endDate" type="datetime-local" asp-for="EndDate" /></div>
+            <div class="col-6"><input id="endDate" name="endDate" type="datetime-local" asp-for="EndDate" /></div>
         </div>
 
         <input id="addLodging" asp-action="AddLodging" asp-route-name="@Model.TripName" type="submit" value="Add" />
