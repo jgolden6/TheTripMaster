@@ -11,15 +11,44 @@ namespace TheTripMasterLibrary.DataLayer
         /**
          * Takes a Lodging object, inserts the Trip ID, Address fields, Start Date, and End Date into the Lodging table.
          */
-        public void AddLodging(Lodging lodging)
+        public int AddLodging(Lodging lodging)
+        {
+            int index = 0;
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO [Lodging] (tripId, streetAddress, city, state, zipCode, description, startDate, endDate) output INSERTED.lodgingId " +
+                                  "VALUES (@tripId, @streetAddress, @city, @state, @zipCode, @description, @startDate, @endDate)";
+
+                cmd.Parameters.AddWithValue("@tripId", SelectedTrip.Trip.TripId);
+                cmd.Parameters.AddWithValue("@streetAddress", lodging.StreetAddress);
+                cmd.Parameters.AddWithValue("@city", lodging.City);
+                cmd.Parameters.AddWithValue("@state", lodging.State);
+                cmd.Parameters.AddWithValue("@zipCode", lodging.ZipCode);
+                cmd.Parameters.AddWithValue("@description", lodging.Description);
+                cmd.Parameters.AddWithValue("@startDate", lodging.StartDate);
+                cmd.Parameters.AddWithValue("@endDate", lodging.EndDate);
+
+                conn.Open();
+                index = (int)cmd.ExecuteScalar();
+                conn.Close();
+            }
+
+            return index;
+        }
+
+        /**
+         * Takes a Lodging object, and edits it database entry.
+         */
+        public void EditLodging(Lodging lodging)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO [Lodging] (tripId, streetAddress, city, state, zipCode, description, startDate, endDate) " +
-                                  "VALUES (@tripId, @streetAddress, @city, @state, @zipCode, @description, @startDate, @endDate)";
+                cmd.CommandText = "UPDATE [Lodging] SET streetAddress = @streetAddress, city = @city, state = @state, " +
+                                  "zipCode = @zipCode, description = @description, startDate = @startDate, endDate = @endDate WHERE lodgingId = @lodgingId ";
 
-                cmd.Parameters.AddWithValue("@tripId", SelectedTrip.Trip.TripId);
+                cmd.Parameters.AddWithValue("@lodgingId", lodging.LodgingId);
                 cmd.Parameters.AddWithValue("@streetAddress", lodging.StreetAddress);
                 cmd.Parameters.AddWithValue("@city", lodging.City);
                 cmd.Parameters.AddWithValue("@state", lodging.State);
@@ -63,11 +92,11 @@ namespace TheTripMasterLibrary.DataLayer
                         Lodging lodging = new Lodging
                         {
                             LodgingId = (int)reader["lodgingId"],
-                            StreetAddress = reader["streetAddress"].ToString(),
-                            City = reader["city"].ToString(),
-                            State = reader["state"].ToString(),
-                            ZipCode = reader["zipCode"].ToString(),
-                            Description = reader["description"].ToString(),
+                            StreetAddress = reader["streetAddress"].ToString().Trim(),
+                            City = reader["city"].ToString().Trim(),
+                            State = reader["state"].ToString().Trim(),
+                            ZipCode = reader["zipCode"].ToString().Trim(),
+                            Description = reader["description"].ToString().Trim() ?? "",
                             StartDate = (DateTime)reader["startDate"],
                             EndDate = (DateTime)reader["endDate"]
                         };

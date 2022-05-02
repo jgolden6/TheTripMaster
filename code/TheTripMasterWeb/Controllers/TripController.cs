@@ -152,8 +152,14 @@ namespace TheTripMasterWeb.Controllers
          */
         public IActionResult SelectedTripDetails()
         {
-            Trip trip = SelectedTrip.Trip;
-            return View("TripDetails", model: trip);
+            var routeData = new
+            {
+                TripId = SelectedTrip.Trip.TripId,
+                name = SelectedTrip.Trip.Name,
+                start = SelectedTrip.Trip.StartDate,
+                end = SelectedTrip.Trip.EndDate
+            };
+            return RedirectToAction("TripDetails", routeData);
         }
     }
 }

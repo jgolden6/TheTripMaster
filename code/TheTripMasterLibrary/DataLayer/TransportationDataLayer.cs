@@ -36,7 +36,7 @@ namespace TheTripMasterLibrary.DataLayer
                     {
                         transportation.Id = (int)reader["transportationId"];
                         transportation.TripId = (int)reader["tripId"];
-                        transportation.TransportationType = reader["TransportationType"].ToString();
+                        transportation.TransportationType = reader["TransportationType"].ToString().Trim();
                         transportation.StartDate = (DateTime)reader["startDate"];
                         transportation.EndDate = (DateTime)reader["endDate"];
                     }
@@ -78,7 +78,7 @@ namespace TheTripMasterLibrary.DataLayer
                         Transportation transportation = new Transportation
                         {
                             Id = (int)reader["transportationId"],
-                            TransportationType = reader["transportationType"].ToString(),
+                            TransportationType = reader["transportationType"].ToString().Trim(),
                             StartDate = (DateTime)reader["startDate"],
                             EndDate = (DateTime)reader["endDate"]
                         };
@@ -96,15 +96,41 @@ namespace TheTripMasterLibrary.DataLayer
         /**
          * Takes a Transportation object, inserts the Trip ID, Transportation Type, Start Date, and End Date into the Transportation table.
          */
-        public void AddTransportation(Transportation transportation)
+        public int AddTransportation(Transportation transportation)
+        {
+            int index = 0;
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO [Transportation] (tripId, transportationType, startDate, endDate) output INSERTED.transportationId " +
+                                  "VALUES (@tripId, @transportationType, @startDate, @endDate)";
+
+                cmd.Parameters.AddWithValue("@tripId", SelectedTrip.Trip.TripId);
+                cmd.Parameters.AddWithValue("@transportationType", transportation.TransportationType);
+                cmd.Parameters.AddWithValue("@startDate", transportation.StartDate);
+                cmd.Parameters.AddWithValue("@endDate", transportation.EndDate);
+
+                conn.Open();
+                index = (int)cmd.ExecuteScalar();
+                conn.Close();
+            }
+
+            return index;
+        }
+
+        /**
+         * Edits a transportation on the database.
+         */
+        public void EditTransportation(Transportation transportation)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO [Transportation] (tripId, transportationType, startDate, endDate) " +
-                                  "VALUES (@tripId, @transportationType, @startDate, @endDate)";
+                cmd.CommandText =
+                    "UPDATE [Transportation] SET transportationType = @transportationType, startDate = @startDate, endDate = @endDate " +
+                    "WHERE transportationId = @transportationId ";
 
-                cmd.Parameters.AddWithValue("@tripId", SelectedTrip.Trip.TripId);
+                cmd.Parameters.AddWithValue("@transportationId", transportation.Id);
                 cmd.Parameters.AddWithValue("@transportationType", transportation.TransportationType);
                 cmd.Parameters.AddWithValue("@startDate", transportation.StartDate);
                 cmd.Parameters.AddWithValue("@endDate", transportation.EndDate);
