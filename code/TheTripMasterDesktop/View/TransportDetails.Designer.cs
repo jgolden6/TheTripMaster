@@ -88,9 +88,9 @@ namespace TheTripMasterDesktop.View
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(24, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 15);
+            this.label1.Size = new System.Drawing.Size(34, 15);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Name:";
+            this.label1.Text = "Type:";
             // 
             // editButton
             // 

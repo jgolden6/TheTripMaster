@@ -16,6 +16,7 @@ namespace TheTripMasterDesktop.View
 
         public event Action DeleteButtonClick;
         public event Action CancelButtonClick;
+        public event Action EditButtonClick;
 
         public TransportDetails()
         {
@@ -51,7 +52,17 @@ namespace TheTripMasterDesktop.View
 
         private void editButton_Click(object sender, EventArgs e)
         {
+            Transportation transport = new Transportation
+            {
+                Id = SelectedEvent.Event.Id,
+                TransportationType = this.transportNameTextBox.Text,
+                StartDate = this.startDatePicker.Value,
+                EndDate = this.endDatePicker.Value
+            };
 
+            this.dataLayer.EditTransportation(transport);
+
+            EditButtonClick?.Invoke();
         }
     }
 }

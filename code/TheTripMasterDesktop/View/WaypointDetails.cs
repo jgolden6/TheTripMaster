@@ -64,8 +64,20 @@ namespace TheTripMasterDesktop.View
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            this.dataLayer.UpdateWaypoint(this.waypointNameTextBox.Text, this.addressTextBox.Text, this.cityTextBox.Text,
-                this.stateTextBox.Text, this.zipcodeTextBox.Text, this.startDatePicker.Value, this.endDatePicker.Value);
+            Waypoint waypoint = new Waypoint
+            {
+                Id = SelectedEvent.Event.Id,
+                WaypointName = this.waypointNameTextBox.Text,
+                StreetAddress = this.addressTextBox.Text,
+                City = this.cityTextBox.Text,
+                State = this.stateTextBox.Text,
+                ZipCode = this.zipcodeTextBox.Text,
+                StartDate = this.startDatePicker.Value,
+                EndDate = this.endDatePicker.Value
+            };
+
+            this.dataLayer.EditWaypoint(waypoint);
+
             EditButtonClick?.Invoke();
         }
     }

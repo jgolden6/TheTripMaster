@@ -68,12 +68,14 @@ namespace TheTripMasterDesktop
 
             this.transportDetailsPage.DeleteButtonClick += OpenTripDetailsPage;
             this.transportDetailsPage.CancelButtonClick += OpenTripDetailsPage;
+            this.transportDetailsPage.EditButtonClick += OpenTripDetailsPage;
 
             this.addLodgingPage.ConfirmButtonClick += OpenTripDetailsPage;
             this.addLodgingPage.CancelButtonClick += OpenTripDetailsPage;
 
             this.lodgingDetailsPage.DeleteButtonClick += OpenTripDetailsPage;
             this.lodgingDetailsPage.CancelButtonClick += OpenTripDetailsPage;
+            this.lodgingDetailsPage.EditButtonClick += OpenTripDetailsPage;
         }
 
         private void OpenLoginPage()

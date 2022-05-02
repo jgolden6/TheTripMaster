@@ -16,6 +16,7 @@ namespace TheTripMasterDesktop.View
 
         public event Action DeleteButtonClick;
         public event Action CancelButtonClick;
+        public event Action EditButtonClick;
 
         public LodgingDetails()
         {
@@ -61,7 +62,21 @@ namespace TheTripMasterDesktop.View
 
         private void editButton_Click(object sender, EventArgs e)
         {
+            Lodging lodging = new Lodging
+            {
+                LodgingId = SelectedLodging.Lodging.LodgingId,
+                StreetAddress = this.addressTextBox.Text,
+                City = this.cityTextBox.Text,
+                State = this.stateTextBox.Text,
+                ZipCode = this.zipcodeTextBox.Text,
+                StartDate = this.startDatePicker.Value,
+                EndDate = this.endDatePicker.Value,
+                Description = this.descriptionTextBox.Text
+            };
 
+            this.dataLayer.EditLodging(lodging);
+
+            EditButtonClick?.Invoke();
         }
     }
 }
