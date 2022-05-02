@@ -33,11 +33,12 @@ namespace TheTripMasterDesktop.View
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.transportNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.editButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
+            this.dateTimeErrorLabel = new System.Windows.Forms.Label();
+            this.transportTypeComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // endDatePicker
@@ -75,13 +76,6 @@ namespace TheTripMasterDesktop.View
             this.label2.Size = new System.Drawing.Size(61, 15);
             this.label2.TabIndex = 13;
             this.label2.Text = "Start Date:";
-            // 
-            // transportNameTextBox
-            // 
-            this.transportNameTextBox.Location = new System.Drawing.Point(91, 26);
-            this.transportNameTextBox.Name = "transportNameTextBox";
-            this.transportNameTextBox.Size = new System.Drawing.Size(200, 23);
-            this.transportNameTextBox.TabIndex = 12;
             // 
             // label1
             // 
@@ -122,10 +116,29 @@ namespace TheTripMasterDesktop.View
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
+            // dateTimeErrorLabel
+            // 
+            this.dateTimeErrorLabel.AutoSize = true;
+            this.dateTimeErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.dateTimeErrorLabel.Location = new System.Drawing.Point(91, 133);
+            this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
+            this.dateTimeErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.dateTimeErrorLabel.TabIndex = 75;
+            // 
+            // transportTypeComboBox
+            // 
+            this.transportTypeComboBox.FormattingEnabled = true;
+            this.transportTypeComboBox.Location = new System.Drawing.Point(91, 29);
+            this.transportTypeComboBox.Name = "transportTypeComboBox";
+            this.transportTypeComboBox.Size = new System.Drawing.Size(121, 23);
+            this.transportTypeComboBox.TabIndex = 76;
+            // 
             // TransportDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.transportTypeComboBox);
+            this.Controls.Add(this.dateTimeErrorLabel);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.deleteButton);
@@ -133,7 +146,6 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.startDatePicker);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.transportNameTextBox);
             this.Controls.Add(this.label1);
             this.Name = "TransportDetails";
             this.Size = new System.Drawing.Size(314, 197);
@@ -147,10 +159,11 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.DateTimePicker startDatePicker;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox transportNameTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Label dateTimeErrorLabel;
+        private System.Windows.Forms.ComboBox transportTypeComboBox;
     }
 }

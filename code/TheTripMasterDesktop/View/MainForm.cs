@@ -56,10 +56,10 @@ namespace TheTripMasterDesktop
             this.tripDetailsPage.TransportDataCellClick += OpenTransportDetailsPage;
             this.tripDetailsPage.LodgingDataCellClick += OpenLodgingDetailsPage;
 
-            this.addWaypointPage.ConfirmButtonClick += OpenTripDetailsPage;
+            this.addWaypointPage.ConfirmButtonClick += OpenWaypointDetailsPage;
             this.addWaypointPage.CancelButtonClick += OpenTripDetailsPage;
 
-            this.addTransportPage.ConfirmButtonClick += OpenTripDetailsPage;
+            this.addTransportPage.ConfirmButtonClick += OpenTransportDetailsPage;
             this.addTransportPage.CancelButtonClick += OpenTripDetailsPage;
 
             this.waypointDetailsPage.DeleteButtonClick += OpenTripDetailsPage;
@@ -70,7 +70,7 @@ namespace TheTripMasterDesktop
             this.transportDetailsPage.CancelButtonClick += OpenTripDetailsPage;
             this.transportDetailsPage.EditButtonClick += OpenTripDetailsPage;
 
-            this.addLodgingPage.ConfirmButtonClick += OpenTripDetailsPage;
+            this.addLodgingPage.ConfirmButtonClick += OpenLodgingDetailsPage;
             this.addLodgingPage.CancelButtonClick += OpenTripDetailsPage;
 
             this.lodgingDetailsPage.DeleteButtonClick += OpenTripDetailsPage;

@@ -21,6 +21,7 @@ namespace TheTripMasterDesktop.View
         public TransportDetails()
         {
             InitializeComponent();
+            this.transportTypeComboBox.DataSource = Enum.GetNames(typeof(TransportationType));
         }
 
         /**
@@ -28,6 +29,7 @@ namespace TheTripMasterDesktop.View
          */
         private void deleteButton_Click(object sender, EventArgs e)
         {
+            this.ClearErrorMessages();
             this.dataLayer.DeleteTransportation(SelectedEvent.Event.Id);
             DeleteButtonClick?.Invoke();
         }
@@ -37,6 +39,7 @@ namespace TheTripMasterDesktop.View
          */
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            this.ClearErrorMessages();
             CancelButtonClick?.Invoke();
         }
 
@@ -45,17 +48,20 @@ namespace TheTripMasterDesktop.View
          */
         public void LoadTransportDataIntoInputFields()
         {
-            this.transportNameTextBox.Text = SelectedEvent.Event.ToString().Trim();
+            this.transportTypeComboBox.SelectedItem = Enum.Parse(typeof(TransportationType), SelectedEvent.Event.ToString());
             this.startDatePicker.Value = SelectedEvent.Event.StartDate;
             this.endDatePicker.Value = SelectedEvent.Event.EndDate;
         }
 
         private void editButton_Click(object sender, EventArgs e)
         {
+            this.ClearErrorMessages();
+            if (!ValidateData()) return;
+
             Transportation transport = new Transportation
             {
                 Id = SelectedEvent.Event.Id,
-                TransportationType = this.transportNameTextBox.Text,
+                TransportationType = this.transportTypeComboBox.Text,
                 StartDate = this.startDatePicker.Value,
                 EndDate = this.endDatePicker.Value
             };
@@ -63,6 +69,28 @@ namespace TheTripMasterDesktop.View
             this.dataLayer.EditTransportation(transport);
 
             EditButtonClick?.Invoke();
+        }
+
+        /**
+         * Validates all the information in the input fields.
+         */
+        private bool ValidateData()
+        {
+
+            bool isValid = true;
+
+            if (!TripValidation.ValidateDateTimes(this.startDatePicker.Value, this.endDatePicker.Value))
+            {
+                isValid = false;
+                this.dateTimeErrorLabel.Text = "Dates are overlapping.";
+            }
+
+            return isValid;
+        }
+
+        private void ClearErrorMessages()
+        {
+            this.dateTimeErrorLabel.Text = "";
         }
     }
 }

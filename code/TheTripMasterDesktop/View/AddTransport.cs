@@ -40,7 +40,10 @@ namespace TheTripMasterDesktop.View
                 EndDate = this.endDatePicker.Value
             };
 
-            this.dataLayer.AddTransportation(transportation);
+            int id = this.dataLayer.AddTransportation(transportation);
+            transportation.Id = id;
+            SelectedEvent.Event = transportation;
+
             ConfirmButtonClick?.Invoke();
         }
 
@@ -72,7 +75,6 @@ namespace TheTripMasterDesktop.View
 
         private void ClearErrorMessages()
         {
-            this.nameErrorLabel.Text = "";
             this.dateTimeErrorLabel.Text = "";
         }
     }

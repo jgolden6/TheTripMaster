@@ -28,6 +28,7 @@ namespace TheTripMasterDesktop.View
          */
         private void deleteButton_Click(object sender, EventArgs e)
         {
+            this.ClearErrorMessages();
             this.dataLayer.DeleteWaypoint(SelectedEvent.Event.Id);
             DeleteButtonClick?.Invoke();
         }
@@ -38,6 +39,7 @@ namespace TheTripMasterDesktop.View
          */
         private void cancelButton_Click(object sender, EventArgs e)
         {
+            this.ClearErrorMessages();
             CancelButtonClick?.Invoke();
         }
 
@@ -64,6 +66,9 @@ namespace TheTripMasterDesktop.View
 
         private void editButton_Click(object sender, EventArgs e)
         {
+            this.ClearErrorMessages();
+            if (!ValidateData()) return;
+
             Waypoint waypoint = new Waypoint
             {
                 Id = SelectedEvent.Event.Id,
@@ -79,6 +84,63 @@ namespace TheTripMasterDesktop.View
             this.dataLayer.EditWaypoint(waypoint);
 
             EditButtonClick?.Invoke();
+        }
+
+        /**
+         * Validates all the information in the input fields.
+         */
+        private bool ValidateData()
+        {
+
+            bool isValid = true;
+
+            if (!AddressValidation.ValidateAddressField(this.addressTextBox.Text))
+            {
+                isValid = false;
+                this.addressErrorLabel.Text = "Invalid address.";
+            }
+
+            if (!AddressValidation.ValidateAddressField(this.cityTextBox.Text))
+            {
+                isValid = false;
+                this.cityErrorLabel.Text = "Invalid city.";
+            }
+
+            if (!AddressValidation.ValidateAddressField(this.stateTextBox.Text))
+            {
+                isValid = false;
+                this.stateErrorLabel.Text = "Invalid state.";
+            }
+
+            if (!AddressValidation.ValidateZipCode(this.zipcodeTextBox.Text))
+            {
+                isValid = false;
+                this.zipcodeErrorLabel.Text = "Invalid zip code.";
+            }
+
+            if (!TripValidation.ValidateName(this.waypointNameTextBox.Text))
+            {
+                isValid = false;
+                this.nameErrorLabel.Text = "Invalid waypoint name.";
+            }
+
+            if (!TripValidation.ValidateDateTimes(this.startDatePicker.Value, this.endDatePicker.Value))
+            {
+                isValid = false;
+                this.dateTimeErrorLabel.Text = "Dates are overlapping.";
+            }
+
+            return isValid;
+        }
+
+        private void ClearErrorMessages()
+        {
+            this.addressErrorLabel.Text = "";
+            this.cityErrorLabel.Text = "";
+            this.stateErrorLabel.Text = "";
+            this.zipcodeErrorLabel.Text = "";
+            this.nameErrorLabel.Text = "";
+            this.dateTimeErrorLabel.Text = "";
         }
     }
 }

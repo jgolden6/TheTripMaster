@@ -42,7 +42,10 @@ namespace TheTripMasterDesktop.View
                 EndDate = this.endDatePicker.Value
             };
 
-            this.dataLayer.AddWaypoint(waypoint);
+            int id = this.dataLayer.AddWaypoint(waypoint);
+            waypoint.Id = id;
+            SelectedEvent.Event = waypoint;
+
             ConfirmButtonClick?.Invoke();
         }
 

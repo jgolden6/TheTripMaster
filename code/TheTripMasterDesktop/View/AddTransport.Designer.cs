@@ -30,7 +30,6 @@ namespace TheTripMasterDesktop.View
         private void InitializeComponent()
         {
             this.dateTimeErrorLabel = new System.Windows.Forms.Label();
-            this.nameErrorLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.endTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
@@ -53,16 +52,6 @@ namespace TheTripMasterDesktop.View
             this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
             this.dateTimeErrorLabel.Size = new System.Drawing.Size(0, 15);
             this.dateTimeErrorLabel.TabIndex = 27;
-            // 
-            // nameErrorLabel
-            // 
-            this.nameErrorLabel.AutoSize = true;
-            this.nameErrorLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.nameErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.nameErrorLabel.Location = new System.Drawing.Point(88, 42);
-            this.nameErrorLabel.Name = "nameErrorLabel";
-            this.nameErrorLabel.Size = new System.Drawing.Size(0, 15);
-            this.nameErrorLabel.TabIndex = 26;
             // 
             // label5
             // 
@@ -173,7 +162,6 @@ namespace TheTripMasterDesktop.View
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.typeComboBox);
             this.Controls.Add(this.dateTimeErrorLabel);
-            this.Controls.Add(this.nameErrorLabel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.endTimePicker);
             this.Controls.Add(this.label4);
@@ -195,7 +183,6 @@ namespace TheTripMasterDesktop.View
         #endregion
 
         private System.Windows.Forms.Label dateTimeErrorLabel;
-        private System.Windows.Forms.Label nameErrorLabel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker endTimePicker;
         private System.Windows.Forms.Label label4;

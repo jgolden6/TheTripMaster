@@ -43,7 +43,9 @@ namespace TheTripMasterDesktop.View
                 Description = this.descriptionTextBox.Text
             };
 
-            this.dataLayer.AddLodging(lodging);
+            int id = this.dataLayer.AddLodging(lodging);
+            lodging.LodgingId = id;
+            SelectedLodging.Lodging = lodging;
 
             ConfirmButtonClick?.Invoke();
         }
