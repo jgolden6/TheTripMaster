@@ -46,8 +46,9 @@ namespace TheTripMasterWeb.Controllers
         public IActionResult AddTrip(string name, DateTime startDateTime, DateTime endDateTime)
         {
             bool isNameValid = TripValidation.ValidateName(name);
+            bool isNameAvailable = this.isNameAvailable(name);
             bool areDateTimesValid = TripValidation.ValidateDateTimes(startDateTime, endDateTime);
-            bool isTimeframeAvailable = this.IsTimeframeAvailable(name, startDateTime, endDateTime);
+            bool isTimeframeAvailable = this.isTimeframeAvailable(name, startDateTime, endDateTime);
 
             if (isNameValid && areDateTimesValid && isTimeframeAvailable)
             {
@@ -58,6 +59,11 @@ namespace TheTripMasterWeb.Controllers
             if (!isNameValid)
             {
                 ModelState.AddModelError("", "Invalid trip name.");
+            }
+
+            if (!isNameAvailable)
+            {
+                ModelState.AddModelError("", "A Trip by that name already exists.");
             }
 
             if (!areDateTimesValid)
@@ -101,7 +107,7 @@ namespace TheTripMasterWeb.Controllers
         public IActionResult TripDetails(string name, DateTime startDateTime, DateTime endDateTime)
         {
             bool areDateTimesValid = TripValidation.ValidateDateTimes(startDateTime, endDateTime);
-            bool isTimeframeAvailable = this.IsTimeframeAvailable(name, startDateTime, endDateTime);
+            bool isTimeframeAvailable = this.isTimeframeAvailable(name, startDateTime, endDateTime);
 
             if (!areDateTimesValid || !isTimeframeAvailable)
             {
@@ -129,7 +135,7 @@ namespace TheTripMasterWeb.Controllers
          * Returns: false if the timeframe overlaps a trip where tripName != name,
          *          true otherwise.
          */
-        private bool IsTimeframeAvailable(string name, DateTime startDateTime, DateTime endDateTime)
+        private bool isTimeframeAvailable(string name, DateTime startDateTime, DateTime endDateTime)
         {
             IEnumerable<Trip> trips = this.tripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId);
 
@@ -142,6 +148,28 @@ namespace TheTripMasterWeb.Controllers
                     {
                         return false;
                     }
+                }
+            }
+            return true;
+        }
+
+        /*
+         * Checks if the specified name is already used by any trips.
+         *
+         * Returns: false if the name exists,
+         *          true otherwise.
+         */
+        private bool isNameAvailable(string name)
+        {
+            IEnumerable<Trip> trips = this.tripDataLayer.GetAllTripsOfUser(ActiveUser.User.UserId);
+
+            foreach (Trip trip in trips)
+            {
+
+                if (name != null && name.Trim() == trip.Name.Trim())
+                {
+                    return false;
+                    
                 }
             }
             return true;
