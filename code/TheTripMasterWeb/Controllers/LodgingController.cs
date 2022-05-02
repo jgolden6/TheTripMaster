@@ -50,7 +50,7 @@ namespace TheTripMasterWeb.Controllers
             bool isZipCodeValid = AddressValidation.ValidateZipCode(model.ZipCode);
             bool isDescriptionValid = LodgingValidation.ValidateDescription(model.Description);
             bool areDateTimesValid = LodgingValidation.ValidateDateTimes(model.StartDate, model.EndDate);
-            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.StartDate, model.EndDate);
+            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.LodgingId, model.StartDate, model.EndDate);
             bool isAddressValid = AddressValidation.ValidateAddress(model.StreetAddress, model.City, model.State, model.ZipCode);
 
             if (isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isDescriptionValid &&
@@ -60,7 +60,78 @@ namespace TheTripMasterWeb.Controllers
                 {
                     model.Description = "";
                 }
-                this.lodgingDataLayer.AddLodging(model);
+                model.LodgingId = this.lodgingDataLayer.AddLodging(model);
+                return View("LodgingDetails", model);
+            }
+
+            if (!isStreetAddressValid)
+            {
+                ModelState.AddModelError("", "Invalid Street Address.");
+            }
+
+            if (!isCityValid)
+            {
+                ModelState.AddModelError("", "Invalid City.");
+            }
+
+            if (!isStateValid)
+            {
+                ModelState.AddModelError("", "Invalid State/Province.");
+            }
+
+            if (!isZipCodeValid)
+            {
+                ModelState.AddModelError("", "Invalid Zip Code");
+            }
+
+            if (!isDescriptionValid)
+            {
+                ModelState.AddModelError("", "Description too long. 1-256 characters");
+            }
+
+            if (!areDateTimesValid)
+            {
+                ModelState.AddModelError("", "Invalid time frame.");
+            }
+
+            if (!isTimeframeAvailable)
+            {
+                ModelState.AddModelError("", "Time-frame overlaps an existing event.");
+            }
+
+            if (!isAddressValid)
+            {
+                ModelState.AddModelError("", "This address does not exist.");
+            }
+
+            return View(new Lodging { TripName = SelectedTrip.Trip.Name});
+        }
+
+        /*
+         * Calls AddEvent to validate and edit the waypoint
+         *
+         * Returns: Redirect to TripDetails action if valid, return to LodgingDetails view otherwise.
+         */
+        [HttpPost]
+        public IActionResult EditLodging(Lodging model)
+        {
+            bool isStreetAddressValid = AddressValidation.ValidateAddressField(model.StreetAddress);
+            bool isCityValid = AddressValidation.ValidateAddressField(model.City);
+            bool isStateValid = AddressValidation.ValidateAddressField(model.State);
+            bool isZipCodeValid = AddressValidation.ValidateZipCode(model.ZipCode);
+            bool isDescriptionValid = LodgingValidation.ValidateDescription(model.Description);
+            bool areDateTimesValid = LodgingValidation.ValidateDateTimes(model.StartDate, model.EndDate);
+            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.LodgingId, model.StartDate, model.EndDate);
+            bool isAddressValid = AddressValidation.ValidateAddress(model.StreetAddress, model.City, model.State, model.ZipCode);
+
+            if (isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isDescriptionValid &&
+                areDateTimesValid && isTimeframeAvailable)
+            {
+                if (model.Description == null)
+                {
+                    model.Description = "";
+                }
+                this.lodgingDataLayer.EditLodging(model);
                 var routeData = new
                 {
                     TripId = SelectedTrip.Trip.TripId,
@@ -111,7 +182,7 @@ namespace TheTripMasterWeb.Controllers
                 ModelState.AddModelError("", "This address does not exist.");
             }
 
-            return View(new Lodging { TripName = SelectedTrip.Trip.Name});
+            return View("LodgingDetails", model);
         }
 
         /*
@@ -120,13 +191,13 @@ namespace TheTripMasterWeb.Controllers
          * Returns: false, if overlap,
          *          true otherwise.
          */
-        private bool IsTimeframeAvailable(int tripId, DateTime startDateTime, DateTime endDateTime)
+        private bool IsTimeframeAvailable(int tripId, int lodgingId, DateTime startDateTime, DateTime endDateTime)
         {
             IEnumerable<Lodging> lodgings = this.lodgingDataLayer.GetTripLodgings(tripId);
 
             foreach (Lodging lodging in lodgings)
             {
-                if (lodging.StartDate < endDateTime && startDateTime < lodging.EndDate)
+                if ((lodging.StartDate < endDateTime && startDateTime < lodging.EndDate) && (lodgingId != lodging.LodgingId))
                 {
                     return false;
                 }
@@ -147,11 +218,11 @@ namespace TheTripMasterWeb.Controllers
             {
                 LodgingId = lodgingId,
                 TripName = SelectedTrip.Trip.Name,
-                StreetAddress = street.Trim(),
-                City = city.Trim(),
-                State = state.Trim(),
-                ZipCode = zip.Trim(),
-                Description = description.Trim(),
+                StreetAddress = street,
+                City = city,
+                State = state,
+                ZipCode = zip,
+                Description = description,
                 StartDate = start,
                 EndDate = end
             };
@@ -162,12 +233,6 @@ namespace TheTripMasterWeb.Controllers
             lodging.Longitude = coords.Longitude;
 
             return View(model: lodging);
-        }
-
-        [HttpPost]
-        public IActionResult LodgingDetails(int lodgingId)
-        {
-            return RedirectToAction("RemoveLodging", new { lodgingId = lodgingId });
         }
 
         /*

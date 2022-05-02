@@ -59,12 +59,12 @@
                             <tr>
                                 <td>
                                     <a asp-action="WaypointDetails" asp-controller="Waypoint"
-                                       asp-route-waypointId="@event1.Id"
-                                       asp-route-name="@event1.ToString()"
-                                       asp-route-street="@waypoint.StreetAddress"
+                                       asp-route-Id="@event1.Id"
+                                       asp-route-waypointName="@event1.ToString()"
+                                       asp-route-streetAddress="@waypoint.StreetAddress"
                                        asp-route-city="@waypoint.City"
                                        asp-route-state="@waypoint.State"
-                                       asp-route-zip="@waypoint.ZipCode"
+                                       asp-route-zipCode="@waypoint.ZipCode"
                                        asp-route-start="@event1.StartDate"
                                        asp-route-end="@event1.EndDate">@event1.ToString()</a>
                                 </td>

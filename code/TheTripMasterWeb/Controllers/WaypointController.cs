@@ -48,21 +48,13 @@ namespace TheTripMasterWeb.Controllers
             bool isZipCodeValid = AddressValidation.ValidateZipCode(model.ZipCode);
             bool isAddressValid = AddressValidation.ValidateAddress(model.StreetAddress, model.City, model.State, model.ZipCode);
             bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
-            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.StartDate, model.EndDate);
+            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.Id, model.StartDate, model.EndDate);
 
             if (isNameValid && areDateTimesValid && isTimeframeAvailable && isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isAddressValid)
             {
                 model.TripName = SelectedTrip.Trip.Name;
-                this.waypointDataLayer.AddWaypoint(model);
-
-                var routeData = new
-                {
-                    TripId = SelectedTrip.Trip.TripId,
-                    name = SelectedTrip.Trip.Name,
-                    start = SelectedTrip.Trip.StartDate,
-                    end = SelectedTrip.Trip.EndDate
-                };
-                return RedirectToAction("TripDetails", "Trip", routeData);
+                model.Id = this.waypointDataLayer.AddWaypoint(model);
+                return View("WaypointDetails", model);
             }
 
             if (!isNameValid)
@@ -114,16 +106,16 @@ namespace TheTripMasterWeb.Controllers
          * Returns: A WaypointDetails.
          */
         [HttpGet]
-        public IActionResult WaypointDetails(int waypointId, string name, string street, string city, string state, string zip, DateTime start, DateTime end)
+        public IActionResult WaypointDetails(int Id, string waypointName, string streetAddress, string city, string state, string zipCode, DateTime start, DateTime end)
         {
-            Waypoint waypoint = new Waypoint { Id = waypointId, 
+            Waypoint waypoint = new Waypoint { Id = Id, 
                                                TripId = SelectedTrip.Trip.TripId, 
                                                TripName = SelectedTrip.Trip.Name, 
-                                               WaypointName = name,
-                                               StreetAddress = street,
+                                               WaypointName = waypointName,
+                                               StreetAddress = streetAddress,
                                                City = city,
                                                State = state,
-                                               ZipCode = zip,
+                                               ZipCode = zipCode,
                                                StartDate = start, 
                                                EndDate = end };
 
@@ -136,9 +128,73 @@ namespace TheTripMasterWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult WaypointDetails(int waypointId)
+        public IActionResult EditWaypoint(Waypoint model)
         {
-            return RedirectToAction("RemoveWaypoint", new {waypointId = waypointId});
+            bool isNameValid = TripValidation.ValidateName(model.WaypointName);
+            bool isStreetAddressValid = AddressValidation.ValidateAddressField(model.StreetAddress);
+            bool isCityValid = AddressValidation.ValidateAddressField(model.City);
+            bool isStateValid = AddressValidation.ValidateAddressField(model.State);
+            bool isZipCodeValid = AddressValidation.ValidateZipCode(model.ZipCode);
+            bool isAddressValid = AddressValidation.ValidateAddress(model.StreetAddress, model.City, model.State, model.ZipCode);
+            bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
+            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.Id, model.StartDate, model.EndDate);
+
+            if (isNameValid && areDateTimesValid && isTimeframeAvailable && isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isAddressValid)
+            {
+                model.TripName = SelectedTrip.Trip.Name;
+                this.waypointDataLayer.EditWaypoint(model);
+
+                var routeData = new
+                {
+                    TripId = SelectedTrip.Trip.TripId,
+                    name = SelectedTrip.Trip.Name,
+                    start = SelectedTrip.Trip.StartDate,
+                    end = SelectedTrip.Trip.EndDate
+                };
+                return RedirectToAction("TripDetails", "Trip", routeData);
+            }
+
+            if (!isNameValid)
+            {
+                ModelState.AddModelError("", "Invalid name.");
+            }
+
+            if (!isStreetAddressValid)
+            {
+                ModelState.AddModelError("", "Invalid Street Address.");
+            }
+
+            if (!isCityValid)
+            {
+                ModelState.AddModelError("", "Invalid City.");
+            }
+
+            if (!isStateValid)
+            {
+                ModelState.AddModelError("", "Invalid State/Province.");
+            }
+
+            if (!isZipCodeValid)
+            {
+                ModelState.AddModelError("", "Invalid Zip Code");
+            }
+
+            if (!areDateTimesValid)
+            {
+                ModelState.AddModelError("", "Invalid time frame.");
+            }
+
+            if (!isTimeframeAvailable)
+            {
+                ModelState.AddModelError("", "Time-frame overlaps an existing event.");
+            }
+
+            if (!isAddressValid)
+            {
+                ModelState.AddModelError("", "This address does not exist.");
+            }
+
+            return View("WaypointDetails", model);
         }
 
         /*
@@ -147,14 +203,16 @@ namespace TheTripMasterWeb.Controllers
          * Returns: false, if overlap,
          *          true otherwise.
          */
-        private bool IsTimeframeAvailable(int tripId, DateTime startDateTime, DateTime endDateTime)
+        private bool IsTimeframeAvailable(int tripId, int waypointId, DateTime startDateTime, DateTime endDateTime)
         {
             IEnumerable<Waypoint> waypoints = this.waypointDataLayer.GetTripWaypoints(tripId);
 
+            Debug.WriteLine(waypointId);
             foreach (Waypoint waypoint in waypoints)
             {
-                if (waypoint.StartDate < endDateTime && startDateTime < waypoint.EndDate)
+                if ((waypoint.StartDate < endDateTime && startDateTime < waypoint.EndDate) && (waypointId != waypoint.Id))
                 {
+                    Debug.WriteLine(waypoint.Id);
                     return false;
                 }
             }

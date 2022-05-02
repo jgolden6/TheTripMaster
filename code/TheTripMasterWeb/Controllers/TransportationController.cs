@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using TheTripMasterLibrary.DataLayer;
 using TheTripMasterLibrary.Model;
@@ -41,21 +42,20 @@ namespace TheTripMasterWeb.Controllers
         {
             bool isNameValid = model.TransportationType != null;
             bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
-            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.StartDate, model.EndDate);
+            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.Id, model.StartDate, model.EndDate);
 
             if (isNameValid && areDateTimesValid && isTimeframeAvailable)
             {
                 model.TripName = SelectedTrip.Trip.Name;
-                this.transportationDataLayer.AddTransportation(model);
 
                 var routeData = new
                 {
-                    TripId = SelectedTrip.Trip.TripId,
-                    name = SelectedTrip.Trip.Name,
-                    start = SelectedTrip.Trip.StartDate,
-                    end = SelectedTrip.Trip.EndDate
+                    transportationId = this.transportationDataLayer.AddTransportation(model),
+                    type = model.TransportationType,
+                    start = model.StartDate,
+                    end = model.EndDate
                 };
-                return RedirectToAction("TripDetails", "Trip", routeData);
+                return RedirectToAction("transportationDetails", routeData);
             }
 
             if (!isNameValid)
@@ -93,13 +93,56 @@ namespace TheTripMasterWeb.Controllers
                 StartDate = start,
                 EndDate = end
             };
+            var transportTypes = (from TransportationType i in Enum.GetValues(typeof(TransportationType))
+                select new SelectListItem { Text = i.ToString(), Value = i.ToString() }).ToList();
+            ViewBag.TransportTypes = transportTypes;
+
             return View(model: transport);
         }
 
+        /*
+         * Validates and updates the transportation
+         *
+         * Returns: return to details page if invalid, redirect to TripDetails view otherwise.
+         */
         [HttpPost]
-        public IActionResult TransportationDetails(int transportationId)
+        public IActionResult EditTransportation(Transportation model)
         {
-            return RedirectToAction("RemoveTransportation", new { transportationId = transportationId });
+            bool isNameValid = model.TransportationType != null;
+            bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
+            bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.Id, model.StartDate, model.EndDate);
+
+            if (isNameValid && areDateTimesValid && isTimeframeAvailable)
+            {
+                model.TripName = SelectedTrip.Trip.Name;
+                this.transportationDataLayer.EditTransportation(model);
+
+                var routeData = new
+                {
+                    TripId = SelectedTrip.Trip.TripId,
+                    name = SelectedTrip.Trip.Name,
+                    start = SelectedTrip.Trip.StartDate,
+                    end = SelectedTrip.Trip.EndDate
+                };
+                return RedirectToAction("TripDetails", "Trip", routeData);
+            }
+
+            if (!isNameValid)
+            {
+                ModelState.AddModelError("", "Please select a transport type.");
+            }
+
+            if (!areDateTimesValid)
+            {
+                ModelState.AddModelError("", "Invalid time frame.");
+            }
+
+            if (!isTimeframeAvailable)
+            {
+                ModelState.AddModelError("", "Time-frame overlaps an existing event.");
+            }
+
+            return View("TransportationDetails", model);
         }
 
         /*
@@ -140,13 +183,13 @@ namespace TheTripMasterWeb.Controllers
          * Returns: false, if overlap,
          *          true otherwise.
          */
-        private bool IsTimeframeAvailable(int tripId, DateTime startDateTime, DateTime endDateTime)
+        private bool IsTimeframeAvailable(int tripId, int transportationId, DateTime startDateTime, DateTime endDateTime)
         {
             IEnumerable<Transportation> transports = this.transportationDataLayer.GetTripTransportations(tripId);
 
             foreach (Transportation transport in transports)
             {
-                if (transport.StartDate < endDateTime && startDateTime < transport.EndDate)
+                if ((transport.StartDate < endDateTime && startDateTime < transport.EndDate) && (transportationId != transport.Id))
                 {
                     return false;
                 }

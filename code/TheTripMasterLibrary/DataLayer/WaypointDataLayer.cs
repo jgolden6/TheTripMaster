@@ -12,15 +12,45 @@ namespace TheTripMasterLibrary.DataLayer
         /**
          * Takes a Waypoint object, inserts the Trip ID, Waypoint Name, Start Date, and End Date into the Waypoint table.
          */
-        public void AddWaypoint(Waypoint waypoint)
+        public int AddWaypoint(Waypoint waypoint)
+        {
+            int index = 0;
+            using (SqlConnection conn = new SqlConnection(ConnString))
+            {
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO [Waypoint] (tripId, waypointName, streetAddress, city, state, zipCode, startDate, endDate) output INSERTED.waypointId " +
+                                  "VALUES (@tripId, @waypointName, @streetAddress, @city, @state, @zipCode, @startDate, @endDate)";
+
+                cmd.Parameters.AddWithValue("@tripId", SelectedTrip.Trip.TripId);
+                cmd.Parameters.AddWithValue("@waypointName", waypoint.WaypointName);
+                cmd.Parameters.AddWithValue("@streetAddress", waypoint.StreetAddress);
+                cmd.Parameters.AddWithValue("@city", waypoint.City);
+                cmd.Parameters.AddWithValue("@state", waypoint.State);
+                cmd.Parameters.AddWithValue("@zipCode", waypoint.ZipCode);
+                cmd.Parameters.AddWithValue("@startDate", waypoint.StartDate);
+                cmd.Parameters.AddWithValue("@endDate", waypoint.EndDate);
+
+                conn.Open();
+                index = (int)cmd.ExecuteScalar();
+                conn.Close();
+
+            }
+            return index;
+        }
+
+        /**
+         * Updates a waypoint object on the database.
+         */
+        public void EditWaypoint(Waypoint waypoint)
         {
             using (SqlConnection conn = new SqlConnection(ConnString))
             {
                 SqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO [Waypoint] (tripId, waypointName, streetAddress, city, state, zipCode, startDate, endDate) " +
-                                  "VALUES (@tripId, @waypointName, @streetAddress, @city, @state, @zipCode, @startDate, @endDate)";
+                cmd.CommandText =
+                    "UPDATE [Waypoint] SET waypointName = @waypointName, streetAddress = @streetAddress, city = @city, " +
+                    "state = @state, zipCode = @zipCode, startDate = @startDate, endDate = @endDate WHERE waypointId = @waypointId ";
 
-                cmd.Parameters.AddWithValue("@tripId", SelectedTrip.Trip.TripId);
+                cmd.Parameters.AddWithValue("@waypointId", waypoint.Id);
                 cmd.Parameters.AddWithValue("@waypointName", waypoint.WaypointName);
                 cmd.Parameters.AddWithValue("@streetAddress", waypoint.StreetAddress);
                 cmd.Parameters.AddWithValue("@city", waypoint.City);
@@ -64,11 +94,11 @@ namespace TheTripMasterLibrary.DataLayer
                         Waypoint waypoint = new Waypoint
                         {
                             Id = (int)reader["waypointId"],
-                            WaypointName = reader["waypointName"].ToString(),
-                            StreetAddress = reader["streetAddress"].ToString(),
-                            City = reader["city"].ToString(),
-                            State = reader["state"].ToString(),
-                            ZipCode = reader["zipCode"].ToString(),
+                            WaypointName = reader["waypointName"].ToString().Trim(),
+                            StreetAddress = reader["streetAddress"].ToString().Trim(),
+                            City = reader["city"].ToString().Trim(),
+                            State = reader["state"].ToString().Trim(),
+                            ZipCode = reader["zipCode"].ToString().Trim(),
                             StartDate = (DateTime)reader["startDate"],
                             EndDate = (DateTime)reader["endDate"]
                         };
