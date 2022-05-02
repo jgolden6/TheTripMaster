@@ -136,7 +136,7 @@ namespace TheTripMasterWeb.Controllers
             foreach (Trip trip in trips)
             {
 
-                if (name.Trim() != trip.Name.Trim())
+                if (name == null || name.Trim() != trip.Name.Trim())
                 {
                     if (trip.StartDate < endDateTime && startDateTime < trip.EndDate)
                     {
