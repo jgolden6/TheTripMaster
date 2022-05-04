@@ -28,7 +28,11 @@ namespace TheTripMasterWeb.Controllers
          */
         public IActionResult AddTransportation(string name)
         {
-            Transportation transportation = new Transportation { TripName = name };
+            Transportation transportation = new Transportation { 
+                TripName = name, 
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now
+            };
             return View("AddTransportation", transportation);
         }
 
@@ -41,10 +45,11 @@ namespace TheTripMasterWeb.Controllers
         public IActionResult AddTransportation(Transportation model)
         {
             bool isNameValid = model.TransportationType != null;
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
+            bool areDateTimesValid = TripValidation.ValidateStartBeforeEnd(model.StartDate, model.EndDate);
+            bool isStartAfterNow = TripValidation.ValidateDateTimesAfterNow(model.StartDate);
             bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.Id, model.StartDate, model.EndDate);
 
-            if (isNameValid && areDateTimesValid && isTimeframeAvailable)
+            if (isNameValid && areDateTimesValid && isStartAfterNow && isTimeframeAvailable)
             {
                 model.TripName = SelectedTrip.Trip.Name;
 
@@ -65,12 +70,17 @@ namespace TheTripMasterWeb.Controllers
 
             if (!areDateTimesValid)
             {
-                ModelState.AddModelError("", "Invalid time frame.");
+                ModelState.AddModelError("", "The end date cannot be before the start date.");
+            }
+
+            if (!isStartAfterNow)
+            {
+                ModelState.AddModelError("", "Transportation cannot start before the current time.");
             }
 
             if (!isTimeframeAvailable)
             {
-                ModelState.AddModelError("", "Time-frame overlaps an existing event.");
+                ModelState.AddModelError("", "Time-frame overlaps event: " + ViewData["Overlap"]);
             }
 
             return View(model);
@@ -109,10 +119,11 @@ namespace TheTripMasterWeb.Controllers
         public IActionResult EditTransportation(Transportation model)
         {
             bool isNameValid = model.TransportationType != null;
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
+            bool areDateTimesValid = TripValidation.ValidateStartBeforeEnd(model.StartDate, model.EndDate);
+            bool isStartAfterNow = TripValidation.ValidateDateTimesAfterNow(model.StartDate);
             bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.Id, model.StartDate, model.EndDate);
 
-            if (isNameValid && areDateTimesValid && isTimeframeAvailable)
+            if (isNameValid && areDateTimesValid && isStartAfterNow && isTimeframeAvailable)
             {
                 model.TripName = SelectedTrip.Trip.Name;
                 this.transportationDataLayer.EditTransportation(model);
@@ -134,12 +145,17 @@ namespace TheTripMasterWeb.Controllers
 
             if (!areDateTimesValid)
             {
-                ModelState.AddModelError("", "Invalid time frame.");
+                ModelState.AddModelError("", "The end date cannot be before the start date.");
+            }
+
+            if (!isStartAfterNow)
+            {
+                ModelState.AddModelError("", "Waypoint cannot start before the current time.");
             }
 
             if (!isTimeframeAvailable)
             {
-                ModelState.AddModelError("", "Time-frame overlaps an existing event.");
+                ModelState.AddModelError("", "Time-frame overlaps event: " + ViewData["Overlap"]);
             }
 
             return View("TransportationDetails", model);
@@ -191,6 +207,8 @@ namespace TheTripMasterWeb.Controllers
             {
                 if ((transport.StartDate < endDateTime && startDateTime < transport.EndDate) && (transportationId != transport.Id))
                 {
+                    ViewData["Overlap"] = transport.ToString() + ": [" + transport.StartDate.ToString() + " - " +
+                                          transport.EndDate.ToString() + "]";
                     return false;
                 }
             }

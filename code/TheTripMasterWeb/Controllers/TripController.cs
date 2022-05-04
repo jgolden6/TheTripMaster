@@ -47,10 +47,11 @@ namespace TheTripMasterWeb.Controllers
         {
             bool isNameValid = TripValidation.ValidateName(name);
             bool isNameAvailable = this.isNameAvailable(name);
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(startDateTime, endDateTime);
+            bool areDateTimesValid = TripValidation.ValidateStartBeforeEnd(startDateTime, endDateTime);
+            bool isStartAfterNow = TripValidation.ValidateDateTimesAfterNow(startDateTime);
             bool isTimeframeAvailable = this.isTimeframeAvailable(name, startDateTime, endDateTime);
 
-            if (isNameValid && areDateTimesValid && isTimeframeAvailable)
+            if (isNameValid && isNameAvailable && areDateTimesValid && isStartAfterNow && isTimeframeAvailable)
             {
                 this.tripDataLayer.AddTrip(new Trip { Name = name.Trim(), StartDate = startDateTime, EndDate = endDateTime });
                 return RedirectToAction("Homepage", "Home");
@@ -68,12 +69,17 @@ namespace TheTripMasterWeb.Controllers
 
             if (!areDateTimesValid)
             {
-                ModelState.AddModelError("", "Invalid time frame.");
+                ModelState.AddModelError("", "The end date cannot be before the start date.");
+            }
+
+            if (!isStartAfterNow)
+            {
+                ModelState.AddModelError("", "Waypoint cannot start before the current time.");
             }
 
             if (!isTimeframeAvailable)
             {
-                ModelState.AddModelError("", "Time-frame overlaps an existing trip");
+                ModelState.AddModelError("", "Time-frame overlaps event: " + ViewData["Overlap"]);
             }
 
             return View();
@@ -98,38 +104,6 @@ namespace TheTripMasterWeb.Controllers
         }
 
         /*
-         * Checks if the DateTimes are valid and not overlapping existing trips. Updates the trip id if valid.
-         *
-         * Returns: If valid, Redirects to Homepage action
-         *          otherwise, Returns TripDetails page populated with errors.
-         */
-        [HttpPost]
-        public IActionResult TripDetails(string name, DateTime startDateTime, DateTime endDateTime)
-        {
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(startDateTime, endDateTime);
-            bool isTimeframeAvailable = this.isTimeframeAvailable(name, startDateTime, endDateTime);
-
-            if (!areDateTimesValid || !isTimeframeAvailable)
-            {
-
-                if (!areDateTimesValid)
-                {
-                    ModelState.AddModelError("", "Invalid time frame.");
-                }
-
-                if (!isTimeframeAvailable)
-                {
-                    ModelState.AddModelError("", "Time-frame overlaps an existing trip.");
-                }
-
-                return View(new Trip { Name = name, StartDate = startDateTime, EndDate = endDateTime, Events = SelectedTrip.Trip.Events });
-            }
-
-            this.tripDataLayer.UpdateTrip(name, startDateTime, endDateTime);
-            return RedirectToAction("Homepage", "Home");
-        }
-
-        /*
          * Checks if the specified timeframe overlaps any of the ActiveUser's trips.
          *
          * Returns: false if the timeframe overlaps a trip where tripName != name,
@@ -146,6 +120,8 @@ namespace TheTripMasterWeb.Controllers
                 {
                     if (trip.StartDate < endDateTime && startDateTime < trip.EndDate)
                     {
+                        ViewData["Overlap"] = trip.Name + ": [" + trip.StartDate.ToString() + " - " +
+                                              trip.EndDate.ToString() + "]";
                         return false;
                     }
                 }

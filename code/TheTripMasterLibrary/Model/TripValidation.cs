@@ -12,9 +12,14 @@ namespace TheTripMasterLibrary.Model
             return name.Length > 0 && name.Length <= 128;
         }
 
-        public static bool ValidateDateTimes(DateTime startDateTime, DateTime endDateTime)
+        public static bool ValidateDateTimesAfterNow(DateTime startDateTime)
         {
-            return startDateTime > DateTime.Now && startDateTime < endDateTime;
+            return startDateTime > DateTime.Now;
+        }
+
+        public static bool ValidateStartBeforeEnd(DateTime startDateTime, DateTime endDateTime)
+        {
+            return startDateTime < endDateTime;
         }
     }
 }

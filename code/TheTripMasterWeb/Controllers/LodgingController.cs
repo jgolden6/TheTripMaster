@@ -32,7 +32,12 @@ namespace TheTripMasterWeb.Controllers
          */
         public IActionResult AddLodging(string name)
         {
-            Lodging lodging = new Lodging { TripName = name };
+            Lodging lodging = new Lodging
+            {
+                TripName = name,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now
+            };
             return View(lodging);
         }
 
@@ -49,19 +54,30 @@ namespace TheTripMasterWeb.Controllers
             bool isStateValid = AddressValidation.ValidateAddressField(model.State);
             bool isZipCodeValid = AddressValidation.ValidateZipCode(model.ZipCode);
             bool isDescriptionValid = LodgingValidation.ValidateDescription(model.Description);
-            bool areDateTimesValid = LodgingValidation.ValidateDateTimes(model.StartDate, model.EndDate);
+            bool areDateTimesValid = TripValidation.ValidateStartBeforeEnd(model.StartDate, model.EndDate);
+            bool isStartAfterNow = TripValidation.ValidateDateTimesAfterNow(model.StartDate);
             bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.LodgingId, model.StartDate, model.EndDate);
             bool isAddressValid = AddressValidation.ValidateAddress(model.StreetAddress, model.City, model.State, model.ZipCode);
 
             if (isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isDescriptionValid &&
-                areDateTimesValid && isTimeframeAvailable)
+                areDateTimesValid && isStartAfterNow && isTimeframeAvailable && isAddressValid)
             {
                 if (model.Description == null)
                 {
                     model.Description = "";
                 }
+                var routeData = new
+                {
+                    lodgingId = model.LodgingId,
+                    street = model.StreetAddress,
+                    city = model.City,
+                    state = model.State,
+                    zip = model.ZipCode,
+                    start = model.StartDate,
+                    end = model.EndDate
+                };
                 model.LodgingId = this.lodgingDataLayer.AddLodging(model);
-                return View("LodgingDetails", model);
+                return RedirectToAction("LodgingDetails", routeData);
             }
 
             if (!isStreetAddressValid)
@@ -91,12 +107,17 @@ namespace TheTripMasterWeb.Controllers
 
             if (!areDateTimesValid)
             {
-                ModelState.AddModelError("", "Invalid time frame.");
+                ModelState.AddModelError("", "The end date cannot be before the start date.");
+            }
+
+            if (!isStartAfterNow)
+            {
+                ModelState.AddModelError("", "Waypoint cannot start before the current time.");
             }
 
             if (!isTimeframeAvailable)
             {
-                ModelState.AddModelError("", "Time-frame overlaps an existing event.");
+                ModelState.AddModelError("", "Time-frame overlaps event: " + ViewData["Overlap"]);
             }
 
             if (!isAddressValid)
@@ -104,7 +125,8 @@ namespace TheTripMasterWeb.Controllers
                 ModelState.AddModelError("", "This address does not exist.");
             }
 
-            return View(new Lodging { TripName = SelectedTrip.Trip.Name});
+            model.TripName = SelectedTrip.Trip.Name;
+            return View(model);
         }
 
         /*
@@ -120,12 +142,13 @@ namespace TheTripMasterWeb.Controllers
             bool isStateValid = AddressValidation.ValidateAddressField(model.State);
             bool isZipCodeValid = AddressValidation.ValidateZipCode(model.ZipCode);
             bool isDescriptionValid = LodgingValidation.ValidateDescription(model.Description);
-            bool areDateTimesValid = LodgingValidation.ValidateDateTimes(model.StartDate, model.EndDate);
+            bool areDateTimesValid = TripValidation.ValidateStartBeforeEnd(model.StartDate, model.EndDate);
+            bool isStartAfterNow = TripValidation.ValidateDateTimesAfterNow(model.StartDate);
             bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.LodgingId, model.StartDate, model.EndDate);
             bool isAddressValid = AddressValidation.ValidateAddress(model.StreetAddress, model.City, model.State, model.ZipCode);
 
             if (isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isDescriptionValid &&
-                areDateTimesValid && isTimeframeAvailable)
+                areDateTimesValid && isStartAfterNow && isTimeframeAvailable && isAddressValid)
             {
                 if (model.Description == null)
                 {
@@ -169,12 +192,17 @@ namespace TheTripMasterWeb.Controllers
 
             if (!areDateTimesValid)
             {
-                ModelState.AddModelError("", "Invalid time frame.");
+                ModelState.AddModelError("", "The end date cannot be before the start date.");
+            }
+
+            if (!isStartAfterNow)
+            {
+                ModelState.AddModelError("", "Waypoint cannot start before the current time.");
             }
 
             if (!isTimeframeAvailable)
             {
-                ModelState.AddModelError("", "Time-frame overlaps an existing event.");
+                ModelState.AddModelError("", "Time-frame overlaps event: " + ViewData["Overlap"]);
             }
 
             if (!isAddressValid)
@@ -182,7 +210,17 @@ namespace TheTripMasterWeb.Controllers
                 ModelState.AddModelError("", "This address does not exist.");
             }
 
-            return View("LodgingDetails", model);
+            var route = new
+            {
+                lodgingId = model.LodgingId,
+                street = model.StreetAddress,
+                city = model.City,
+                state = model.State,
+                zip = model.ZipCode,
+                start = model.StartDate,
+                end = model.EndDate
+            };
+            return RedirectToAction("LodgingDetails", route); 
         }
 
         /*
@@ -199,6 +237,8 @@ namespace TheTripMasterWeb.Controllers
             {
                 if ((lodging.StartDate < endDateTime && startDateTime < lodging.EndDate) && (lodgingId != lodging.LodgingId))
                 {
+                    ViewData["Overlap"] =  "Lodging: [" + lodging.StartDate.ToString() + " - " +
+                                          lodging.EndDate.ToString() + "]";
                     return false;
                 }
             }

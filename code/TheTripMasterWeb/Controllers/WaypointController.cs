@@ -29,7 +29,12 @@ namespace TheTripMasterWeb.Controllers
          */
         public IActionResult AddWaypoint(string name)
         {
-            Waypoint waypoint = new Waypoint { TripName = name };
+            Waypoint waypoint = new Waypoint
+            {
+                TripName = name,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now
+            };
             return View(waypoint);
         }
 
@@ -47,15 +52,27 @@ namespace TheTripMasterWeb.Controllers
             bool isStateValid = AddressValidation.ValidateAddressField(model.State);
             bool isZipCodeValid = AddressValidation.ValidateZipCode(model.ZipCode);
             bool isAddressValid = AddressValidation.ValidateAddress(model.StreetAddress, model.City, model.State, model.ZipCode);
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
+            bool areDateTimesValid = TripValidation.ValidateStartBeforeEnd(model.StartDate, model.EndDate);
+            bool isStartAfterNow = TripValidation.ValidateDateTimesAfterNow(model.StartDate);
             bool areDateTimesWithinTrip = this.isTimeframeWithinTrip(model.StartDate, model.EndDate);
             bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.Id, model.StartDate, model.EndDate);
 
-            if (isNameValid && areDateTimesValid && isTimeframeAvailable && isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isAddressValid)
+            if (isNameValid && areDateTimesValid && isStartAfterNow && areDateTimesWithinTrip && isTimeframeAvailable && isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isAddressValid)
             {
                 model.TripName = SelectedTrip.Trip.Name;
                 model.Id = this.waypointDataLayer.AddWaypoint(model);
-                return View("WaypointDetails", model);
+                var routeData = new
+                {
+                    Id = model.Id,
+                    waypointName = model.WaypointName,
+                    streetAddress = model.StreetAddress,
+                    city = model.City,
+                    state = model.State,
+                    zipCode = model.ZipCode,
+                    start = model.StartDate,
+                    end = model.EndDate
+                };
+                return RedirectToAction("WaypointDetails", routeData);
             }
 
             if (!isNameValid)
@@ -85,17 +102,22 @@ namespace TheTripMasterWeb.Controllers
 
             if (!areDateTimesValid)
             {
-                ModelState.AddModelError("", "Invalid time frame.");
+                ModelState.AddModelError("", "The end date cannot be before the start date.");
+            }
+
+            if (!isStartAfterNow)
+            {
+                ModelState.AddModelError("", "Waypoint cannot start before the current time.");
             }
 
             if (!areDateTimesWithinTrip)
             {
-                ModelState.AddModelError("", "Time-frame starts before the trip.");
+                ModelState.AddModelError("", "Time-frame starts before the trip: " + ViewData["Trip"]);
             }
 
             if (!isTimeframeAvailable)
             {
-                ModelState.AddModelError("", "Time-frame overlaps an existing event.");
+                ModelState.AddModelError("", "Time-frame overlaps event: " + ViewData["Overlap"]);
             }
 
             if (!isAddressValid)
@@ -109,9 +131,11 @@ namespace TheTripMasterWeb.Controllers
         private bool isTimeframeWithinTrip(DateTime startDate, DateTime endDate)
         {
             Trip trip = SelectedTrip.Trip;
+            Debug.WriteLine(trip.StartDate.ToString());
 
             if (trip.StartDate <= startDate)
             {
+                ViewData["Trip"] = trip.StartDate;
                 return true;
             }
             return false;
@@ -153,11 +177,12 @@ namespace TheTripMasterWeb.Controllers
             bool isStateValid = AddressValidation.ValidateAddressField(model.State);
             bool isZipCodeValid = AddressValidation.ValidateZipCode(model.ZipCode);
             bool isAddressValid = AddressValidation.ValidateAddress(model.StreetAddress, model.City, model.State, model.ZipCode);
-            bool areDateTimesValid = TripValidation.ValidateDateTimes(model.StartDate, model.EndDate);
+            bool areDateTimesValid = TripValidation.ValidateStartBeforeEnd(model.StartDate, model.EndDate);
+            bool isStartAfterNow = TripValidation.ValidateDateTimesAfterNow(model.StartDate);
             bool areDateTimesWithinTrip = this.isTimeframeWithinTrip(model.StartDate, model.EndDate);
             bool isTimeframeAvailable = this.IsTimeframeAvailable(SelectedTrip.Trip.TripId, model.Id, model.StartDate, model.EndDate);
 
-            if (isNameValid && areDateTimesValid && isTimeframeAvailable && isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isAddressValid)
+            if (isNameValid && areDateTimesValid && isStartAfterNow && areDateTimesWithinTrip && isTimeframeAvailable && isStreetAddressValid && isCityValid && isStateValid && isZipCodeValid && isAddressValid)
             {
                 model.TripName = SelectedTrip.Trip.Name;
                 this.waypointDataLayer.EditWaypoint(model);
@@ -199,17 +224,22 @@ namespace TheTripMasterWeb.Controllers
 
             if (!areDateTimesValid)
             {
-                ModelState.AddModelError("", "Invalid time frame.");
+                ModelState.AddModelError("", "The end date cannot be before the start date.");
+            }
+
+            if (!isStartAfterNow)
+            {
+                ModelState.AddModelError("", "Waypoint cannot start before the current time.");
             }
 
             if (!areDateTimesWithinTrip)
             {
-                ModelState.AddModelError("", "Time-frame starts before the trip.");
+                ModelState.AddModelError("", "Time-frame starts before the trip: " + ViewData["Trip"]);
             }
 
             if (!isTimeframeAvailable)
             {
-                ModelState.AddModelError("", "Time-frame overlaps an existing event.");
+                ModelState.AddModelError("", "Time-frame overlaps event: " + ViewData["Overlap"]);
             }
 
             if (!isAddressValid)
@@ -234,7 +264,8 @@ namespace TheTripMasterWeb.Controllers
             {
                 if ((waypoint.StartDate < endDateTime && startDateTime < waypoint.EndDate) && (waypointId != waypoint.Id))
                 {
-                    Debug.WriteLine(waypoint.Id);
+                    ViewData["Overlap"] = waypoint.WaypointName + ": [" + waypoint.StartDate.ToString() + " - " +
+                                          waypoint.EndDate.ToString() + "]";
                     return false;
                 }
             }
