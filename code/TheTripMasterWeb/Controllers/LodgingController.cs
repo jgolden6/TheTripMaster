@@ -197,7 +197,7 @@ namespace TheTripMasterWeb.Controllers
 
             if (!isStartAfterNow)
             {
-                ModelState.AddModelError("", "Waypoint cannot start before the current time.");
+                ModelState.AddModelError("", "Lodging cannot start before the current time.");
             }
 
             if (!isTimeframeAvailable)
