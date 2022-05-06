@@ -51,13 +51,14 @@ namespace TheTripMasterDesktop.View
             this.stateErrorLabel = new System.Windows.Forms.Label();
             this.cityErrorLabel = new System.Windows.Forms.Label();
             this.addressErrorLabel = new System.Windows.Forms.Label();
+            this.webControl1 = new EO.WinForm.WebControl();
             this.dateTimeErrorLabel = new System.Windows.Forms.Label();
             this.descriptionErrorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // descriptionTextBox
             // 
-            this.descriptionTextBox.Location = new System.Drawing.Point(121, 282);
+            this.descriptionTextBox.Location = new System.Drawing.Point(121, 303);
             this.descriptionTextBox.Multiline = true;
             this.descriptionTextBox.Name = "descriptionTextBox";
             this.descriptionTextBox.Size = new System.Drawing.Size(200, 96);
@@ -66,7 +67,7 @@ namespace TheTripMasterDesktop.View
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(30, 285);
+            this.label9.Location = new System.Drawing.Point(30, 306);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(70, 15);
             this.label9.TabIndex = 60;
@@ -181,7 +182,7 @@ namespace TheTripMasterDesktop.View
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(30, 401);
+            this.editButton.Location = new System.Drawing.Point(30, 418);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(76, 23);
             this.editButton.TabIndex = 67;
@@ -191,17 +192,17 @@ namespace TheTripMasterDesktop.View
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(244, 401);
+            this.button1.Location = new System.Drawing.Point(244, 418);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(76, 23);
             this.button1.TabIndex = 66;
-            this.button1.Text = "Cancel";
+            this.button1.Text = "Back";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(135, 401);
+            this.button2.Location = new System.Drawing.Point(135, 418);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(76, 23);
             this.button2.TabIndex = 65;
@@ -245,34 +246,43 @@ namespace TheTripMasterDesktop.View
             this.addressErrorLabel.Size = new System.Drawing.Size(0, 15);
             this.addressErrorLabel.TabIndex = 70;
             // 
+            // webControl1
+            // 
+            this.webControl1.BackColor = System.Drawing.Color.White;
+            this.webControl1.Location = new System.Drawing.Point(342, 29);
+            this.webControl1.Name = "webControl1";
+            this.webControl1.Size = new System.Drawing.Size(311, 412);
+            this.webControl1.TabIndex = 75;
+            this.webControl1.Text = "webControl1";
+            // 
             // dateTimeErrorLabel
             // 
-            this.dateTimeErrorLabel.AutoSize = true;
             this.dateTimeErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.dateTimeErrorLabel.Location = new System.Drawing.Point(121, 264);
+            this.dateTimeErrorLabel.Location = new System.Drawing.Point(30, 266);
             this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
-            this.dateTimeErrorLabel.Size = new System.Drawing.Size(0, 15);
-            this.dateTimeErrorLabel.TabIndex = 69;
+            this.dateTimeErrorLabel.Size = new System.Drawing.Size(291, 34);
+            this.dateTimeErrorLabel.TabIndex = 76;
             // 
             // descriptionErrorLabel
             // 
             this.descriptionErrorLabel.AutoSize = true;
             this.descriptionErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.descriptionErrorLabel.Location = new System.Drawing.Point(121, 381);
+            this.descriptionErrorLabel.Location = new System.Drawing.Point(121, 402);
             this.descriptionErrorLabel.Name = "descriptionErrorLabel";
             this.descriptionErrorLabel.Size = new System.Drawing.Size(0, 15);
-            this.descriptionErrorLabel.TabIndex = 74;
+            this.descriptionErrorLabel.TabIndex = 77;
             // 
             // LodgingDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.descriptionErrorLabel);
+            this.Controls.Add(this.dateTimeErrorLabel);
+            this.Controls.Add(this.webControl1);
             this.Controls.Add(this.zipcodeErrorLabel);
             this.Controls.Add(this.stateErrorLabel);
             this.Controls.Add(this.cityErrorLabel);
             this.Controls.Add(this.addressErrorLabel);
-            this.Controls.Add(this.dateTimeErrorLabel);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
@@ -291,7 +301,7 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "LodgingDetails";
-            this.Size = new System.Drawing.Size(679, 447);
+            this.Size = new System.Drawing.Size(679, 456);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,6 +330,7 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Label stateErrorLabel;
         private System.Windows.Forms.Label cityErrorLabel;
         private System.Windows.Forms.Label addressErrorLabel;
+        private EO.WinForm.WebControl webControl1;
         private System.Windows.Forms.Label dateTimeErrorLabel;
         private System.Windows.Forms.Label descriptionErrorLabel;
     }

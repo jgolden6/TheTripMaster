@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -64,12 +65,34 @@ namespace TheTripMasterDesktop.View
                 isValid = false;
                 this.tripNameErrorLabel.Text = "Invalid trip name.";
             }
-            
-            if (!TripValidation.ValidateDateTimes(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay, 
+
+            if (!TripValidation.ValidateDateTimesAfterNow(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay))
+            {
+                isValid = false;
+                this.dateTimeErrorLabel.Text = "Start date must be after current date.";
+            }
+
+            if (!TripValidation.ValidateStartBeforeEnd(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay, 
                 this.endDatePicker.Value.Date + this.endTimePicker.Value.TimeOfDay))
             {
                 isValid = false;
-                this.dateTimeErrorLabel.Text = "Dates are overlapping.";
+                this.dateTimeErrorLabel.Text = "End date must be after start date.";
+            }
+
+            foreach (Trip trip in this.dataLayer.GetAllTripsOfUser(ActiveUser.User.UserId))
+            {
+                bool createdTripBeforeExistingTrip =
+                    this.endDatePicker.Value.Date + this.endTimePicker.Value.TimeOfDay < trip.StartDate;
+
+                bool createdTripAfterExistingTrip =
+                    this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay > trip.EndDate;
+
+                if (!createdTripBeforeExistingTrip && !createdTripAfterExistingTrip)
+                {
+                    isValid = false;
+                    this.dateTimeErrorLabel.Text = "Trip is overlapping with " + trip.Name.Trim() + ": " + 
+                        trip.StartDate + " to " + trip.EndDate;
+                }
             }
 
             return isValid;

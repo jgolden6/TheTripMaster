@@ -51,23 +51,24 @@ namespace TheTripMasterDesktop.View
             this.stateErrorLabel = new System.Windows.Forms.Label();
             this.cityErrorLabel = new System.Windows.Forms.Label();
             this.addressErrorLabel = new System.Windows.Forms.Label();
-            this.dateTimeErrorLabel = new System.Windows.Forms.Label();
             this.nameErrorLabel = new System.Windows.Forms.Label();
+            this.dateTimeErrorLabel = new System.Windows.Forms.Label();
+            this.webControl1 = new EO.WinForm.WebControl();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(232, 318);
+            this.cancelButton.Location = new System.Drawing.Point(232, 337);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(76, 23);
             this.cancelButton.TabIndex = 20;
-            this.cancelButton.Text = "Cancel";
+            this.cancelButton.Text = "Back";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(123, 318);
+            this.deleteButton.Location = new System.Drawing.Point(123, 337);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(76, 23);
             this.deleteButton.TabIndex = 18;
@@ -199,7 +200,7 @@ namespace TheTripMasterDesktop.View
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(18, 318);
+            this.editButton.Location = new System.Drawing.Point(18, 337);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(76, 23);
             this.editButton.TabIndex = 60;
@@ -243,15 +244,6 @@ namespace TheTripMasterDesktop.View
             this.addressErrorLabel.Size = new System.Drawing.Size(0, 15);
             this.addressErrorLabel.TabIndex = 63;
             // 
-            // dateTimeErrorLabel
-            // 
-            this.dateTimeErrorLabel.AutoSize = true;
-            this.dateTimeErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.dateTimeErrorLabel.Location = new System.Drawing.Point(108, 300);
-            this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
-            this.dateTimeErrorLabel.Size = new System.Drawing.Size(0, 15);
-            this.dateTimeErrorLabel.TabIndex = 62;
-            // 
             // nameErrorLabel
             // 
             this.nameErrorLabel.AutoSize = true;
@@ -262,15 +254,33 @@ namespace TheTripMasterDesktop.View
             this.nameErrorLabel.Size = new System.Drawing.Size(0, 15);
             this.nameErrorLabel.TabIndex = 61;
             // 
+            // dateTimeErrorLabel
+            // 
+            this.dateTimeErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.dateTimeErrorLabel.Location = new System.Drawing.Point(18, 300);
+            this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
+            this.dateTimeErrorLabel.Size = new System.Drawing.Size(290, 34);
+            this.dateTimeErrorLabel.TabIndex = 67;
+            // 
+            // webControl1
+            // 
+            this.webControl1.BackColor = System.Drawing.Color.White;
+            this.webControl1.Location = new System.Drawing.Point(324, 26);
+            this.webControl1.Name = "webControl1";
+            this.webControl1.Size = new System.Drawing.Size(315, 334);
+            this.webControl1.TabIndex = 68;
+            this.webControl1.Text = "webControl1";
+            // 
             // WaypointDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.webControl1);
+            this.Controls.Add(this.dateTimeErrorLabel);
             this.Controls.Add(this.zipcodeErrorLabel);
             this.Controls.Add(this.stateErrorLabel);
             this.Controls.Add(this.cityErrorLabel);
             this.Controls.Add(this.addressErrorLabel);
-            this.Controls.Add(this.dateTimeErrorLabel);
             this.Controls.Add(this.nameErrorLabel);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.zipcodeTextBox);
@@ -290,7 +300,7 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.waypointNameTextBox);
             this.Controls.Add(this.label1);
             this.Name = "WaypointDetails";
-            this.Size = new System.Drawing.Size(664, 365);
+            this.Size = new System.Drawing.Size(664, 380);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,7 +330,8 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Label stateErrorLabel;
         private System.Windows.Forms.Label cityErrorLabel;
         private System.Windows.Forms.Label addressErrorLabel;
-        private System.Windows.Forms.Label dateTimeErrorLabel;
         private System.Windows.Forms.Label nameErrorLabel;
+        private System.Windows.Forms.Label dateTimeErrorLabel;
+        private EO.WinForm.WebControl webControl1;
     }
 }

@@ -29,7 +29,6 @@ namespace TheTripMasterDesktop.View
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateTimeErrorLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.endTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
@@ -42,16 +41,8 @@ namespace TheTripMasterDesktop.View
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.typeComboBox = new System.Windows.Forms.ComboBox();
+            this.dateTimeErrorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // dateTimeErrorLabel
-            // 
-            this.dateTimeErrorLabel.AutoSize = true;
-            this.dateTimeErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.dateTimeErrorLabel.Location = new System.Drawing.Point(21, 177);
-            this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
-            this.dateTimeErrorLabel.Size = new System.Drawing.Size(0, 15);
-            this.dateTimeErrorLabel.TabIndex = 27;
             // 
             // label5
             // 
@@ -89,7 +80,7 @@ namespace TheTripMasterDesktop.View
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(213, 195);
+            this.cancelButton.Location = new System.Drawing.Point(213, 210);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 21;
@@ -99,7 +90,7 @@ namespace TheTripMasterDesktop.View
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(21, 195);
+            this.confirmButton.Location = new System.Drawing.Point(21, 210);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
             this.confirmButton.TabIndex = 20;
@@ -156,12 +147,20 @@ namespace TheTripMasterDesktop.View
             this.typeComboBox.Size = new System.Drawing.Size(121, 23);
             this.typeComboBox.TabIndex = 28;
             // 
+            // dateTimeErrorLabel
+            // 
+            this.dateTimeErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.dateTimeErrorLabel.Location = new System.Drawing.Point(21, 173);
+            this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
+            this.dateTimeErrorLabel.Size = new System.Drawing.Size(277, 34);
+            this.dateTimeErrorLabel.TabIndex = 29;
+            // 
             // AddTransport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.typeComboBox);
             this.Controls.Add(this.dateTimeErrorLabel);
+            this.Controls.Add(this.typeComboBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.endTimePicker);
             this.Controls.Add(this.label4);
@@ -174,15 +173,13 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "AddTransport";
-            this.Size = new System.Drawing.Size(317, 237);
+            this.Size = new System.Drawing.Size(317, 252);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label dateTimeErrorLabel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker endTimePicker;
         private System.Windows.Forms.Label label4;
@@ -195,5 +192,6 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox typeComboBox;
+        private System.Windows.Forms.Label dateTimeErrorLabel;
     }
 }

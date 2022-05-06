@@ -79,10 +79,30 @@ namespace TheTripMasterDesktop.View
 
             bool isValid = true;
 
-            if (!TripValidation.ValidateDateTimes(this.startDatePicker.Value, this.endDatePicker.Value))
+            if (!TripValidation.ValidateDateTimesAfterNow(this.startDatePicker.Value))
             {
                 isValid = false;
-                this.dateTimeErrorLabel.Text = "Dates are overlapping.";
+                this.dateTimeErrorLabel.Text = "Start date must be after current date.";
+            }
+
+            if (!TripValidation.ValidateStartBeforeEnd(this.startDatePicker.Value, this.endDatePicker.Value))
+            {
+                isValid = false;
+                this.dateTimeErrorLabel.Text = "End date must be after start date.";
+            }
+
+            foreach (Transportation transportation in this.dataLayer.GetTripTransportations(SelectedTrip.Trip.TripId))
+            {
+                bool createdTransportBeforeExistingTransport = this.endDatePicker.Value < transportation.StartDate;
+
+                bool createdTransportAfterExistingTransport = this.startDatePicker.Value > transportation.EndDate;
+
+                if (!createdTransportBeforeExistingTransport && !createdTransportAfterExistingTransport)
+                {
+                    isValid = false;
+                    this.dateTimeErrorLabel.Text = "Transport is overlapping with " + transportation.TransportationType + ": " +
+                                                   transportation.StartDate + " to " + transportation.EndDate;
+                }
             }
 
             return isValid;

@@ -95,11 +95,33 @@ namespace TheTripMasterDesktop.View
                 this.nameErrorLabel.Text = "Invalid waypoint name.";
             }
 
-            if (!TripValidation.ValidateDateTimes(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay,
+            if (!TripValidation.ValidateDateTimesAfterNow(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay))
+            {
+                isValid = false;
+                this.dateTimeErrorLabel.Text = "Start date must be after current date.";
+            }
+
+            if (!TripValidation.ValidateStartBeforeEnd(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay,
                 this.endDatePicker.Value.Date + this.endTimePicker.Value.TimeOfDay))
             {
                 isValid = false;
-                this.dateTimeErrorLabel.Text = "Dates are overlapping.";
+                this.dateTimeErrorLabel.Text = "End date must be after start date.";
+            }
+
+            foreach (Waypoint waypoint in this.dataLayer.GetTripWaypoints(SelectedTrip.Trip.TripId))
+            {
+                bool createdWaypointBeforeExistingWaypoint =
+                    this.endDatePicker.Value.Date + this.endTimePicker.Value.TimeOfDay < waypoint.StartDate;
+
+                bool createdWaypointAfterExistingWaypoint =
+                    this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay > waypoint.EndDate;
+
+                if (!createdWaypointBeforeExistingWaypoint && !createdWaypointAfterExistingWaypoint)
+                {
+                    isValid = false;
+                    this.dateTimeErrorLabel.Text = "Waypoint is overlapping with " + waypoint.WaypointName + ": " +
+                                                   waypoint.StartDate + " to " + waypoint.EndDate;
+                }
             }
 
             return isValid;

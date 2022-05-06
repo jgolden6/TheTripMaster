@@ -37,8 +37,8 @@ namespace TheTripMasterDesktop.View
             this.editButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
-            this.dateTimeErrorLabel = new System.Windows.Forms.Label();
             this.transportTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.dateTimeErrorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // endDatePicker
@@ -88,7 +88,7 @@ namespace TheTripMasterDesktop.View
             // 
             // editButton
             // 
-            this.editButton.Location = new System.Drawing.Point(24, 155);
+            this.editButton.Location = new System.Drawing.Point(24, 170);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(76, 23);
             this.editButton.TabIndex = 63;
@@ -98,32 +98,23 @@ namespace TheTripMasterDesktop.View
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(215, 155);
+            this.cancelButton.Location = new System.Drawing.Point(215, 170);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(76, 23);
             this.cancelButton.TabIndex = 62;
-            this.cancelButton.Text = "Cancel";
+            this.cancelButton.Text = "Back";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(120, 155);
+            this.deleteButton.Location = new System.Drawing.Point(120, 170);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(76, 23);
             this.deleteButton.TabIndex = 61;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
-            // 
-            // dateTimeErrorLabel
-            // 
-            this.dateTimeErrorLabel.AutoSize = true;
-            this.dateTimeErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.dateTimeErrorLabel.Location = new System.Drawing.Point(91, 133);
-            this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
-            this.dateTimeErrorLabel.Size = new System.Drawing.Size(0, 15);
-            this.dateTimeErrorLabel.TabIndex = 75;
             // 
             // transportTypeComboBox
             // 
@@ -133,12 +124,20 @@ namespace TheTripMasterDesktop.View
             this.transportTypeComboBox.Size = new System.Drawing.Size(121, 23);
             this.transportTypeComboBox.TabIndex = 76;
             // 
+            // dateTimeErrorLabel
+            // 
+            this.dateTimeErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.dateTimeErrorLabel.Location = new System.Drawing.Point(24, 133);
+            this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
+            this.dateTimeErrorLabel.Size = new System.Drawing.Size(267, 34);
+            this.dateTimeErrorLabel.TabIndex = 77;
+            // 
             // TransportDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.transportTypeComboBox);
             this.Controls.Add(this.dateTimeErrorLabel);
+            this.Controls.Add(this.transportTypeComboBox);
             this.Controls.Add(this.editButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.deleteButton);
@@ -148,7 +147,7 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "TransportDetails";
-            this.Size = new System.Drawing.Size(314, 197);
+            this.Size = new System.Drawing.Size(314, 213);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,7 +162,7 @@ namespace TheTripMasterDesktop.View
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button deleteButton;
-        private System.Windows.Forms.Label dateTimeErrorLabel;
         private System.Windows.Forms.ComboBox transportTypeComboBox;
+        private System.Windows.Forms.Label dateTimeErrorLabel;
     }
 }

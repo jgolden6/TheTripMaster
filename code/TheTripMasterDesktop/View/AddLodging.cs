@@ -89,17 +89,39 @@ namespace TheTripMasterDesktop.View
                 this.zipcodeErrorLabel.Text = "Invalid zip code.";
             }
 
-            if (!LodgingValidation.ValidateDateTimes(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay,
-                this.endDatePicker.Value.Date + this.endTimePicker.Value.TimeOfDay))
-            {
-                isValid = false;
-                this.dateTimeErrorLabel.Text = "Dates are overlapping.";
-            }
-
             if (!LodgingValidation.ValidateDescription(this.descriptionTextBox.Text))
             {
                 isValid = false;
                 this.descriptionErrorLabel.Text = "Invalid description.";
+            }
+
+            if (!TripValidation.ValidateDateTimesAfterNow(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay))
+            {
+                isValid = false;
+                this.dateTimeErrorLabel.Text = "Start date must be after current date.";
+            }
+
+            if (!TripValidation.ValidateStartBeforeEnd(this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay,
+                this.endDatePicker.Value.Date + this.endTimePicker.Value.TimeOfDay))
+            {
+                isValid = false;
+                this.dateTimeErrorLabel.Text = "End date must be after start date.";
+            }
+
+            foreach (Lodging lodging in this.dataLayer.GetTripLodgings(SelectedTrip.Trip.TripId))
+            {
+                bool createdLodgingBeforeExistingLodging =
+                    this.endDatePicker.Value.Date + this.endTimePicker.Value.TimeOfDay < lodging.StartDate;
+
+                bool createdLodgingAfterExistingLodging =
+                    this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay > lodging.EndDate;
+
+                if (!createdLodgingBeforeExistingLodging && !createdLodgingAfterExistingLodging)
+                {
+                    isValid = false;
+                    this.dateTimeErrorLabel.Text = "Lodging is overlapping with: " +
+                                                   lodging.StartDate + " to " + lodging.EndDate;
+                }
             }
 
             return isValid;

@@ -96,7 +96,7 @@ namespace TheTripMasterDesktop.View
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(58, 216);
+            this.confirmButton.Location = new System.Drawing.Point(56, 247);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
             this.confirmButton.TabIndex = 6;
@@ -106,7 +106,7 @@ namespace TheTripMasterDesktop.View
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(200, 216);
+            this.cancelButton.Location = new System.Drawing.Point(198, 247);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 7;
@@ -161,11 +161,10 @@ namespace TheTripMasterDesktop.View
             // 
             // dateTimeErrorLabel
             // 
-            this.dateTimeErrorLabel.AutoSize = true;
             this.dateTimeErrorLabel.ForeColor = System.Drawing.Color.Red;
             this.dateTimeErrorLabel.Location = new System.Drawing.Point(29, 193);
             this.dateTimeErrorLabel.Name = "dateTimeErrorLabel";
-            this.dateTimeErrorLabel.Size = new System.Drawing.Size(0, 15);
+            this.dateTimeErrorLabel.Size = new System.Drawing.Size(277, 34);
             this.dateTimeErrorLabel.TabIndex = 14;
             // 
             // AddTrip
@@ -187,7 +186,7 @@ namespace TheTripMasterDesktop.View
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "AddTrip";
-            this.Size = new System.Drawing.Size(340, 262);
+            this.Size = new System.Drawing.Size(340, 293);
             this.ResumeLayout(false);
             this.PerformLayout();
 

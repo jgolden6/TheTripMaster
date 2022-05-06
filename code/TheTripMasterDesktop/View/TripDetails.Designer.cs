@@ -123,7 +123,7 @@ namespace TheTripMasterDesktop.View
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(59, 23);
             this.cancelButton.TabIndex = 9;
-            this.cancelButton.Text = "Cancel";
+            this.cancelButton.Text = "Back";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 

@@ -56,7 +56,7 @@ namespace TheTripMasterDesktop.View
             this.zipcodeTextBox.Text = waypoint.ZipCode;
             this.startDatePicker.Value = SelectedEvent.Event.StartDate;
             this.endDatePicker.Value = SelectedEvent.Event.EndDate;
-            //this.webControl1.WebView = this.webView1;
+            this.webControl1.WebView = this.webView1;
             this.webView1.Url = "https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=" +
                                 this.addressTextBox.Text + "," +
                                 this.cityTextBox.Text + "," +
@@ -124,10 +124,30 @@ namespace TheTripMasterDesktop.View
                 this.nameErrorLabel.Text = "Invalid waypoint name.";
             }
 
-            if (!TripValidation.ValidateDateTimes(this.startDatePicker.Value, this.endDatePicker.Value))
+            if (!TripValidation.ValidateDateTimesAfterNow(this.startDatePicker.Value))
             {
                 isValid = false;
-                this.dateTimeErrorLabel.Text = "Dates are overlapping.";
+                this.dateTimeErrorLabel.Text = "Start date must be after current date.";
+            }
+
+            if (!TripValidation.ValidateStartBeforeEnd(this.startDatePicker.Value, this.endDatePicker.Value))
+            {
+                isValid = false;
+                this.dateTimeErrorLabel.Text = "End date must be after start date.";
+            }
+
+            foreach (Waypoint waypoint in this.dataLayer.GetTripWaypoints(SelectedTrip.Trip.TripId))
+            {
+                bool createdWaypointBeforeExistingWaypoint = this.endDatePicker.Value < waypoint.StartDate;
+
+                bool createdWaypointAfterExistingWaypoint = this.startDatePicker.Value > waypoint.EndDate;
+
+                if (!createdWaypointBeforeExistingWaypoint && !createdWaypointAfterExistingWaypoint)
+                {
+                    isValid = false;
+                    this.dateTimeErrorLabel.Text = "Waypoint is overlapping with " + waypoint.WaypointName + ": " +
+                                                   waypoint.StartDate + " to " + waypoint.EndDate;
+                }
             }
 
             return isValid;
